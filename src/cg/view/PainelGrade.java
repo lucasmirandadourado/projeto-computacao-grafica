@@ -21,6 +21,7 @@ public class PainelGrade extends JPanel {
 	
 	
 	public PainelGrade(int x_size, int y_size) {
+		setForeground(Color.WHITE);
 		this.setX_size(x_size);
 		this.setY_size(y_size);
 		

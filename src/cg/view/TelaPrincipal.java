@@ -23,7 +23,6 @@ import javax.swing.JCheckBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
@@ -110,10 +109,10 @@ public class TelaPrincipal extends JFrame {
 		JPanel panel_esquerdo = new JPanel();
 		getContentPane().add(panel_esquerdo, BorderLayout.WEST);
 		GridBagLayout gbl_panel_esquerdo = new GridBagLayout();
-		gbl_panel_esquerdo.columnWidths = new int[] { 10, 55, 50, 5, 10, 0 };
+		gbl_panel_esquerdo.columnWidths = new int[] { 10, 55, 50, 10, 0 };
 		gbl_panel_esquerdo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0 };
-		gbl_panel_esquerdo.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+		gbl_panel_esquerdo.columnWeights = new double[] { 0.0, 0.0, 0.0,
 				0.0, Double.MIN_VALUE };
 		gbl_panel_esquerdo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
@@ -137,34 +136,22 @@ public class TelaPrincipal extends JFrame {
 		gbc_btnPincel.gridx = 1;
 		gbc_btnPincel.gridy = 1;
 		panel_esquerdo.add(btnPincel, gbc_btnPincel);
-
-		JButton btnLimpar = new JButton("Limpar");
-		btnLimpar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panel.limpar(comprimento, altura);
-				panel.repaint();
-				panel.validate();
-			}
-		});
-
-		JButton btnPixel = new JButton("Pixel");
-		btnPixel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				 panel.pintarUmPixel();				 
-			}
-		});
-		GridBagConstraints gbc_btnPixel = new GridBagConstraints();
-		gbc_btnPixel.insets = new Insets(0, 0, 5, 5);
-		gbc_btnPixel.gridx = 2;
-		gbc_btnPixel.gridy = 1;
-		panel_esquerdo.add(btnPixel, gbc_btnPixel);
-
-		GridBagConstraints gbc_btnLimpar = new GridBagConstraints();
-		gbc_btnLimpar.fill = GridBagConstraints.BOTH;
-		gbc_btnLimpar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLimpar.gridx = 3;
-		gbc_btnLimpar.gridy = 1;
-		panel_esquerdo.add(btnLimpar, gbc_btnLimpar);
+		
+				JButton btnLimpar = new JButton("Limpar");
+				btnLimpar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						panel.limpar(comprimento, altura);
+						panel.repaint();
+						panel.validate();
+					}
+				});
+				
+						GridBagConstraints gbc_btnLimpar = new GridBagConstraints();
+						gbc_btnLimpar.fill = GridBagConstraints.BOTH;
+						gbc_btnLimpar.insets = new Insets(0, 0, 5, 5);
+						gbc_btnLimpar.gridx = 2;
+						gbc_btnLimpar.gridy = 1;
+						panel_esquerdo.add(btnLimpar, gbc_btnLimpar);
 
 		JCheckBox chckbxGrade = new JCheckBox("Grade");
 		GridBagConstraints gbc_chckbxGrade = new GridBagConstraints();
