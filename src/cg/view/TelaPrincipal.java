@@ -115,16 +115,13 @@ public class TelaPrincipal extends JFrame {
 		gbl_panel_esquerdo.columnWidths = new int[] { 10, 55, 50, 10, 0 };
 		gbl_panel_esquerdo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0 };
-		gbl_panel_esquerdo.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_panel_esquerdo.columnWeights = new double[] { 0.0, 0.0, 0.0,
+				0.0, Double.MIN_VALUE };
 		gbl_panel_esquerdo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_esquerdo.setLayout(gbl_panel_esquerdo);
 
 		JButton btnPincel = new JButton("");
-		/**
-		 * Pinta um pixel no panel.
-		 */
 		btnPincel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panel.desenharUmPixel();
@@ -142,26 +139,22 @@ public class TelaPrincipal extends JFrame {
 		gbc_btnPincel.gridx = 1;
 		gbc_btnPincel.gridy = 1;
 		panel_esquerdo.add(btnPincel, gbc_btnPincel);
-
-		JButton btnLimpar = new JButton("Limpar");
 		
-		/**
-		 * Ação do botão, ele serve para limpar a tela!.
-		 */
-		btnLimpar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panel.limpar(comprimento, altura);
-				panel.repaint();
-				panel.validate();
-			}
-		});
-
-		GridBagConstraints gbc_btnLimpar = new GridBagConstraints();
-		gbc_btnLimpar.fill = GridBagConstraints.BOTH;
-		gbc_btnLimpar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLimpar.gridx = 2;
-		gbc_btnLimpar.gridy = 1;
-		panel_esquerdo.add(btnLimpar, gbc_btnLimpar);
+				JButton btnLimpar = new JButton("Limpar");
+				btnLimpar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						panel.limpar(comprimento, altura);
+						panel.repaint();
+						panel.validate();
+					}
+				});
+				
+						GridBagConstraints gbc_btnLimpar = new GridBagConstraints();
+						gbc_btnLimpar.fill = GridBagConstraints.BOTH;
+						gbc_btnLimpar.insets = new Insets(0, 0, 5, 5);
+						gbc_btnLimpar.gridx = 2;
+						gbc_btnLimpar.gridy = 1;
+						panel_esquerdo.add(btnLimpar, gbc_btnLimpar);
 
 		JCheckBox chckbxGrade = new JCheckBox("Grade");
 		GridBagConstraints gbc_chckbxGrade = new GridBagConstraints();
@@ -172,9 +165,6 @@ public class TelaPrincipal extends JFrame {
 		panel_esquerdo.add(chckbxGrade, gbc_chckbxGrade);
 
 		chckbxGrade.setSelected(true);
-		/**
-		 * Aqui, cria a ação para adicionar a grade. 
-		 */
 		chckbxGrade.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -204,7 +194,7 @@ public class TelaPrincipal extends JFrame {
 		panel_esquerdo.add(lblPontosIniciais, gbc_lblPontosIniciais);
 
 		txtX = new JTextField();
-		txtX.setText("0");
+		txtX.setText("x");
 		GridBagConstraints gbc_txtX = new GridBagConstraints();
 		gbc_txtX.insets = new Insets(0, 0, 5, 5);
 		gbc_txtX.fill = GridBagConstraints.HORIZONTAL;
@@ -214,7 +204,7 @@ public class TelaPrincipal extends JFrame {
 		txtX.setColumns(10);
 
 		txtY = new JTextField();
-		txtY.setText("0");
+		txtY.setText("y");
 		GridBagConstraints gbc_txtY = new GridBagConstraints();
 		gbc_txtY.insets = new Insets(0, 0, 5, 5);
 		gbc_txtY.fill = GridBagConstraints.HORIZONTAL;

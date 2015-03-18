@@ -48,9 +48,8 @@ public class PainelGrade extends JPanel {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				img_buffered.setRGB((int) c.dcx(e.getX()), (int)c.dcy(e.getY()), Color.RED.getRGB());
+				img_buffered.setRGB((int) c.dcx(e.getX()), (int)c.dcy(e.getY()), Color.BLACK.getRGB());
 				repaint();
-				show();
 			}			
 		});		
 	}
