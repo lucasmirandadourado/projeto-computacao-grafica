@@ -13,6 +13,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.ScrollPane;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -125,6 +126,7 @@ public class TelaPrincipal extends JFrame {
 		btnPincel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panel.desenharUmPixel();
+				panel.repaint();
 			}
 		});
 		btnPincel.setBackground(Color.WHITE);

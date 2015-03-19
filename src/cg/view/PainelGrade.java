@@ -2,12 +2,15 @@ package cg.view;
 
 import java.awt.Color; 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
+
 import java.awt.event.MouseAdapter;
+
 import cg.funcoes.Coordenadas;
 
 @SuppressWarnings("serial")
@@ -34,6 +37,7 @@ public class PainelGrade extends JPanel {
 		y1 = c.ndcy(y_coor);
 		
 		try {
+			
 			img_buffered = new BufferedImage(x_size, y_size,
 					BufferedImage.TYPE_INT_RGB);
 			limpar(x_size, y_size);
@@ -48,7 +52,7 @@ public class PainelGrade extends JPanel {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				img_buffered.setRGB((int) c.dcx(e.getX()), (int)c.dcy(e.getY()), Color.BLACK.getRGB());
+				img_buffered.setRGB((int) c.dcx(e.getX()), (int)c.dcy(e.getY()), Color.BLUE.getRGB());
 				repaint();
 			}			
 		});		
@@ -58,7 +62,7 @@ public class PainelGrade extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				img_buffered.setRGB((int) c.dcx(e.getX()), (int)c.dcy(e.getY()), Color.BLACK.getRGB());
+				img_buffered.setRGB((int) c.dcx(e.getX()), (int)c.dcy(e.getY()), Color.BLUE.getRGB());
 				repaint();
 			}
 		});
@@ -105,6 +109,8 @@ public class PainelGrade extends JPanel {
 		g.setColor(Color.WHITE);
 		g.create();
 		g.drawImage(img_buffered, 0, 0, null);
+
+		
 	}
 
 	public void setPixel(int x, int y) { 
