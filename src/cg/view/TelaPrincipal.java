@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
+import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
@@ -67,7 +68,7 @@ public class TelaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
-		comprimento = 700;
+		comprimento = 800;
 		altura = 650;
 
 		panel = new PainelGrade(comprimento, altura);
@@ -116,8 +117,8 @@ public class TelaPrincipal extends JFrame {
 		gbl_panel_esquerdo.columnWidths = new int[] { 10, 55, 50, 10, 0 };
 		gbl_panel_esquerdo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0 };
-		gbl_panel_esquerdo.columnWeights = new double[] { 0.0, 0.0, 0.0,
-				0.0, Double.MIN_VALUE };
+		gbl_panel_esquerdo.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		gbl_panel_esquerdo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_esquerdo.setLayout(gbl_panel_esquerdo);
@@ -141,22 +142,22 @@ public class TelaPrincipal extends JFrame {
 		gbc_btnPincel.gridx = 1;
 		gbc_btnPincel.gridy = 1;
 		panel_esquerdo.add(btnPincel, gbc_btnPincel);
-		
-				JButton btnLimpar = new JButton("Limpar");
-				btnLimpar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						panel.limpar(comprimento, altura);
-						panel.repaint();
-						panel.validate();
-					}
-				});
-				
-						GridBagConstraints gbc_btnLimpar = new GridBagConstraints();
-						gbc_btnLimpar.fill = GridBagConstraints.BOTH;
-						gbc_btnLimpar.insets = new Insets(0, 0, 5, 5);
-						gbc_btnLimpar.gridx = 2;
-						gbc_btnLimpar.gridy = 1;
-						panel_esquerdo.add(btnLimpar, gbc_btnLimpar);
+
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panel.limpar(comprimento, altura);
+				panel.repaint();
+				panel.validate();
+			}
+		});
+
+		GridBagConstraints gbc_btnLimpar = new GridBagConstraints();
+		gbc_btnLimpar.fill = GridBagConstraints.BOTH;
+		gbc_btnLimpar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLimpar.gridx = 2;
+		gbc_btnLimpar.gridy = 1;
+		panel_esquerdo.add(btnLimpar, gbc_btnLimpar);
 
 		JCheckBox chckbxGrade = new JCheckBox("Grade");
 		GridBagConstraints gbc_chckbxGrade = new GridBagConstraints();
