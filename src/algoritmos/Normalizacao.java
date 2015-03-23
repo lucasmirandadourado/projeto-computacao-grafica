@@ -2,7 +2,7 @@ package algoritmos;
 
 public class Normalizacao {
 	
-	static public float calcularNDCX(int xAtual, int xMinimo, int xMaximo){
+	public float calcularNDCX(int xAtual, int xMinimo, int xMaximo){
 		
 		float ndcx = (xAtual - xMinimo) / (xMaximo - xMinimo);
 		return ndcx;

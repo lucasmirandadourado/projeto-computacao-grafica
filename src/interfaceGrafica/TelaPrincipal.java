@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaPrincipal extends JFrame {
 
@@ -38,6 +40,7 @@ public class TelaPrincipal extends JFrame {
 		setSize(1024, 720);
 		
 		panelPixelNormalizacao = new PanelPixelNormalizacao();
+		
 		panelReta = new PanelReta();
 		
 		cards = new JPanel(new CardLayout());
