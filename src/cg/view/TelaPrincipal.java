@@ -31,8 +31,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
 import java.awt.FlowLayout;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
@@ -74,7 +72,6 @@ public class TelaPrincipal extends JFrame {
 		altura = 650;
 
 		panel = new PainelGrade(comprimento, altura);
-		
 		panel.setForeground(Color.WHITE);
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -118,13 +115,33 @@ public class TelaPrincipal extends JFrame {
 		getContentPane().add(panel_esquerdo, BorderLayout.WEST);
 		GridBagLayout gbl_panel_esquerdo = new GridBagLayout();
 		gbl_panel_esquerdo.columnWidths = new int[] { 10, 55, 50, 10, 0 };
-		gbl_panel_esquerdo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0,
+		gbl_panel_esquerdo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0 };
 		gbl_panel_esquerdo.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gbl_panel_esquerdo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+		gbl_panel_esquerdo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel_esquerdo.setLayout(gbl_panel_esquerdo);
+
+		JButton btnPincel = new JButton("");
+		btnPincel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panel.desenharUmPixel();
+				panel.repaint();
+			}
+		});
+		btnPincel.setBackground(Color.WHITE);
+		btnPincel.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		btnPincel.setBorder(new TitledBorder(null, "Pincel",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		btnPincel.setIcon(new ImageIcon(TelaPrincipal.class
+				.getResource("/lib/pincel.png")));
+		GridBagConstraints gbc_btnPincel = new GridBagConstraints();
+		gbc_btnPincel.fill = GridBagConstraints.BOTH;
+		gbc_btnPincel.insets = new Insets(0, 0, 5, 5);
+		gbc_btnPincel.gridx = 1;
+		gbc_btnPincel.gridy = 1;
+		panel_esquerdo.add(btnPincel, gbc_btnPincel);
 
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
@@ -136,12 +153,38 @@ public class TelaPrincipal extends JFrame {
 		});
 
 		GridBagConstraints gbc_btnLimpar = new GridBagConstraints();
-		gbc_btnLimpar.gridwidth = 2;
 		gbc_btnLimpar.fill = GridBagConstraints.BOTH;
 		gbc_btnLimpar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLimpar.gridx = 1;
+		gbc_btnLimpar.gridx = 2;
 		gbc_btnLimpar.gridy = 1;
 		panel_esquerdo.add(btnLimpar, gbc_btnLimpar);
+
+		JCheckBox chckbxGrade = new JCheckBox("Grade");
+		GridBagConstraints gbc_chckbxGrade = new GridBagConstraints();
+		gbc_chckbxGrade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_chckbxGrade.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxGrade.gridx = 1;
+		gbc_chckbxGrade.gridy = 2;
+		panel_esquerdo.add(chckbxGrade, gbc_chckbxGrade);
+
+		chckbxGrade.setSelected(true);
+		chckbxGrade.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxGrade.isSelected()) {
+					panel.coordenadas(comprimento, altura);
+					panel.updateUI();
+					panel.repaint();
+				} else {
+					for (int i = 0; i <= panel.getWidth(); i++) {
+						panel.limpar(comprimento, altura);
+						panel.coordenadas(comprimento, altura);
+						panel.repaint();
+						panel.validate();
+					}
+				}
+			}
+		});
 
 		JLabel lblPontosIniciais = new JLabel("Pontos iniciais");
 		lblPontosIniciais.setFont(new Font("Segoe UI Light", Font.PLAIN, 13));
@@ -150,7 +193,7 @@ public class TelaPrincipal extends JFrame {
 		gbc_lblPontosIniciais.gridwidth = 2;
 		gbc_lblPontosIniciais.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPontosIniciais.gridx = 1;
-		gbc_lblPontosIniciais.gridy = 2;
+		gbc_lblPontosIniciais.gridy = 3;
 		panel_esquerdo.add(lblPontosIniciais, gbc_lblPontosIniciais);
 
 		txtX = new JTextField();
@@ -159,7 +202,7 @@ public class TelaPrincipal extends JFrame {
 		gbc_txtX.insets = new Insets(0, 0, 5, 5);
 		gbc_txtX.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtX.gridx = 1;
-		gbc_txtX.gridy = 3;
+		gbc_txtX.gridy = 4;
 		panel_esquerdo.add(txtX, gbc_txtX);
 		txtX.setColumns(10);
 
@@ -169,7 +212,7 @@ public class TelaPrincipal extends JFrame {
 		gbc_txtY.insets = new Insets(0, 0, 5, 5);
 		gbc_txtY.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtY.gridx = 2;
-		gbc_txtY.gridy = 3;
+		gbc_txtY.gridy = 4;
 		panel_esquerdo.add(txtY, gbc_txtY);
 		txtY.setColumns(10);
 
@@ -179,7 +222,7 @@ public class TelaPrincipal extends JFrame {
 		gbc_lblPontosFinals.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblPontosFinals.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPontosFinals.gridx = 1;
-		gbc_lblPontosFinals.gridy = 4;
+		gbc_lblPontosFinals.gridy = 5;
 		panel_esquerdo.add(lblPontosFinals, gbc_lblPontosFinals);
 
 		txtX_1 = new JTextField();
@@ -188,7 +231,7 @@ public class TelaPrincipal extends JFrame {
 		gbc_txtX_1.insets = new Insets(0, 0, 5, 5);
 		gbc_txtX_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtX_1.gridx = 1;
-		gbc_txtX_1.gridy = 5;
+		gbc_txtX_1.gridy = 6;
 		panel_esquerdo.add(txtX_1, gbc_txtX_1);
 		txtX_1.setColumns(10);
 
@@ -198,7 +241,7 @@ public class TelaPrincipal extends JFrame {
 		gbc_txtY_1.insets = new Insets(0, 0, 5, 5);
 		gbc_txtY_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtY_1.gridx = 2;
-		gbc_txtY_1.gridy = 5;
+		gbc_txtY_1.gridy = 6;
 		panel_esquerdo.add(txtY_1, gbc_txtY_1);
 		txtY_1.setColumns(10);
 
@@ -217,7 +260,7 @@ public class TelaPrincipal extends JFrame {
 		gbc_btnReta.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnReta.insets = new Insets(0, 0, 5, 5);
 		gbc_btnReta.gridx = 1;
-		gbc_btnReta.gridy = 6;
+		gbc_btnReta.gridy = 7;
 		panel_esquerdo.add(btnReta, gbc_btnReta);
 		repaint();
 
