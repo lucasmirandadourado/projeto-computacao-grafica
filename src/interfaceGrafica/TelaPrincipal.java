@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 public class TelaPrincipal extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	static JPanel cards;
 	static PanelPixelNormalizacao panelPixelNormalizacao;
 	static PanelReta panelReta;
