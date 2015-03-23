@@ -8,6 +8,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -18,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.awt.SystemColor;
@@ -117,6 +120,12 @@ public class PanelPixelNormalizacao extends JPanel {
 		labelNDCX.setBounds(36, 336, 168, 34);
 		add(labelNDCX);
 
+		JLabel labelNdcy = new JLabel("ndcy:");
+		labelNdcy.setForeground(Color.WHITE);
+		labelNdcy.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		labelNdcy.setBounds(36, 381, 168, 34);
+		add(labelNdcy);
+		
 		planoCartesiano = new BufferedImage(601, 601,
 				BufferedImage.TYPE_INT_RGB);
 
@@ -124,7 +133,7 @@ public class PanelPixelNormalizacao extends JPanel {
 
 			@Override
 			public void paintComponent(Graphics g) {
-
+								
 				// Background do BufferedImage de cor branca
 				for (int i = 0; i < planoCartesiano.getHeight(); i++) {
 					for (int j = 0; j < planoCartesiano.getWidth(); j++) {
@@ -140,27 +149,33 @@ public class PanelPixelNormalizacao extends JPanel {
 							Color.BLACK.getRGB());
 				}
 				g.drawImage(planoCartesiano, 0, 0, null);
-
 			}
 		};
+		
 
 		panelBufferedImage.setBackground(Color.WHITE);
-		panelBufferedImage.setBounds(398, 43, 601, 601);
-		// Evento de Arrastar Mouse - Exibe as coordenadas nas labels ndh e ndv
+		panelBufferedImage.setBounds(398, 43, 602, 602);
+		
+		/**
+		 *  Evento de Arrastar Mouse - Exibe as coordenadas nas labels ndh e ndv
+		 */
 		panelBufferedImage.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent eventoDeMouse) {
-				labelNDH.setText("ndh (x): "
-						+ Integer.toString(eventoDeMouse.getX() - 300));
-				labelNDV.setText("ndv (y): "
-						+ Integer.toString(((eventoDeMouse.getY() - 300)) * -1));
-				labelNDCX.setText("ndcx : "
-						+ Float.toString(normalizacao.calcularNDCX(
-								eventoDeMouse.getX() - 300, -300, 300)));
+				// Define os valores de x e y
+				int x = Integer.valueOf(eventoDeMouse.getX()-300);
+				int y = Integer.valueOf(eventoDeMouse.getY()-300) * (-1);
+				
+				// Mostra os valores de NDH - Coordenadas do Mundo
+				labelNDH.setText("ndh (x): " + x);
+				labelNDV.setText("ndv (y): " + y);
+				
+				// Coordenadas normalizadas
+				labelNDCX.setText("ndcx: "	+ Float.toString( normalizacao.calcularNDCX(x-300, -300, 300)));
+				labelNdcy.setText("ndcy: " 	+ Float.toString( normalizacao.calcularNDCY(y-300, -300, 300)) );
 				
 			}
 		});
 		add(panelBufferedImage);
-
 	}
 }
