@@ -133,7 +133,8 @@ public class PanelPixelNormalizacao extends JPanel {
 
 			@Override
 			public void paintComponent(Graphics g) {
-								
+				super.paintComponent(g);
+				g.create();
 				// Background do BufferedImage de cor branca
 				for (int i = 0; i < planoCartesiano.getHeight(); i++) {
 					for (int j = 0; j < planoCartesiano.getWidth(); j++) {
@@ -148,6 +149,14 @@ public class PanelPixelNormalizacao extends JPanel {
 					planoCartesiano.setRGB(planoCartesiano.getWidth() / 2, i,
 							Color.BLACK.getRGB());
 				}
+				addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent eventoDoMouse) {
+						planoCartesiano.setRGB(eventoDoMouse.getX(), eventoDoMouse.getY(), Color.BLACK.getRGB());
+						planoCartesiano.createGraphics();
+						
+					}
+				});
 				g.drawImage(planoCartesiano, 0, 0, null);
 			}
 		};
@@ -175,6 +184,8 @@ public class PanelPixelNormalizacao extends JPanel {
 				labelNdcy.setText("ndcy: " 	+ Float.toString( normalizacao.calcularNDCY(y-300, -300, 300)) );
 				
 			}
+			
+			
 		});
 		add(panelBufferedImage);
 	}
