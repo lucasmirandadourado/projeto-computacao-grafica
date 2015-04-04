@@ -21,6 +21,8 @@ public class TesteInterface extends JFrame {
 	 */
 	private static final long serialVersionUID = -8760934689051887118L;
 	private JPanel contentPane;
+	Panel2 novoPanel2;
+
 	PlanoCoordenadas planoCartesiano = new PlanoCoordenadas();	
 	/**
 	 * Launch the application.
@@ -53,12 +55,21 @@ public class TesteInterface extends JFrame {
 		menuBar.add(mnCoordenadas);
 		
 		JMenuItem mntmPontos = new JMenuItem("Pontos");
+		mntmPontos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				novoPanel2 = new Panel2();
+				getContentPane().removeAll();
+				getContentPane().add(novoPanel2);
+				validate();
+				repaint();
+			}
+		});
 		
 		mnCoordenadas.add(mntmPontos);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		
 		getContentPane().add(planoCartesiano);
