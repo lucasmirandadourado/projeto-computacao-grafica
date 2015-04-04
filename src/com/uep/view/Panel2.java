@@ -1,6 +1,6 @@
+package com.uep.view;
 import javax.swing.JPanel;
 import java.awt.Color;
-
 
 public class Panel2 extends JPanel {
 

@@ -1,4 +1,4 @@
-package cg.funcoes;
+package com.uepb.algoritmo;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -49,13 +49,4 @@ public class Coordenadas {
 		return dc_y;
 	}
 	
-//	public static void main(String[] args) {
-//		Coordenadas c = new Coordenadas(-350, -325, 350, 325);
-//		double x = c.ndcx(0), y = c.ndcy(0);
-//		
-//			System.out.println("x: "+ x);
-//			System.out.println("y: "+ y);
-//			System.out.println("y: "+ c.dcx(x));
-//			System.out.println("y: "+ c.dcy(x));
-//	}
 }

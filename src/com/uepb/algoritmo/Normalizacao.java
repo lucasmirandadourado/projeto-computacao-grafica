@@ -1,4 +1,4 @@
-package algoritmos;
+package com.uepb.algoritmo;
 
 public class Normalizacao {
 

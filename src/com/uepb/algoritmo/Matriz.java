@@ -1,4 +1,4 @@
-package cg.funcoes;
+package com.uepb.algoritmo;
 
 public class Matriz {
 
