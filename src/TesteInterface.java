@@ -7,8 +7,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Collections;
+import java.util.List;
 
 
 public class TesteInterface extends JFrame {
@@ -18,7 +21,7 @@ public class TesteInterface extends JFrame {
 	 */
 	private static final long serialVersionUID = -8760934689051887118L;
 	private JPanel contentPane;
-
+	PlanoCoordenadas planoCartesiano = new PlanoCoordenadas();	
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +39,7 @@ public class TesteInterface extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Interface principal.
 	 */
 	public TesteInterface() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,12 +55,13 @@ public class TesteInterface extends JFrame {
 		JMenuItem mntmPontos = new JMenuItem("Pontos");
 		
 		mnCoordenadas.add(mntmPontos);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		getContentPane().add(new PlanoCoordenadas());
+		getContentPane().add(planoCartesiano);
 	}
 
 }
