@@ -22,15 +22,6 @@ public class PlanoCoordenadas extends JPanel {
 	static BufferedImage imagemCoordenadas;
 	
 	public PlanoCoordenadas() {
-		
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent mouse) {
-				imagemCoordenadas.setRGB(mouse.getX(), mouse.getY(), Color.BLACK.getRGB() );
-				repaint();
-			}
-		});
-	
 		setSize(WIGHT, HEIGHT);
 		
 		imagemCoordenadas = new BufferedImage(WIGHT, HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -42,6 +33,17 @@ public class PlanoCoordenadas extends JPanel {
 			}
 		}	
 		addCoordenadas();
+		setPixel();
+	}
+
+	private void setPixel() {
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent mouse) {
+				imagemCoordenadas.setRGB(mouse.getX(), mouse.getY(), Color.BLACK.getRGB() );
+				repaint();
+			}
+		});
 	}
 	
 	private void addCoordenadas() {
