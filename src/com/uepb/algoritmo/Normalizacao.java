@@ -2,6 +2,7 @@ package com.uepb.algoritmo;
 
 public class Normalizacao {
 
+	
 	public float calcularNDCX(int xAtual, int xMinimo, int xMaximo) {
 
 		float ndcx = (xAtual - xMinimo) / (xMaximo - xMinimo);
