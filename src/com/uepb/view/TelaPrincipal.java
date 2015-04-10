@@ -1,4 +1,4 @@
-package com.uep.view;
+package com.uepb.view;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -12,16 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 
-public class TesteInterface extends JFrame {
+public class TelaPrincipal extends JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8760934689051887118L;
 	private JPanel contentPane;
-	Panel2 novoPanel2;
+	PanelReta novoPanel2;
 
-	PlanoCoordenadas planoCartesiano = new PlanoCoordenadas();	
+	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();	
 	/**
 	 * Launch the application.
 	 */
@@ -29,7 +29,7 @@ public class TesteInterface extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TesteInterface frame = new TesteInterface();
+					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,21 +41,21 @@ public class TesteInterface extends JFrame {
 	/**
 	 * Interface principal.
 	 */
-	public TesteInterface() {
+	public TelaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 700);
 		setLocationRelativeTo(null);
 		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		JMenuBar barraDeMenu = new JMenuBar();
+		setJMenuBar(barraDeMenu);
 		
-		JMenu mnCoordenadas = new JMenu("Coordenadas");
-		menuBar.add(mnCoordenadas);
+		JMenu menuCoordenadas = new JMenu("Coordenadas");
+		barraDeMenu.add(menuCoordenadas);
 		
-		JMenuItem mntmPontos = new JMenuItem("Pontos");
-		mntmPontos.addActionListener(new ActionListener() {
+		JMenuItem itemMenuReta = new JMenuItem("Reta");
+		itemMenuReta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				novoPanel2 = new Panel2();
+				novoPanel2 = new PanelReta();
 				getContentPane().removeAll();
 				getContentPane().add(novoPanel2);
 				validate();
@@ -63,7 +63,7 @@ public class TesteInterface extends JFrame {
 			}
 		});
 		
-		mnCoordenadas.add(mntmPontos);
+		menuCoordenadas.add(itemMenuReta);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -1,4 +1,4 @@
-package com.uep.view;
+package com.uepb.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -12,7 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-public class PlanoCoordenadas extends JPanel {
+public class PanelPlanoCartesiano extends JPanel {
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public class PlanoCoordenadas extends JPanel {
 	int WIGHT = 600;
 	static BufferedImage imagemCoordenadas;
 	
-	public PlanoCoordenadas() {
+	public PanelPlanoCartesiano() {
 		setSize(WIGHT, HEIGHT);
 		
 		imagemCoordenadas = new BufferedImage(WIGHT, HEIGHT, BufferedImage.TYPE_INT_ARGB);

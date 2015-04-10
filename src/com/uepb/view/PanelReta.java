@@ -1,13 +1,13 @@
-package com.uep.view;
+package com.uepb.view;
 import javax.swing.JPanel;
 import java.awt.Color;
 
-public class Panel2 extends JPanel {
+public class PanelReta extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public Panel2() {
+	public PanelReta() {
 		setBackground(Color.ORANGE);
 		setBounds(0, 0, 600, 600);
 		setLayout(null);
