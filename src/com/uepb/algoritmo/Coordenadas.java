@@ -13,7 +13,8 @@ public class Coordenadas {
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	Dimension d = tk.getScreenSize();	     
 	/**
-	 * Metodo construtor. 
+	 * Metodo construtor.
+	 *  
 	 * 
 	 * @param x_min
 	 * @param y_min
