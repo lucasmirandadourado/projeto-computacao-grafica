@@ -18,12 +18,12 @@ public class PanelPlanoCartesiano extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -5345146477227642140L;
-	int HEIGHT = 600;
-	int WIGHT = 600;
+	final int HEIGHT = 600;
+	final int WIGHT = 600;
 	static BufferedImage imagemCoordenadas;
 	
 	public PanelPlanoCartesiano() {
-		setSize(WIGHT, HEIGHT);
+		setBounds(400,30,WIGHT, HEIGHT);
 		
 		imagemCoordenadas = new BufferedImage(WIGHT, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		

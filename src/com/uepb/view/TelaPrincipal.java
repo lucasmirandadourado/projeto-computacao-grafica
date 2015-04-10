@@ -12,16 +12,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 
+@SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8760934689051887118L;
 	private JPanel contentPane;
-	PanelReta novoPanel2;
-
-	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();	
+	
+	
+	PanelReta panelReta;
+	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
+	PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -43,7 +46,7 @@ public class TelaPrincipal extends JFrame {
 	 */
 	public TelaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 700);
+		setSize(1024, 720);
 		setLocationRelativeTo(null);
 		
 		JMenuBar barraDeMenu = new JMenuBar();
@@ -55,13 +58,17 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem itemMenuReta = new JMenuItem("Reta");
 		itemMenuReta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				novoPanel2 = new PanelReta();
+				panelReta = new PanelReta();
 				getContentPane().removeAll();
-				getContentPane().add(novoPanel2);
+				getContentPane().add(panelReta);
 				validate();
 				repaint();
 			}
 		});
+		
+		JMenuItem menuItemNormalizacao = new JMenuItem("Normaliza\u00E7\u00E3o");
+		menuCoordenadas.add(menuItemNormalizacao);
+		menuItemNormalizacao.setEnabled(false);
 		
 		menuCoordenadas.add(itemMenuReta);
 		
@@ -70,7 +77,6 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		
-		getContentPane().add(planoCartesiano);
+		getContentPane().add(panelNormalizacao);
 	}
-
 }
