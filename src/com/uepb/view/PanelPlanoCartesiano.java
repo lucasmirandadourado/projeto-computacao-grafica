@@ -18,17 +18,17 @@ public class PanelPlanoCartesiano extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -5345146477227642140L;
-	final int HEIGHT = 600;
-	final int WIGHT = 600;
+	final static int ALTURA = 600;
+	final static int LARGURA = 600;
 	static BufferedImage imagemCoordenadas;
 	
 	public PanelPlanoCartesiano() {
-		setBounds(400,30,WIGHT, HEIGHT);
+		setBounds(400,30,LARGURA, ALTURA);
 		
-		imagemCoordenadas = new BufferedImage(WIGHT, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		imagemCoordenadas = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);
 		
-		for (int i = 0; i < HEIGHT; i++) {
-			for (int j = 0; j < WIGHT; j++) {
+		for (int i = 0; i < ALTURA; i++) {
+			for (int j = 0; j < LARGURA; j++) {
 				imagemCoordenadas.setRGB(i, j, Color.WHITE.getRGB());
 				repaint();
 			}
@@ -48,14 +48,14 @@ public class PanelPlanoCartesiano extends JPanel {
 	}
 	
 	private void addCoordenadas() {
-		int metade = (int) WIGHT/2;
+		int metade = (int) LARGURA/2;
 		// TODO Auto-generated method stub
-		for (int j = 1; j < HEIGHT-1; j++) {
+		for (int j = 1; j < ALTURA-1; j++) {
 			imagemCoordenadas.setRGB(metade, j, Color.BLACK.getRGB());
 			repaint();
 		}
-		metade = (int) HEIGHT/2;
-		for (int j = 1; j < WIGHT-1; j++) {
+		metade = (int) ALTURA/2;
+		for (int j = 1; j < LARGURA-1; j++) {
 			imagemCoordenadas.setRGB(j, metade, Color.BLACK.getRGB());
 			repaint();
 		}
