@@ -7,7 +7,7 @@ public class FuncoesDeNormalizacao {
 		System.out.println("ndh: "+ndh);
 		System.out.println("dcx: "+dcx);
 		
-		double ndcx = dcx / (ndh - 1);
+		double ndcx = (double) dcx / (ndh - 1);
 		System.out.println("ndcx: "+ndcx+"\n");
 		
 		return ndcx;
@@ -19,7 +19,7 @@ public class FuncoesDeNormalizacao {
 		System.out.println("ndv: "+ndv);
 		System.out.println("dcy: "+dcy);
 		
-		double ndcy = dcy / (ndv - 1);
+		double ndcy = (double) dcy / (ndv - 1);
 		System.out.println("ndcy: "+ndcy+"\n");
 		
 		return ndcy;
