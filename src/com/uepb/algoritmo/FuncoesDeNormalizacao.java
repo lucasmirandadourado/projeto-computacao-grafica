@@ -4,25 +4,29 @@ public class FuncoesDeNormalizacao {
 
 	static public double calcularNDCX(int ndh, int dcx) {
 
-		System.out.println("ndh: "+ndh);
-		System.out.println("dcx: "+dcx);
-		
 		double ndcx = (double) dcx / (ndh - 1);
-		System.out.println("ndcx: "+ndcx+"\n");
-		
 		return ndcx;
 		
 	}
 	
 	static public double calcularNDCY(int ndv, int dcy){
 		
-		System.out.println("ndv: "+ndv);
-		System.out.println("dcy: "+dcy);
-		
 		double ndcy = (double) dcy / (ndv - 1);
-		System.out.println("ndcy: "+ndcy+"\n");
-		
 		return ndcy;
+		
+	}
+	
+	static public int calcularX(int xMinimo, int xMaximo, double ndcx){
+		
+		int x = (int) (ndcx * (xMaximo - xMinimo) / (-xMinimo));
+		return x;
+		
+	}
+	
+	static public int calcularY(int yMinimo, int yMaximo, double ndcy){
+		
+		int y = (int) (ndcy * (yMaximo - yMinimo) / (-yMinimo));
+		return y;
 		
 	}
 
