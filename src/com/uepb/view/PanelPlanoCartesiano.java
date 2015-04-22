@@ -20,7 +20,7 @@ public class PanelPlanoCartesiano extends JPanel {
 	private static final long serialVersionUID = -5345146477227642140L;
 	final static int ALTURA = 600;
 	final static int LARGURA = 600;
-	static BufferedImage imagemCoordenadas;
+	private static BufferedImage imagemCoordenadas;
 	
 	public PanelPlanoCartesiano() {
 		setBounds(400,30,LARGURA, ALTURA);
@@ -70,6 +70,39 @@ public class PanelPlanoCartesiano extends JPanel {
 		g.drawImage(imagemCoordenadas, 0, 0, null);
 		
 	}
-	
 
+	/**
+	 * @return the imagemCoordenadas
+	 */
+	public static BufferedImage getImagemCoordenadas() {
+		return imagemCoordenadas;
+	}
+
+	/**
+	 * @param imagemCoordenadas the imagemCoordenadas to set
+	 */
+	public static void setImagemCoordenadas(BufferedImage imagemCoordenadas) {
+		PanelPlanoCartesiano.imagemCoordenadas = imagemCoordenadas;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	/**
+	 * @return the altura
+	 */
+	public static int getAltura() {
+		return ALTURA;
+	}
+
+	/**
+	 * @return the largura
+	 */
+	public static int getLargura() {
+		return LARGURA;
+	}
 }
