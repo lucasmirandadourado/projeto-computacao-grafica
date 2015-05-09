@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 
+@SuppressWarnings("serial")
 public class PanelNormalizacao extends JPanel {
 
 	PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();

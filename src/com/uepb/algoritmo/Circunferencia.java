@@ -1,71 +1,86 @@
 package com.uepb.algoritmo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * Algoritmo da {@link Circunferencia} do ponto medio.
+ * @author Lucas Miranda
+ *
+ */
 public class Circunferencia {
 
-	private int x = 0, y = 0;
-	private int raio = 1;
-
-	/**
-	 * Definiir as variaveis de decisão, sabendo que a equação de
-	 * <code> d = F(xi + 1, yi + 1/2) = a.(xi+1) + b.(yi+1) + c </code>
-	 * */
-	private double d = 0, d_old = 0, d_new = 0;
-
-	/**
-	 * Sendo chamada esse metodo construtor, será definido a
-	 * {@link Circunferencia} com o ponto na origem.
-	 * 
-	 * @param raio
-	 */
-	public Circunferencia(int xCentro, int yCentro, int raio) {
-		this.x = xCentro;
-		this.y = yCentro;
-		this.raio = raio;
+	int d_old = 0;
+	int x, y, raio;
+	List<Ponto> listaPontos = new ArrayList<Ponto>();
+	
+	public Circunferencia(int x, int y, int raio) {
+		this.x = x;
+		this.y = y;
 		
-//		if (!(x == 0 && y == 0)) {
-//			/**
-//			 * Deverá ser feito a translação. determinar os pontos. Depois
-//			 * deverá ser feita a translação para o ponto de origem.
-//			 *
-//			 */
-//		} else {
-			// A circunferencia está na origem!
-			// Determina que o y = raio!
+		this.raio = raio;
+		d_old = 1 - raio;
+	}
+
+	public void ponto_circunferencia() {
+		if (x== 0 && y == 0) {
 			y = raio;
-			double p = 1 - raio;
-			
-			circlePlotPolnts(0, 0, x, y);
-			while (x < y) {	
+			listaPontos.add(new Ponto(x, y)); 
+			listaPontos.add(new Ponto(y, x));   
+			listaPontos.add(new Ponto(-y, y));  
+			listaPontos.add(new Ponto(-y, x));  
+		}
+		while (y > x) {
+			if (d_old <= 0.0) {				
+				d_old += 2 * x + 3;
+				x++;				
+			} else {				
+				d_old += (2*x) - (2*y) + 5;
+				y--;
 				x++;
-				if (p < 0) {
-					p += 2*x +1;
-				} else {
-					y--;
-					p+= 2*(x-y)+1;
-				}
-				circlePlotPolnts(xCentro, yCentro, x, y);
 			}
-//		}
+			printPixel(x, y);
+		}
+	}
+
+	private void printPixel(int x, int y) {
+		
+		listaPontos.add(new Ponto(x, y)); 
+		listaPontos.add(new Ponto(x, -y)); 
+		listaPontos.add(new Ponto(-x, y));
+		listaPontos.add(new Ponto(-x, -y));
+		
+		listaPontos.add(new Ponto(y, x)); 		
+		listaPontos.add(new Ponto(y, -x));		
+		listaPontos.add(new Ponto(-y, x));
+		listaPontos.add(new Ponto(y, x)); 
+		
 	}
 
 	/**
-	 * A partir do ponto do primeiro oitante, será automaticamente descoberto o
-	 * restante dos pontos dos outros oitantes.
-	 * 
-	 * @param xCenter
-	 * @param yCenter
-	 * @param x
-	 * @param y
+	 * @return the listaPontos
 	 */
-	public void circlePlotPolnts(int xCenter, int yCenter, int x, int y) {
-		System.out.print(Double.valueOf(xCenter + x) + "   \t" + Double.valueOf(yCenter + y)+"\n");
-		System.out.print(Double.valueOf(xCenter - x) + "   \t" + Double.valueOf(yCenter + y)+"\n");
-		System.out.print(Double.valueOf(xCenter + x) + "   \t" + Double.valueOf(yCenter - y)+"\n");
-		System.out.print(Double.valueOf(xCenter - x) + "   \t" + Double.valueOf(yCenter - y)+"\n");		
-		System.out.print(Double.valueOf(xCenter + y) + "   \t" + Double.valueOf(yCenter + x)+"\n");
-		System.out.print(Double.valueOf(xCenter - y) + "   \t" + Double.valueOf(yCenter + x)+"\n");
-		System.out.print(Double.valueOf(xCenter + y) + "   \t" + Double.valueOf(yCenter - x)+"\n");
-		System.out.print(Double.valueOf(xCenter - y) + "   \t" + Double.valueOf(yCenter - y)+"\n");
+	public List<Ponto> getListaPontos() {
+		for (Ponto ponto : listaPontos) {
+			System.out.println("["+ponto.x + ", " + ponto.y+"] ");
+		}
+		return listaPontos;
+	}
+
+	/**
+	 * @param listaPontos the listaPontos to set
+	 */
+	public void setListaPontos(List<Ponto> listaPontos) {
+		this.listaPontos = listaPontos;
+	}
+
+	/**
+	 * @return the d_old
+	 */
+	public double getD_old() {
+		d_old = 5 / 4 - raio;		
+		return d_old;
 	}
 
 	/**
@@ -111,10 +126,5 @@ public class Circunferencia {
 	 */
 	public void setRaio(int raio) {
 		this.raio = raio;
-	}
-
-	public static void main(String[] args) {
-		new Circunferencia(0,0,5);
-		
 	}
 }

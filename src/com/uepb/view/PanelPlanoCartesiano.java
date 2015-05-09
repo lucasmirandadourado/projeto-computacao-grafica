@@ -14,9 +14,6 @@ import java.awt.event.MouseEvent;
 
 public class PanelPlanoCartesiano extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5345146477227642140L;
 	final static int ALTURA = 600;
 	final static int LARGURA = 600;
@@ -49,7 +46,7 @@ public class PanelPlanoCartesiano extends JPanel {
 	
 	private void addCoordenadas() {
 		int metade = (int) LARGURA/2;
-		// TODO Auto-generated method stub
+		
 		for (int j = 1; j < ALTURA-1; j++) {
 			imagemCoordenadas.setRGB(metade, j, Color.BLACK.getRGB());
 			repaint();

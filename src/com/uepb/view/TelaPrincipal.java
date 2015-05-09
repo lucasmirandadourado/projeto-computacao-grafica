@@ -22,6 +22,7 @@ public class TelaPrincipal extends JFrame {
 	
 	
 	PanelReta panelReta;
+	PanelCircunferencia panelCircunferencia;
 	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
 	PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
 	
@@ -66,16 +67,29 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		
-		JMenuItem menuItemNormalizacao = new JMenuItem("Normaliza\u00E7\u00E3o");
+		JMenuItem menuItemNormalizacao = new JMenuItem("Normalização");
 		menuCoordenadas.add(menuItemNormalizacao);
 		menuItemNormalizacao.setEnabled(false);
 		
 		menuCoordenadas.add(itemMenuReta);
 		
+		JMenuItem mntmCircunferncia = new JMenuItem("Circunferência");
+		mntmCircunferncia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelCircunferencia = new PanelCircunferencia();
+				getContentPane().removeAll();				
+				getContentPane().add(panelCircunferencia);
+				validate();
+				repaint();
+			}
+		});
+		menuCoordenadas.add(mntmCircunferncia);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		panelNormalizacao.setLocation(0, 11);
 		
 		getContentPane().add(panelNormalizacao);
 	}
