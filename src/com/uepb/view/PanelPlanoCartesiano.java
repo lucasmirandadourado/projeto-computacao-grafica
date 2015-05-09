@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 
 
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -42,6 +43,11 @@ public class PanelPlanoCartesiano extends JPanel {
 				repaint();
 			}
 		});
+	}
+	
+	public void desenharPixel(int x, int y) {		
+		imagemCoordenadas.setRGB(x, y, Color.BLACK.getRGB() );
+		repaint();
 	}
 	
 	private void addCoordenadas() {

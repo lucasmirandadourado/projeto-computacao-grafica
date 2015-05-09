@@ -46,15 +46,15 @@ public class Circunferencia {
 
 	private void printPixel(int x, int y) {
 		
-		listaPontos.add(new Ponto(x, y)); 
-		listaPontos.add(new Ponto(x, -y)); 
-		listaPontos.add(new Ponto(-x, y));
-		listaPontos.add(new Ponto(-x, -y));
+		listaPontos.add(new Ponto(x, y)); //
+		listaPontos.add(new Ponto(x, -y)); //
+		listaPontos.add(new Ponto(-x, y)); //
+		listaPontos.add(new Ponto(-x, -y)); //
 		
-		listaPontos.add(new Ponto(y, x)); 		
-		listaPontos.add(new Ponto(y, -x));		
-		listaPontos.add(new Ponto(-y, x));
-		listaPontos.add(new Ponto(y, x)); 
+		listaPontos.add(new Ponto(y, x)); 	//	
+		listaPontos.add(new Ponto(y, -x));		//
+		listaPontos.add(new Ponto(-y, x)); //
+		listaPontos.add(new Ponto(-y, -x)); //
 		
 	}
 

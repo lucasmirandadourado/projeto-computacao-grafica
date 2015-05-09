@@ -81,7 +81,7 @@ public class PanelNormalizacao extends JPanel {
 		panelBackgroundCoordenadasDoDispositivoNormalizada.setBounds(0, 186, 358, 41);
 		add(panelBackgroundCoordenadasDoDispositivoNormalizada);
 		
-		JLabel labelNormalizacaoDoDispositivo = new JLabel("Normaliza��o do Dispositivo");
+		JLabel labelNormalizacaoDoDispositivo = new JLabel("Normaliza\u00E7\u00E3o do dispositivo");
 		labelNormalizacaoDoDispositivo.setForeground(Color.WHITE);
 		labelNormalizacaoDoDispositivo.setFont(new Font("Century Gothic", Font.BOLD, 18));
 		labelNormalizacaoDoDispositivo.setBounds(10, 0, 307, 41);
