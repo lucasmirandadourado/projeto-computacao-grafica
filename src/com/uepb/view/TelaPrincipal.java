@@ -67,6 +67,24 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		
+		JMenuItem mntmPaginaInicial = new JMenuItem("P\u00E1gina inicial");
+		mntmPaginaInicial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				getContentPane().removeAll();
+				contentPane = new JPanel();
+				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+				contentPane.setLayout(null);
+				setContentPane(contentPane);
+				
+				getContentPane().add(panelNormalizacao);
+				
+				validate();
+				repaint();
+			}
+		});
+		menuCoordenadas.add(mntmPaginaInicial);
+		
 		JMenuItem menuItemNormalizacao = new JMenuItem("Normalização");
 		menuCoordenadas.add(menuItemNormalizacao);
 		menuItemNormalizacao.setEnabled(false);
@@ -89,7 +107,6 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		panelNormalizacao.setLocation(0, 11);
 		
 		getContentPane().add(panelNormalizacao);
 	}

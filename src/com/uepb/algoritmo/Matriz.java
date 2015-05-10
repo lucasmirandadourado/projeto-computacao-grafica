@@ -7,10 +7,15 @@ public class Matriz {
 	public int[][] multiplicaMatrizes(int[][] matrizA, int[][] matrizB) throws Exception{
 		
 		if(matrizA[0].length == matrizB.length){
-			int[][] matrizResultado = new int[matrizA.length][matrizB[0].length]; 
+			int linha = matrizA.length;
+			int coluna = matrizB[0].length;
+			int[][] matrizResultado = new int[linha][coluna]; 
 			
-			for (int i = 0; i < matrizA.length; i++) {
-				for (int j = 0; j < matrizB[0].length; j++) {
+			System.out.println("linha2: "+matrizResultado.length);
+			System.out.println("Coluna2: "+matrizResultado[0].length);
+			
+			for (int i = 0; i < coluna; i++) {
+				for (int j = 0; j < linha; j++) {
 					for (int k = 0; k < matrizA.length; k++) {
 						matrizResultado[i][j] += matrizA[i][k] * matrizB[k][j];
 					}
