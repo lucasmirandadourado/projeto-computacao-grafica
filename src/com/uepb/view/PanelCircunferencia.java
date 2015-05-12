@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -30,6 +31,8 @@ public class PanelCircunferencia extends JPanel {
 	private JTextField txtRaio;
 	private JTextField txt_transl_x;
 	private JTextField txt_transl_y;
+	Circunferencia circunferencia;
+	List<Ponto> list;
 
 	public PanelCircunferencia() {
 		setBackground(Color.DARK_GRAY);
@@ -83,18 +86,19 @@ public class PanelCircunferencia extends JPanel {
 		JButton btnDesenhar = new JButton("Desenhar");
 		btnDesenhar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Circunferencia circunferencia = new Circunferencia(Integer
-						.valueOf(txtOrigemX.getText()), Integer
-						.valueOf(txtOrigemY.getText()), Integer.valueOf(txtRaio
-						.getText()));
+				circunferencia = new Circunferencia(Integer.valueOf(txtOrigemX
+						.getText()), Integer.valueOf(txtOrigemY.getText()),
+						Integer.valueOf(txtRaio.getText()));
 				circunferencia.ponto_circunferencia();
 				pontosCircunferencia = circunferencia.getListaPontos();
+				panelPlanoCartesiano.limparImagem();
 				for (Ponto pontos : circunferencia.getListaPontos()) {
-					// Trata os erros, mesmo que o pixel esteja fora do BufferImage!
-					try{
+					// Trata os erros, mesmo que o pixel esteja fora do
+					// BufferImage!
+					try {
 						panelPlanoCartesiano.desenharPixel(pontos.getX() + 300,
-							-pontos.getY() + 300);
-					} catch(Exception e) {
+								-pontos.getY() + 300);
+					} catch (Exception e) {
 						e.getClass();
 					}
 				}
@@ -137,24 +141,45 @@ public class PanelCircunferencia extends JPanel {
 		btnTranslao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Translacao tralacao = new Translacao();
-				List<Ponto> list = tralacao.translacaoCircunferencia(pontosCircunferencia,
-						Integer.valueOf(txt_transl_x.getText()),
-						Integer.valueOf(txt_transl_y.getText()));
-				
+				try {
+					list = tralacao.translacaoCircunferencia(
+							pontosCircunferencia,
+							Integer.valueOf(txt_transl_x.getText()),
+							Integer.valueOf(txt_transl_y.getText()));
+					if (list.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
+						return;
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Desenhe o objeto");
+					return;
+				}
+				panelPlanoCartesiano.limparImagem();
 				for (Ponto pontos : list) {
-					panelPlanoCartesiano.desenharPixel(pontos.getX() + 300,
-							-pontos.getY() + 300);
+					try {
+						panelPlanoCartesiano.desenharPixel(pontos.getX() + 300,
+								-pontos.getY() + 300);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
+					}
 				}
 			}
 		});
 		btnTranslao.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnTranslao.setBounds(25, 310, 232, 41);
 		add(btnTranslao);
-		
+
 		JButton btnLimparTela = new JButton("Limpar tela");
 		btnLimparTela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					circunferencia.getListaPontos().clear();
+					list.clear();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				panelPlanoCartesiano.limparImagem();
+
 			}
 		});
 		btnLimparTela.setFont(new Font("Century Gothic", Font.PLAIN, 16));

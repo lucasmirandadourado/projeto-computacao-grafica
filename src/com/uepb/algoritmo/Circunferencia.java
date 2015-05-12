@@ -41,7 +41,7 @@ public class Circunferencia {
 			listaPontos.add(new Ponto(0, 0));
 			listaPontos.add(new Ponto(x, y)); 
 			listaPontos.add(new Ponto(y, x));   
-			listaPontos.add(new Ponto(-y, y));  
+			listaPontos.add(new Ponto(-y, x));  
 			listaPontos.add(new Ponto(-y, x));  
 		}
 		while (y > x) {

@@ -103,6 +103,14 @@ public class TelaPrincipal extends JFrame {
 		});
 		menuCoordenadas.add(mntmCircunferncia);
 		
+		JMenuItem mntmSair = new JMenuItem("Sair");
+		mntmSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		menuCoordenadas.add(mntmSair);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);

@@ -21,13 +21,9 @@ public class PanelPlanoCartesiano extends JPanel {
 	private static BufferedImage imagemCoordenadas;
 	
 	public PanelPlanoCartesiano() {
-		setBounds(400,30,LARGURA, ALTURA);
-		
-		imagemCoordenadas = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);
-		
-		limparImagem();	
-		
-		
+		setBounds(400,30,LARGURA, ALTURA);		
+		imagemCoordenadas = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);		
+		limparImagem();			
 		setPixel();
 	}
 
@@ -74,11 +70,9 @@ public class PanelPlanoCartesiano extends JPanel {
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
-	
+	protected void paintComponent(Graphics g) {	
 		super.paintComponent(g);
-		g.create();
-		
+		g.create();		
 		g.drawImage(imagemCoordenadas, 0, 0, null);
 		
 	}
