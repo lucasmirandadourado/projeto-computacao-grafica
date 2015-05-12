@@ -3,6 +3,10 @@ package com.uepb.algoritmo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import com.uepb.algoritmo.transformacoes2D.Translacao;
+
 
 /**
  * Algoritmo da {@link Circunferencia} do ponto medio.
@@ -12,20 +16,29 @@ import java.util.List;
 public class Circunferencia {
 
 	int d_old = 0;
-	int x, y, raio;
+	int x, y, raio, x_dif, y_dif;
 	List<Ponto> listaPontos = new ArrayList<Ponto>();
+	Translacao translacao = new Translacao();
 	
 	public Circunferencia(int x, int y, int raio) {
 		this.x = x;
-		this.y = y;
-		
+		this.y = y;		
 		this.raio = raio;
-		d_old = 1 - raio;
 	}
 
 	public void ponto_circunferencia() {
+		boolean trans = false;
+		if(x!=0 || y!=0) {
+			trans = true;
+			x_dif = x;
+			y_dif = y;
+			x=0;
+			y=0;
+		}
 		if (x== 0 && y == 0) {
 			y = raio;
+			d_old = 1 - raio;
+			listaPontos.add(new Ponto(0, 0));
 			listaPontos.add(new Ponto(x, y)); 
 			listaPontos.add(new Ponto(y, x));   
 			listaPontos.add(new Ponto(-y, y));  
@@ -41,6 +54,10 @@ public class Circunferencia {
 				x++;
 			}
 			printPixel(x, y);
+		}
+		
+		if (trans) {
+			listaPontos = translacao.translacaoCircunferencia(listaPontos, x_dif, y_dif);
 		}
 	}
 

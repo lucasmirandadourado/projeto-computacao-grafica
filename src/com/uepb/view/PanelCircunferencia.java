@@ -1,27 +1,22 @@
 package com.uepb.view;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 
 import com.uepb.algoritmo.Circunferencia;
-import com.uepb.algoritmo.Coordenadas;
 import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Translacao;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Label;
-
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.List;
-
-import javax.swing.UIManager;
 
 public class PanelCircunferencia extends JPanel {
 
@@ -30,8 +25,8 @@ public class PanelCircunferencia extends JPanel {
 	FuncoesDeNormalizacao funcoesDeNormalizacao = new FuncoesDeNormalizacao();
 	List<Ponto> pontosCircunferencia;
 
-	private JTextField txtOrigem;
-	private JTextField textField;
+	private JTextField txtOrigemX;
+	private JTextField txtOrigemY;
 	private JTextField txtRaio;
 	private JTextField txt_transl_x;
 	private JTextField txt_transl_y;
@@ -59,22 +54,22 @@ public class PanelCircunferencia extends JPanel {
 		labelCoordenadasDeOrigem.setFont(new Font("Century Gothic", Font.BOLD,
 				18));
 
-		txtOrigem = new JTextField();
-		txtOrigem.setBorder(new TitledBorder(null, "X", TitledBorder.LEADING,
+		txtOrigemX = new JTextField();
+		txtOrigemX.setBorder(new TitledBorder(null, "X", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
-		txtOrigem.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtOrigem.setText("0");
-		txtOrigem.setBounds(25, 82, 63, 41);
-		add(txtOrigem);
-		txtOrigem.setColumns(10);
+		txtOrigemX.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtOrigemX.setText("0");
+		txtOrigemX.setBounds(25, 82, 63, 41);
+		add(txtOrigemX);
+		txtOrigemX.setColumns(10);
 
-		textField = new JTextField();
-		textField.setBorder(new TitledBorder(null, "Y", TitledBorder.LEADING,
+		txtOrigemY = new JTextField();
+		txtOrigemY.setBorder(new TitledBorder(null, "Y", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
-		textField.setText("0");
-		textField.setBounds(98, 82, 63, 41);
-		add(textField);
-		textField.setColumns(10);
+		txtOrigemY.setText("0");
+		txtOrigemY.setBounds(98, 82, 63, 41);
+		add(txtOrigemY);
+		txtOrigemY.setColumns(10);
 
 		txtRaio = new JTextField();
 		txtRaio.setFont(new Font("Century Gothic", Font.PLAIN, 14));
@@ -89,14 +84,19 @@ public class PanelCircunferencia extends JPanel {
 		btnDesenhar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Circunferencia circunferencia = new Circunferencia(Integer
-						.valueOf(txtOrigem.getText()), Integer
-						.valueOf(txtOrigem.getText()), Integer.valueOf(txtRaio
+						.valueOf(txtOrigemX.getText()), Integer
+						.valueOf(txtOrigemY.getText()), Integer.valueOf(txtRaio
 						.getText()));
 				circunferencia.ponto_circunferencia();
 				pontosCircunferencia = circunferencia.getListaPontos();
 				for (Ponto pontos : circunferencia.getListaPontos()) {
-					panelPlanoCartesiano.desenharPixel(pontos.getX() + 300,
-							pontos.getY() + 300);
+					// Trata os erros, mesmo que o pixel esteja fora do BufferImage!
+					try{
+						panelPlanoCartesiano.desenharPixel(pontos.getX() + 300,
+							-pontos.getY() + 300);
+					} catch(Exception e) {
+						e.getClass();
+					}
 				}
 			}
 		});
@@ -143,13 +143,23 @@ public class PanelCircunferencia extends JPanel {
 				
 				for (Ponto pontos : list) {
 					panelPlanoCartesiano.desenharPixel(pontos.getX() + 300,
-							pontos.getY() + 300);
+							-pontos.getY() + 300);
 				}
 			}
 		});
 		btnTranslao.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnTranslao.setBounds(25, 310, 232, 41);
 		add(btnTranslao);
+		
+		JButton btnLimparTela = new JButton("Limpar tela");
+		btnLimparTela.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelPlanoCartesiano.limparImagem();
+			}
+		});
+		btnLimparTela.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		btnLimparTela.setBounds(25, 485, 232, 41);
+		add(btnLimparTela);
 
 	}
 }

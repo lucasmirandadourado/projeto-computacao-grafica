@@ -25,14 +25,23 @@ public class PanelPlanoCartesiano extends JPanel {
 		
 		imagemCoordenadas = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);
 		
+		limparImagem();	
+		
+		
+		setPixel();
+	}
+
+	/**
+	 * Limpa a tela com branco. Após limpar coloca as coordenadas.
+	 */
+	public void limparImagem() {
 		for (int i = 0; i < ALTURA; i++) {
 			for (int j = 0; j < LARGURA; j++) {
 				imagemCoordenadas.setRGB(i, j, Color.WHITE.getRGB());
 				repaint();
 			}
-		}	
+		}
 		addCoordenadas();
-		setPixel();
 	}
 
 	private void setPixel() {
