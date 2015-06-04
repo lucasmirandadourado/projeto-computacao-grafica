@@ -5,9 +5,13 @@ import java.util.List;
 
 public class Retas {
 
-	List<Ponto> listaDePontos = new ArrayList<Ponto>();
+	float lenght;
+	float X, Y, x_inc, y_inc;
+	double m = 0;
 	
+	List<Ponto> listaDePontos = new ArrayList<Ponto>();
 
+	
 	public Retas() {
 
 	}
@@ -22,9 +26,36 @@ public class Retas {
 	 * @param y2
 	 */
 	public void dda(int x1, int y1, int x2, int y2) {
-		float lenght = Math.abs(x2 - x1);
-		float X, Y, x_inc, y_inc;
-
+		lenght = Math.abs(x2 - x1);
+		m = Math.abs(y2-y1)/Math.abs(x2-x1);
+		
+		if (0.0 <= m && m <= 1.0 && (x1 < x2)) {
+			imprimirPrimeiroOctante(x1, y1, x2, y2);
+		}
+		if (1.0 < m && m < Integer.MAX_VALUE && (y1 < y2)) {
+			imprimirSegundoOctante(x1, y1, x2, y2);
+		}
+		if (-1.0 > m && m > -Integer.MIN_VALUE && (y1<y2)) {
+			imprimirTerceiroOctante(x1, y1, x2, y2);
+		}
+		if (0.0 >= m && m >= -1.0 && (x2<x1)) {
+			imprimirQuartoOctante(x1, y1, x2, y2);
+		}
+		if (0.0 <= m && m <= 1.0 && (x2 < x1)) {
+			imprimirQuintoOctante(x1, y1, x2, y2);
+		} 
+		if (1.0 < m && m < Integer.MAX_VALUE && (y2 < y1)) {
+			imprimirSextoOctante(x1, y1, x2, y2);
+		}
+		if (-1.0 > m && m > -Integer.MIN_VALUE && (y2 < y1)) {
+			imprimirSetimoOctante(x1, y1, x2, y2);
+		}
+		if (0.0 > m && m > -1 && (y2 < y1)) {
+			imprimirOitavoOctante(x1, y1, x2, y2);
+		}
+	}	
+	
+	private void imprimirOitavoOctante(int x1, int y1, int x2, int y2) {
 		if (lenght <= Math.abs(y2 - y1)) {
 			lenght = Math.abs(y2 - y1);
 		}
@@ -35,6 +66,140 @@ public class Retas {
 		Y = y1;
 
 		setPixel(X, Y);
+		
+		while (X < x2) {
+			X += x_inc;
+			Y += y_inc;
+			setPixel(X, Y);
+		}
+	}
+
+	private void imprimirSetimoOctante(int x1, int y1, int x2, int y2) {
+		if (lenght <= Math.abs(y2 - y1)) {
+			lenght = Math.abs(y2 - y1);
+		}
+		x_inc = (x2 - x1) / lenght;
+		y_inc = (y2 - y1) / lenght;
+		System.out.println("x_inc: " + x_inc + ", y_inc: " + y_inc);
+		X = x1;
+		Y = y1;
+
+		setPixel(X, Y);
+		
+		while (X < x2) {
+			X += x_inc;
+			Y += y_inc;
+			setPixel(X, Y);
+		}
+	}
+
+	private void imprimirSextoOctante(int x1, int y1, int x2, int y2) {
+		if (lenght <= Math.abs(y2 - y1)) {
+			lenght = Math.abs(y2 - y1);
+		}
+		x_inc = (x2 - x1) / lenght;
+		y_inc = (y2 - y1) / lenght;
+		System.out.println("x_inc: " + x_inc + ", y_inc: " + y_inc);
+		X = x1;
+		Y = y1;
+
+		setPixel(X, Y);
+		
+		while (X < x2) {
+			X += x_inc;
+			Y += y_inc;
+			setPixel(X, Y);
+		}
+	}
+
+	private void imprimirQuintoOctante(int x1, int y1, int x2, int y2) {
+		if (lenght <= Math.abs(y2 - y1)) {
+			lenght = Math.abs(y2 - y1);
+		}
+		x_inc = (x2 - x1) / lenght;
+		y_inc = (y2 - y1) / lenght;
+		System.out.println("x_inc: " + x_inc + ", y_inc: " + y_inc);
+		X = x1;
+		Y = y1;
+
+		setPixel(X, Y);
+		
+		while (X < x2) {
+			X += x_inc;
+			Y += y_inc;
+			setPixel(X, Y);
+		}
+	}
+
+	void imprimirQuartoOctante(int x1, int y1, int x2, int y2) {
+		if (lenght <= Math.abs(y2 - y1)) {
+			lenght = Math.abs(y2 - y1);
+		}
+		x_inc = (x2 - x1) / lenght;
+		y_inc = (y2 - y1) / lenght;
+		System.out.println("x_inc: " + x_inc + ", y_inc: " + y_inc);
+		X = x1;
+		Y = y1;
+
+		setPixel(X, Y);
+		
+		while (X < x2) {
+			X += x_inc;
+			Y += y_inc;
+			setPixel(X, Y);
+		}
+	}
+
+	void imprimirTerceiroOctante(int x1, int y1, int x2, int y2 ) {
+		if (lenght <= Math.abs(y2 - y1)) {
+			lenght = Math.abs(y2 - y1);
+		}
+		x_inc = (x2 - x1) / lenght;
+		y_inc = (y2 - y1) / lenght;
+		System.out.println("x_inc: " + x_inc + ", y_inc: " + y_inc);
+		X = x1;
+		Y = y1;
+
+		setPixel(X, Y);
+		
+		while (X < x2) {
+			X += x_inc;
+			Y += y_inc;
+			setPixel(X, Y);
+		}
+	}
+
+	void imprimirSegundoOctante(int x1, int y1, int x2, int y2) {
+		if (lenght <= Math.abs(y2 - y1)) {
+			lenght = Math.abs(y2 - y1);
+		}
+		x_inc = (x2 - x1) / lenght;
+		y_inc = (y2 - y1) / lenght;
+		System.out.println("x_inc: " + x_inc + ", y_inc: " + y_inc);
+		X = x1;
+		Y = y1;
+
+		setPixel(X, Y);
+		
+		while (X < x2) {
+			X += x_inc;
+			Y += y_inc;
+			setPixel(X, Y);
+		}
+	}
+
+	void imprimirPrimeiroOctante(int x1, int y1, int x2, int y2) {
+		if (lenght <= Math.abs(y2 - y1)) {
+			lenght = Math.abs(y2 - y1);
+		}
+		x_inc = (x2 - x1) / lenght;
+		y_inc = (y2 - y1) / lenght;
+		System.out.println("x_inc: " + x_inc + ", y_inc: " + y_inc);
+		X = x1;
+		Y = y1;
+
+		setPixel(X, Y);
+		
 		while (X < x2) {
 			X += x_inc;
 			Y += y_inc;
@@ -43,9 +208,10 @@ public class Retas {
 	}
 
 	/**
-	 * Algoritmo de ponto médio. Verifica se o <code>d</code> é maior que ZERO. Caso
-	 * seja maior será incrementado o valor de x e y com <code>incNE</code>. Caso contrario será 
-	 * incrementado com <code>incE</code>
+	 * Algoritmo de ponto médio. Verifica se o <code>d</code> é maior que ZERO.
+	 * Caso seja maior será incrementado o valor de x e y com <code>incNE</code>
+	 * . Caso contrario será incrementado com <code>incE</code>
+	 * 
 	 * @param x1
 	 * @param y1
 	 * @param x2
@@ -53,16 +219,17 @@ public class Retas {
 	 */
 	public void retaPontoMedio(int x1, int y1, int x2, int y2) {
 		int dx, dy, incE, incNE, d, x, y;
+			
 		dx = x2 - x1;
 		dy = y2 - y1;
-		
-		d = 2*dy - dx;
-		incE = 2*dy;
-		incNE = (2*dy) - (2*dx);
+					
+		d = 2 * dy - dx;
+		incE = 2 * dy;
+		incNE = (2 * dy) - (2 * dx);
 
 		x = x1;
 		y = y1;
- 		setPixel(x, y);
+		setPixel(x, y);
 		while (x < x2) {
 			if (d <= 0) {
 				d = d + incE;
@@ -73,8 +240,8 @@ public class Retas {
 				y = y + 1;
 			}
 			setPixel(x, y);
-			
 		}
+	
 	}
 
 	/**
