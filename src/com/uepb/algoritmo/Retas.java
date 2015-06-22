@@ -35,7 +35,7 @@ public class Retas {
 		if (1.0 < m && m < Integer.MAX_VALUE && (y1 < y2)) {
 			imprimirSegundoOctante(x1, y1, x2, y2);
 		}
-		if (-1.0 > m && m > -Integer.MIN_VALUE && (y1<y2)) {
+		if (-1.0 > m && m > -9000 && (y1<y2)) {
 			imprimirTerceiroOctante(x1, y1, x2, y2);
 		}
 		if (0.0 >= m && m >= -1.0 && (x2<x1)) {
@@ -47,7 +47,7 @@ public class Retas {
 		if (1.0 < m && m < Integer.MAX_VALUE && (y2 < y1)) {
 			imprimirSextoOctante(x1, y1, x2, y2);
 		}
-		if (-1.0 > m && m > -Integer.MIN_VALUE && (y2 < y1)) {
+		if (-1.0 > m && m > -9000 && (y2 < y1)) {
 			imprimirSetimoOctante(x1, y1, x2, y2);
 		}
 		if (0.0 > m && m > -1 && (y2 < y1)) {

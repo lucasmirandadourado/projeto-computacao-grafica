@@ -35,6 +35,7 @@ public class TelaPrincipal extends JFrame {
 				try {
 					TelaPrincipal frame = new TelaPrincipal();
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
