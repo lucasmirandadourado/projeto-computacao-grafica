@@ -132,10 +132,6 @@ public class PanelReta extends JPanel {
 		btnPontoMdio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lista.clear();
-//				retas.retaPontoMedio(Integer.valueOf(txt_x1.getText()),
-//						Integer.valueOf(txt_y1.getText()),
-//						Integer.valueOf(txt_x2.getText()),
-//						Integer.valueOf(txt_y2.getText()));
 				retas.line(Integer.valueOf(txt_x1.getText()),
 						Integer.valueOf(txt_y1.getText()),
 						Integer.valueOf(txt_x2.getText()),
@@ -145,8 +141,7 @@ public class PanelReta extends JPanel {
 				try {
 					for (Ponto ponto : lista) {
 						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300,
-								-ponto.getY() + 300);
-						System.out.println(ponto.getX() + ", " + ponto.getY());
+								-ponto.getY() + 300);						
 					}
 				} catch (Exception e) {
 
@@ -172,7 +167,6 @@ public class PanelReta extends JPanel {
 					for (Ponto ponto : lista) {
 						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300,
 								-ponto.getY() + 300);
-						System.out.println(ponto.getX() + ", " + ponto.getY());
 					}
 				} catch (Exception e) {
 
