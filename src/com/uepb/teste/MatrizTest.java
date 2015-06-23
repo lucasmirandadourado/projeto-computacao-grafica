@@ -23,10 +23,10 @@ public class MatrizTest {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void mutiplicar3x2() {
-		int[][] matriz33 = {{2, 0, 0}
+		double[][] matriz33 = {{2, 0, 0}
 				, {0, 1, 0}
 				, {0, 0, 1}};
-		int[][] matriz32 = {{2, 4}
+		double[][] matriz32 = {{2, 4}
 				, {1, 1}
 				, {1, 1}};
 		
@@ -34,7 +34,7 @@ public class MatrizTest {
 		, {1, 1}
 		, {1, 1}};
 		try {
-			int[][] a = matriz.multiplicaMatrizes(matriz33, matriz32);
+			double[][] a = matriz.multiplicaMatrizes(matriz33, matriz32);
 			System.out.println(a[0][0]);
 			assertEquals(matrizResp, a);
 			

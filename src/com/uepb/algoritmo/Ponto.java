@@ -6,11 +6,13 @@ package com.uepb.algoritmo;
  *
  */
 public class Ponto {
-	int x, y;
+	private int x, y;
+	private int z = 0;
 	
-	public Ponto(int x, int y) {
+	public Ponto(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
+		this.z = z;
 	}
 
 	/**
@@ -39,5 +41,19 @@ public class Ponto {
 	 */
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	/**
+	 * @return the z
+	 */
+	public int getZ() {
+		return z;
+	}
+
+	/**
+	 * @param z the z to set
+	 */
+	public void setZ(int z) {
+		this.z = z;
 	}
 }

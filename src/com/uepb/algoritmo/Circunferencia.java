@@ -1,11 +1,9 @@
 package com.uepb.algoritmo;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import com.uepb.algoritmo.transformacoes2D.Translacao;
+import com.uepb.algoritmo.transformacoes2D.Operacoes;
 
 
 /**
@@ -18,7 +16,7 @@ public class Circunferencia {
 	int d_old = 0;
 	int x, y, raio, x_dif, y_dif;
 	List<Ponto> listaPontos = new ArrayList<Ponto>();
-	Translacao translacao = new Translacao();
+	Operacoes operacoes = new Operacoes();
 	
 	public Circunferencia(int x, int y, int raio) {
 		this.x = x;
@@ -38,11 +36,11 @@ public class Circunferencia {
 		if (x== 0 && y == 0) {
 			y = raio;
 			d_old = 1 - raio;
-			listaPontos.add(new Ponto(0, 0));
-			listaPontos.add(new Ponto(x, y)); 
-			listaPontos.add(new Ponto(y, x));   
-			listaPontos.add(new Ponto(-y, x));  
-			listaPontos.add(new Ponto(-y, x));  
+			listaPontos.add(new Ponto(0, 0, 0));
+			listaPontos.add(new Ponto(x, y, 0)); 
+			listaPontos.add(new Ponto(y, x, 0));   
+			listaPontos.add(new Ponto(-y, x, 0));  
+			listaPontos.add(new Ponto(-y, x, 0));  
 		}
 		while (y > x) {
 			if (d_old <= 0.0) {				
@@ -57,21 +55,21 @@ public class Circunferencia {
 		}
 		
 		if (trans) {
-			listaPontos = translacao.translacaoCircunferencia(listaPontos, x_dif, y_dif);
+			listaPontos = operacoes.translacaoCircunferencia(listaPontos, x_dif, y_dif);
 		}
 	}
 
 	private void printPixel(int x, int y) {
 		
-		listaPontos.add(new Ponto(x, y)); 
-		listaPontos.add(new Ponto(x, -y)); 
-		listaPontos.add(new Ponto(-x, y));
-		listaPontos.add(new Ponto(-x, -y)); 
+		listaPontos.add(new Ponto(x, y, 0)); 
+		listaPontos.add(new Ponto(x, -y, 0)); 
+		listaPontos.add(new Ponto(-x, y, 0));
+		listaPontos.add(new Ponto(-x, -y, 0)); 
 		
-		listaPontos.add(new Ponto(y, x));
-		listaPontos.add(new Ponto(y, -x));
-		listaPontos.add(new Ponto(-y, x)); 
-		listaPontos.add(new Ponto(-y, -x)); 		
+		listaPontos.add(new Ponto(y, x, 0));
+		listaPontos.add(new Ponto(y, -x, 0));
+		listaPontos.add(new Ponto(-y, x, 0)); 
+		listaPontos.add(new Ponto(-y, -x, 0)); 		
 	}
 
 	/**
@@ -79,7 +77,7 @@ public class Circunferencia {
 	 */
 	public List<Ponto> getListaPontos() {
 		for (Ponto ponto : listaPontos) {
-			System.out.println("["+ponto.x + ", " + ponto.y+"] ");
+			System.out.println("["+ponto.getX() + ", " + ponto.getY()+"] ");
 		}
 		return listaPontos;
 	}

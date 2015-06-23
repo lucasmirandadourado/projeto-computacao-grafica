@@ -17,7 +17,7 @@ import javax.swing.border.TitledBorder;
 import com.uepb.algoritmo.Circunferencia;
 import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.transformacoes2D.Translacao;
+import com.uepb.algoritmo.transformacoes2D.Operacoes;
 
 public class PanelCircunferencia extends JPanel {
 
@@ -29,10 +29,10 @@ public class PanelCircunferencia extends JPanel {
 	private JTextField txtOrigemX;
 	private JTextField txtOrigemY;
 	private JTextField txtRaio;
-	private JTextField txt_transl_x;
-	private JTextField txt_transl_y;
 	Circunferencia circunferencia;
 	List<Ponto> list;
+	private JTextField txt_escalaX;
+	private JTextField txt_escalaY;
 
 	public PanelCircunferencia() {
 		setBackground(Color.DARK_GRAY);
@@ -108,67 +108,6 @@ public class PanelCircunferencia extends JPanel {
 		btnDesenhar.setBounds(25, 134, 232, 41);
 		add(btnDesenhar);
 
-		JPanel panelBackgroundTranslacao = new JPanel();
-		panelBackgroundTranslacao.setBackground(Color.GRAY);
-		panelBackgroundTranslacao.setBounds(0, 206, 390, 41);
-		add(panelBackgroundTranslacao);
-		panelBackgroundTranslacao.setLayout(null);
-
-		JLabel labeltranslacao = new JLabel("Transla\u00E7\u00E3o");
-		labeltranslacao.setBounds(10, 0, 390, 41);
-		panelBackgroundTranslacao.add(labeltranslacao);
-		labeltranslacao.setForeground(Color.WHITE);
-		labeltranslacao.setFont(new Font("Century Gothic", Font.BOLD, 18));
-
-		txt_transl_x = new JTextField();
-		txt_transl_x.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "X", TitledBorder.LEADING,
-				TitledBorder.TOP, null, new Color(0, 0, 0)));
-		txt_transl_x.setText("0");
-		txt_transl_x.setBounds(25, 258, 63, 41);
-		add(txt_transl_x);
-		txt_transl_x.setColumns(10);
-
-		txt_transl_y = new JTextField();
-		txt_transl_y.setBorder(new TitledBorder(null, "Y",
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		txt_transl_y.setText("0");
-		txt_transl_y.setBounds(98, 258, 63, 41);
-		add(txt_transl_y);
-		txt_transl_y.setColumns(10);
-
-		JButton btnTranslao = new JButton("Transla\u00E7\u00E3o");
-		btnTranslao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Translacao tralacao = new Translacao();
-				try {
-					list = tralacao.translacaoCircunferencia(
-							pontosCircunferencia,
-							Integer.valueOf(txt_transl_x.getText()),
-							Integer.valueOf(txt_transl_y.getText()));
-					if (list.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
-						return;
-					}
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Desenhe o objeto");
-					return;
-				}
-				panelPlanoCartesiano.limparImagem();
-				for (Ponto pontos : list) {
-					try {
-						panelPlanoCartesiano.desenharPixel(pontos.getX() + 300,
-								-pontos.getY() + 300);
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
-					}
-				}
-			}
-		});
-		btnTranslao.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnTranslao.setBounds(25, 310, 232, 41);
-		add(btnTranslao);
-
 		JButton btnLimparTela = new JButton("Limpar tela");
 		btnLimparTela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -185,6 +124,50 @@ public class PanelCircunferencia extends JPanel {
 		btnLimparTela.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnLimparTela.setBounds(25, 485, 232, 41);
 		add(btnLimparTela);
+
+		JButton btnEscala = new JButton("Escala");
+		btnEscala.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Operacoes op = new Operacoes();
+				List<Ponto> pontos = op.escalaReta(list,
+						Integer.parseInt(txt_escalaX.getText()),
+						Integer.parseInt(txt_escalaY.getText()));
+				if (list.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Desenhe o objeto");
+					return;
+				}
+				for (Ponto p : list) {
+					try {
+						panelPlanoCartesiano.desenharPixel(p.getX() + 300, -p.getY() + 300);
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
+					}
+				}
+			}
+		});
+		btnEscala.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		btnEscala.setBounds(25, 413, 232, 41);
+		add(btnEscala);
+
+		txt_escalaX = new JTextField();
+		txt_escalaX.setText("0");
+		txt_escalaX.setColumns(10);
+		txt_escalaX.setBorder(new TitledBorder(UIManager
+
+		.getBorder("TitledBorder.border"), "X", TitledBorder.LEADING,
+
+		TitledBorder.TOP, null, new Color(0, 0, 0)));
+		txt_escalaX.setBounds(25, 361, 63, 41);
+		add(txt_escalaX);
+
+		txt_escalaY = new JTextField();
+		txt_escalaY.setText("0");
+		txt_escalaY.setColumns(10);
+		txt_escalaY.setBorder(new TitledBorder(null, "Y",
+
+		TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		txt_escalaY.setBounds(98, 361, 63, 41);
+		add(txt_escalaY);
 
 	}
 }

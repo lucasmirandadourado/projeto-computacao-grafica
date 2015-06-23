@@ -10,6 +10,7 @@ import javax.swing.border.TitledBorder;
 import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.Retas;
+import com.uepb.algoritmo.transformacoes2D.Operacoes;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -30,6 +31,8 @@ public class PanelReta extends JPanel {
 	private JTextField txt_y1;
 	private JTextField txt_x2;
 	private JTextField txt_y2;
+	private JTextField txtTxtescalax;
+	private JTextField txt_escalaY;
 
 	public PanelReta() {
 		setBackground(Color.DARK_GRAY);
@@ -129,12 +132,14 @@ public class PanelReta extends JPanel {
 		btnPontoMdio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lista.clear();
-				retas.retaPontoMedio(Integer.valueOf(txt_x1.getText()),
+//				retas.retaPontoMedio(Integer.valueOf(txt_x1.getText()),
+//						Integer.valueOf(txt_y1.getText()),
+//						Integer.valueOf(txt_x2.getText()),
+//						Integer.valueOf(txt_y2.getText()));
+				retas.line(Integer.valueOf(txt_x1.getText()),
 						Integer.valueOf(txt_y1.getText()),
 						Integer.valueOf(txt_x2.getText()),
 						Integer.valueOf(txt_y2.getText()));
-
-				
 				lista = retas.getListaDePontos();
 				panelPlanoCartesiano.limparImagem();
 				try {
@@ -160,7 +165,7 @@ public class PanelReta extends JPanel {
 						Integer.valueOf(txt_y1.getText()),
 						Integer.valueOf(txt_x2.getText()),
 						Integer.valueOf(txt_y2.getText()));
-				
+
 				lista = retas.getListaDePontos();
 				panelPlanoCartesiano.limparImagem();
 				try {
@@ -189,6 +194,56 @@ public class PanelReta extends JPanel {
 		btnLimparTela.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		btnLimparTela.setBounds(25, 589, 232, 41);
 		add(btnLimparTela);
+
+		JLabel lblEscala = new JLabel("Escala");
+		lblEscala.setForeground(Color.WHITE);
+		lblEscala.setFont(new Font("Century Gothic", Font.BOLD, 18));
+		lblEscala.setBounds(0, 494, 98, 41);
+		add(lblEscala);
+
+		txtTxtescalax = new JTextField();
+		txtTxtescalax.setBounds(86, 494, 66, 40);
+		add(txtTxtescalax);
+		txtTxtescalax.setColumns(10);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.GRAY);
+		panel.setBounds(0, 494, 390, 41);
+		add(panel);
+
+		txt_escalaY = new JTextField();
+		txt_escalaY.setBounds(185, 0, 66, 40);
+		panel.add(txt_escalaY);
+		txt_escalaY.setColumns(10);
+
+		JButton btnEscala = new JButton("Escala");
+		btnEscala.setBounds(287, -1, 103, 41);
+		panel.add(btnEscala);
+		btnEscala.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				Operacoes op = new Operacoes();
+				if (!lista.isEmpty()) {
+					lista = op.escalaReta(lista,
+							Integer.parseInt(txtTxtescalax.getText()),
+							Integer.parseInt(txt_escalaY.getText()));
+					lista = retas.getListaDePontos();
+					panelPlanoCartesiano.limparImagem();
+					try {
+						for (Ponto ponto : lista) {
+							panelPlanoCartesiano.desenharPixel(
+									ponto.getX() + 300, -ponto.getY() + 300);
+							System.out.println(ponto.getX() + ", "
+									+ ponto.getY());
+						}
+					} catch (Exception e) {
+
+					}
+				}
+			}
+		});
+		btnEscala.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 
 	}
 }
