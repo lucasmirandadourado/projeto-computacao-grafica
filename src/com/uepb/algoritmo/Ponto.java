@@ -56,4 +56,14 @@ public class Ponto {
 	public void setZ(int z) {
 		this.z = z;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Ponto [x=" + x + ", y=" + y + ", z=" + z + "]";
+	}
+	
+	
 }

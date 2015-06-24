@@ -19,7 +19,7 @@ import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
 
-public class PanelCircunferencia extends JPanel {
+public class PanelCircunfTrigonometrica extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();
@@ -34,7 +34,7 @@ public class PanelCircunferencia extends JPanel {
 	private JTextField txt_escalaX;
 	private JTextField txt_escalaY;
 
-	public PanelCircunferencia() {
+	public PanelCircunfTrigonometrica() {
 		setBackground(Color.DARK_GRAY);
 
 		setBounds(0, 0, 1008, 660);
@@ -86,10 +86,11 @@ public class PanelCircunferencia extends JPanel {
 		JButton btnDesenhar = new JButton("Desenhar");
 		btnDesenhar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				circunferencia = new Circunferencia(Integer.valueOf(txtOrigemX
+				circunferencia = new Circunferencia();
+				
+				circunferencia.circ_trigonometrica(Integer.valueOf(txtOrigemX
 						.getText()), Integer.valueOf(txtOrigemY.getText()),
 						Integer.valueOf(txtRaio.getText()));
-				circunferencia.circunferenciaPontoMedio();
 				pontosCircunferencia = circunferencia.getListaPontos();
 				panelPlanoCartesiano.limparImagem();
 				for (Ponto pontos : circunferencia.getListaPontos()) {

@@ -18,13 +18,17 @@ public class Circunferencia {
 	List<Ponto> listaPontos = new ArrayList<Ponto>();
 	Operacoes operacoes = new Operacoes();
 	
+	public Circunferencia() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Circunferencia(int x, int y, int raio) {
 		this.x = x;
 		this.y = y;		
 		this.raio = raio;
 	}
 
-	public void ponto_circunferencia() {
+	public void circunferenciaPontoMedio() {
 		boolean trans = false;
 		if(x!=0 || y!=0) {
 			trans = true;
@@ -59,6 +63,34 @@ public class Circunferencia {
 		}
 	}
 
+	public List<Ponto> circ_explicita(int x, int y, int raio) {
+		listaPontos.clear();
+		
+		for (int i = -raio; i < raio; i++) {
+			listaPontos.add(new Ponto(i, (int) Math.sqrt(raio*raio - i*i), 0));
+			listaPontos.add(new Ponto(i, -1*(int) Math.sqrt(raio*raio - i*i), 0));
+		}
+		imprimirLista();
+		return listaPontos;
+	}
+	
+	public List<Ponto> circ_trigonometrica(int x, int y, int raio){
+		listaPontos.clear();
+		
+		for (int i = -raio; i < raio; i++) {
+			listaPontos.add(new Ponto((int) (raio*Math.cos(i)), (int) (raio*Math.sin(i)), 0));
+			listaPontos.add(new Ponto((int) (raio*Math.cos(i)), (int) -(raio*Math.sin(i)), 0));
+		}
+		imprimirLista();
+		return listaPontos;
+	}
+	
+	private void imprimirLista() {
+		for (Ponto ponto : listaPontos) {
+			System.out.println(ponto.toString());
+		}
+	}
+	
 	private void printPixel(int x, int y) {
 		
 		listaPontos.add(new Ponto(x, y, 0)); 
@@ -140,5 +172,9 @@ public class Circunferencia {
 	 */
 	public void setRaio(int raio) {
 		this.raio = raio;
+	}
+	
+	public static void main(String[] args) { 
+		new Circunferencia().circ_trigonometrica(0, 0, 5);
 	}
 }
