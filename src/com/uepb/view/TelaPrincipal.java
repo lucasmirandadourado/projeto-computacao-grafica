@@ -25,6 +25,7 @@ public class TelaPrincipal extends JFrame {
 	
 	PanelReta panelReta;
 	PanelCircunferencia panelCircunferencia;
+	PanelCircunfTrigonometrica panelCircunfTringo;
 	PanelCircunfExplicita panelCircunfExplicita;
 	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
 	PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
@@ -55,7 +56,7 @@ public class TelaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		
 		JMenuBar barraDeMenu = new JMenuBar();
-		barraDeMenu.setMaximumSize(new Dimension(0, 1));
+		barraDeMenu.setMaximumSize(new Dimension(2312, 1));
 		setJMenuBar(barraDeMenu);
 		
 
@@ -151,7 +152,7 @@ public class TelaPrincipal extends JFrame {
 		mnCircunferencia.add(mntmTrigonometrica);
 		mntmTrigonometrica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelCircunferencia = new PanelCircunferencia();
+				panelCircunfTringo = new PanelCircunfTrigonometrica();
 				getContentPane().removeAll();				
 				getContentPane().add(panelCircunferencia);
 				validate();
