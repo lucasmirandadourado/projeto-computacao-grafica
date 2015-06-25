@@ -14,18 +14,18 @@ public class Matriz {
 						matrizResultado[i][j] += matrizA[i][k] * matrizB[k][j];
 					}
 				}
-			}
+			}		
 		}
+		
 		return matrizResultado;		
 	}
 	
-	public static void imprimeMatriz(int[][] matriz){
+	public static void imprimeMatriz(double[][] matriz){
 		for (int i = 0; i < matriz.length; i++) {
 			for (int j = 0; j < matriz[0].length; j++) {
-				System.out.print(matriz[i][j]);
+				System.out.print((int)matriz[i][j]+" ");
 			}
 			System.out.println("");
 		}
 	}
-
 }

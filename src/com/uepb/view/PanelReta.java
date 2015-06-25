@@ -31,8 +31,8 @@ public class PanelReta extends JPanel {
 	private JTextField txt_y1;
 	private JTextField txt_x2;
 	private JTextField txt_y2;
-	private JTextField txtTxtescalax;
-	private JTextField txt_escalaY;
+	private JTextField txtEscalaX;
+	private JTextField txtEscalaY;
 
 	public PanelReta() {
 		setBackground(Color.DARK_GRAY);
@@ -132,7 +132,7 @@ public class PanelReta extends JPanel {
 		btnPontoMdio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lista.clear();
-				retas.line(Integer.valueOf(txt_x1.getText()),
+				retas.retaPontoMedio(Integer.valueOf(txt_x1.getText()),
 						Integer.valueOf(txt_y1.getText()),
 						Integer.valueOf(txt_x2.getText()),
 						Integer.valueOf(txt_y2.getText()));
@@ -195,10 +195,11 @@ public class PanelReta extends JPanel {
 		lblEscala.setBounds(0, 494, 98, 41);
 		add(lblEscala);
 
-		txtTxtescalax = new JTextField();
-		txtTxtescalax.setBounds(86, 494, 66, 40);
-		add(txtTxtescalax);
-		txtTxtescalax.setColumns(10);
+		txtEscalaX = new JTextField();
+		txtEscalaX.setText("0");
+		txtEscalaX.setBounds(86, 494, 66, 40);
+		add(txtEscalaX);
+		txtEscalaX.setColumns(10);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -206,23 +207,23 @@ public class PanelReta extends JPanel {
 		panel.setBounds(0, 494, 390, 41);
 		add(panel);
 
-		txt_escalaY = new JTextField();
-		txt_escalaY.setBounds(185, 0, 66, 40);
-		panel.add(txt_escalaY);
-		txt_escalaY.setColumns(10);
+		txtEscalaY = new JTextField();
+		txtEscalaY.setText("0");
+		txtEscalaY.setBounds(185, 0, 66, 40);
+		panel.add(txtEscalaY);
+		txtEscalaY.setColumns(10);
 
 		JButton btnEscala = new JButton("Escala");
 		btnEscala.setBounds(287, -1, 103, 41);
 		panel.add(btnEscala);
 		btnEscala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				Operacoes op = new Operacoes();
 				if (!lista.isEmpty()) {
 					lista = op.escalaReta(lista,
-							Integer.parseInt(txtTxtescalax.getText()),
-							Integer.parseInt(txt_escalaY.getText()));
-					lista = retas.getListaDePontos();
+							Integer.parseInt(txtEscalaX.getText()),
+							Integer.parseInt(txtEscalaY.getText()));
+					
 					panelPlanoCartesiano.limparImagem();
 					try {
 						for (Ponto ponto : lista) {

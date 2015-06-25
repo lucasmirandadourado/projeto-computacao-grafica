@@ -5,24 +5,24 @@ import java.util.List;
 
 import com.uepb.algoritmo.Matriz;
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.Retas;
 
 // 2D Composta
 public class Operacoes {
 
 	private int x, y;
-	private double[][] matrizTr = new double[3][3];
 	Matriz matriz = new Matriz();
 
-	private double[][] gerarMatrizTranslacao(int x, int y) {
+	private double[][] gerarMatrizTranslacao(int tx, int ty) {
 		double[][] matriz = new double[3][3];
 
 		matriz[0][0] = 1;
 		matriz[0][1] = 0;
-		matriz[0][2] = x;
+		matriz[0][2] = tx;
 
 		matriz[1][0] = 0;
 		matriz[1][1] = 1;
-		matriz[1][2] = y;
+		matriz[1][2] = ty;
 
 		matriz[2][0] = 0;
 		matriz[2][1] = 0;
@@ -31,20 +31,20 @@ public class Operacoes {
 		return matriz;
 	}
 
-	private double[][] gerarMatrizEscala(int x, int y) {
+	private double[][] gerarMatrizEscala(int sx, int sy) {
 		double[][] matriz = new double[3][3];
-		if (x == 0) {
-			x = 1;
+		if (sx == 0) {
+			sx = 1;
 		}
-		if (y == 0 ) {
-			y = 1;
+		if (sy == 0) {
+			sy = 1;
 		}
-		matriz[0][0] = x;
+		matriz[0][0] = sx;
 		matriz[1][0] = 0;
 		matriz[2][0] = 0;
 
 		matriz[0][1] = 0;
-		matriz[1][1] = y;
+		matriz[1][1] = sy;
 		matriz[2][1] = 0;
 
 		matriz[0][2] = 0;
@@ -54,11 +54,11 @@ public class Operacoes {
 		return matriz;
 	}
 
-	private double[][] gerarMatrizRotacao(double t) {
+	private double[][] gerarMatrizRotacao(double angulo) {
 		double[][] matriz = new double[3][3];
 
-		double sen = Math.sin(t);
-		double cos = Math.cos(t);
+		double sen = Math.sin(Math.toRadians(angulo));
+		double cos = Math.cos(Math.toRadians(angulo));
 
 		matriz[0][0] = cos;
 		matriz[1][0] = -sen;
@@ -82,22 +82,32 @@ public class Operacoes {
 			ponto.setY(ponto.getY() + y);
 			list.add(ponto);
 		}
-
+		for (Ponto ponto : list) {
+			System.out.println(ponto.toString());
+		}
 		return list;
 	}
 
+	/**
+	 * 
+	 * @param matriz
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public double[][] translacaoMulti(double[][] matriz, int x, int y) {
 
 		try {
-			return this.matriz.multiplicaMatrizes(gerarMatrizTranslacao(x, y), matriz);
+			return this.matriz.multiplicaMatrizes(gerarMatrizTranslacao(x, y),
+					matriz);
 		} catch (Exception e) {
 
 		}
 		return matriz;
 	}
 
-	public List<Ponto> escalaReta(List<Ponto> objeto, int x, int y) {	
-
+	public List<Ponto> escalaReta(List<Ponto> objeto, int x, int y) {
+		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][objeto.size() + 1];
 
 		// Criando o objeto de matriz
@@ -107,56 +117,22 @@ public class Operacoes {
 			matriz[2][i] = 1; // Coluna i na linha 2 = 1
 		}
 
-//		for (int i = 0; i < matriz.length; i++) {
-//			System.out.print(" Ma " + matriz[i][0]);
-//			System.out.print(" " + matriz[i][1]);
-//			System.out.println(" " + matriz[i][2]);
-//		}
-//		System.out.println();
 		int translacaox = objeto.get(0).getX();
-		int translacaoy = objeto.get(0).getY();
-		
-//		System.out.println("Matriz: "+matriz.length + ", " + matriz[0].length);
-
+		int translacaoy = objeto.get(objeto.size()-1).getX();
+		System.out.println(translacaoy);
 		// Fazer a translação do objeto
-		double[][] fatorTranslacao = translacaoMulti(matriz, -2, -1);
-
-//		for (int i = 0; i < matriz.length; i++) {
-//			System.out.print(" Tr " + fatorTranslacao[i][0]);
-//			System.out.print(" " + fatorTranslacao[i][1]);
-//			System.out.println(" " + fatorTranslacao[i][2]);
-//			
-//		}
-		
+		double[][] matrizNaOrigem = translacaoMulti(matriz, -translacaox, -translacaoy);
+		System.out.println(matrizNaOrigem[0][4]);
+		// Matriz da escala.
 		double[][] escala = gerarMatrizEscala(2, 0);
+
+		// Gerando a matriz da escala
+		double[][] a = new Matriz().multiplicaMatrizes(escala, matrizNaOrigem);
+
+		System.out.println(a[0][4]);
 		
-//		System.out.println("Escala: "+escala[0].length);
+		double[][] b = translacaoMulti(a, translacaox, translacaoy);	
 		
-//		for (int i = 0; i < escala.length; i++) {
-//			System.out.print(" Escala: " + escala[i][0]);
-//					System.out.print(" " + escala[i][1]);
-//				  System.out.println(" " + escala[i][2]);
-//		}
-		
-		double[][] a = new Matriz().multiplicaMatrizes(escala, fatorTranslacao);
-//		for (int i = 0; i < a.length; i++) {
-//			System.out.print(" A: " + a[i][0]);
-//					System.out.print(" " + a[i][1]);
-//				  System.out.println(" " + a[i][2]);
-//		}
-		
-		double[][] b = translacaoMulti(a, translacaox, translacaoy);
-//		for (int i = 0; i < b.length; i++) {
-//			System.out.print(" Resultado: " + b[i][0]);
-//					System.out.print(" " + b[i][1]);
-//				  System.out.println(" " + b[i][2]);
-//		}
-		
-		List<Ponto> list = new ArrayList<Ponto>(); 
-		
-		for (int i = 0; i < b.length; i++) {
-			list.add(new Ponto((int) b[i][0], (int) b[i][1], 0));
-		}
 		return list;
 	}
 
@@ -178,12 +154,13 @@ public class Operacoes {
 
 	public static void main(String[] args) {
 		List<Ponto> lis = new ArrayList<Ponto>();
-		lis.add(new Ponto(2, 1, 0));
 		lis.add(new Ponto(3, 1, 0));
 		lis.add(new Ponto(4, 1, 0));
-
+		lis.add(new Ponto(5, 1, 0));
+		lis.add(new Ponto(6, 1, 0));
+		lis.add(new Ponto(7, 1, 0));
 		Operacoes op = new Operacoes();
-
-		op.escalaReta(lis, 2, 1);
+		op.gerarMatrizRotacao(45);
+		op.escalaReta(lis, 2, 0);
 	}
 }

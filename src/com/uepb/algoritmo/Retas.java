@@ -27,7 +27,7 @@ public class Retas {
 	public void dda(int x1, int y1, int x2, int y2) {
 		lenght = Math.abs(x2 - x1);
 		media = (double) (Math.abs(y2 - y1)) / (double) (Math.abs(x2 - x1));
-
+		System.out.println("Média: " + media);
 		if (0.0 <= media && media <= 1.0 && (x1 < x2)) {
 			imprimirPrimeiroOctante(x1, y1, x2, y2);
 		}
@@ -83,10 +83,26 @@ public class Retas {
 
 		setPixel(X, Y);
 
-		while (X < x2) {
-			X += x_inc;
-			Y += y_inc;
-			setPixel(X, Y);
+		if (X == x2) {
+			while (Y > y2) {
+				System.out.println(x_inc);
+				X += x_inc;
+				Y += y_inc;
+				setPixel(X, Y);
+			}
+		} else if (X > x2) {
+			while (Y > y2) {
+				System.out.println(x_inc);
+				X += x_inc;
+				Y += y_inc;
+				setPixel(X, Y);
+			}
+		} else {
+			while (X <= x2) {
+				X += x_inc;
+				Y += y_inc;
+				setPixel(X, Y);
+			}
 		}
 	}
 
@@ -102,16 +118,24 @@ public class Retas {
 		setPixel(X, Y);
 		if (X == x2) {
 			while (Y > y2) {
+				System.out.println(x_inc);
 				X += x_inc;
 				Y += y_inc;
 				setPixel(X, Y);
-			}	
-		} else{
-		while (X <= x2) {
-			X += x_inc;
-			Y += y_inc;
-			setPixel(X, Y);
-		}
+			}
+		} else if (X > x2) {
+			while (Y > y2) {
+				System.out.println(x_inc);
+				X += x_inc;
+				Y += y_inc;
+				setPixel(X, Y);
+			}
+		} else {
+			while (X <= x2) {
+				X += x_inc;
+				Y += y_inc;
+				setPixel(X, Y);
+			}
 		}
 	}
 
@@ -138,7 +162,7 @@ public class Retas {
 		}
 		x_inc = (x2 - x1) / lenght;
 		y_inc = (y2 - y1) / lenght;
-		
+
 		X = x1;
 		Y = y1;
 
@@ -157,7 +181,7 @@ public class Retas {
 		}
 		x_inc = (x2 - x1) / lenght;
 		y_inc = (y2 - y1) / lenght;
-		
+
 		X = x1;
 		Y = y1;
 
@@ -179,18 +203,29 @@ public class Retas {
 
 		X = x1;
 		Y = y1;
-
+		System.out.println("le: " + lenght + " - IncX: " + x_inc + ", IncY: "
+				+ y_inc);
 		setPixel(X, Y);
-		if(X<0 && x2 < 0){
+		if (X == x2) {
+			while (Y <= y2) {
+				X += x_inc;
+				Y += y_inc;
+				setPixel(X, Y);
+			}
+		} else if (X < 0 && x2 < 0) {
 			while (X >= x2) {
 				X += x_inc;
 				Y += y_inc;
 				setPixel(X, Y);
-			}	
+			}
 		} else {
-			
+			while (X <= x2) {
+				X += x_inc;
+				Y += y_inc;
+				setPixel(X, Y);
+			}
 		}
-		
+
 	}
 
 	void imprimirPrimeiroOctante(int x1, int y1, int x2, int y2) {
@@ -217,6 +252,7 @@ public class Retas {
 	 * @param y
 	 */
 	private void setPixel(double x, double y) {
+		 System.out.println((int) x + ", " + (int) y);
 		listaDePontos
 				.add(new Ponto((int) Math.round(x), (int) Math.round(y), 0));
 	}
@@ -250,7 +286,7 @@ public class Retas {
 	 * @param x2
 	 * @param y2
 	 */
-	public void line(int x, int y, int x2, int y2) {
+	public void retaPontoMedio(int x, int y, int x2, int y2) {
 		int wigth = x2 - x;
 		int height = y2 - y;
 		int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
@@ -283,6 +319,7 @@ public class Retas {
 			else if (height > 0)
 				dy2 = 1;
 			dx2 = 0;
+
 		}
 		int nummero = maior + 1;
 		for (int i = 0; i <= maior; i++) {
@@ -296,8 +333,12 @@ public class Retas {
 				x += dx2;
 				y += dy2;
 			}
+
 		}
 	}
 
-
+	public static void main(String[] args) {
+		Retas r = new Retas();
+		r.dda(-10, 0, -10, 10);
+	}
 }
