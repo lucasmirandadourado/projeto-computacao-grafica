@@ -10,7 +10,6 @@ import javax.swing.border.TitledBorder;
 import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.Retas;
-import com.uepb.algoritmo.transformacoes2D.Operacoes;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -22,18 +21,18 @@ import java.awt.event.ActionEvent;
 public class PanelReta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();
+	static PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();
 	FuncoesDeNormalizacao funcoesDeNormalizacao = new FuncoesDeNormalizacao();
-	Retas retas = new Retas();
-	List<Ponto> lista = new ArrayList<Ponto>();
+	private static Retas retas = new Retas();
+	private static List<Ponto> lista = new ArrayList<Ponto>();
 
 	private JTextField txt_x1;
 	private JTextField txt_y1;
 	private JTextField txt_x2;
 	private JTextField txt_y2;
-	private JTextField txtEscalaX;
-	private JTextField txtEscalaY;
-
+	
+	public int x, y, x2, y2;
+	
 	public PanelReta() {
 		setBackground(Color.DARK_GRAY);
 
@@ -128,43 +127,19 @@ public class PanelReta extends JPanel {
 		lblAlgoritmoPontoMedio
 				.setFont(new Font("Century Gothic", Font.BOLD, 18));
 
-		JButton btnPontoMdio = new JButton("Ponto m\u00E9dio");
-		btnPontoMdio.addActionListener(new ActionListener() {
+		JButton btnPontoMedio = new JButton("Ponto m\u00E9dio");
+		btnPontoMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lista.clear();
-				retas.retaPontoMedio(Integer.valueOf(txt_x1.getText()),
+				getLista().clear();
+				getRetas().retaPontoMedio(Integer.valueOf(txt_x1.getText()),
 						Integer.valueOf(txt_y1.getText()),
 						Integer.valueOf(txt_x2.getText()),
 						Integer.valueOf(txt_y2.getText()));
-				lista = retas.getListaDePontos();
+				setLista(getRetas().getListaDePontos());
+				System.out.println("Lista: "+getRetas().getListaDePontos());
 				panelPlanoCartesiano.limparImagem();
 				try {
-					for (Ponto ponto : lista) {
-						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300,
-								-ponto.getY() + 300);						
-					}
-				} catch (Exception e) {
-
-				}
-			}
-		});
-		btnPontoMdio.setFont(new Font("Century Gothic", Font.PLAIN, 18));
-		btnPontoMdio.setBounds(25, 434, 232, 41);
-		add(btnPontoMdio);
-
-		JButton btnDesenhar = new JButton("DDA");
-		btnDesenhar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				lista.clear();
-				retas.dda(Integer.valueOf(txt_x1.getText()),
-						Integer.valueOf(txt_y1.getText()),
-						Integer.valueOf(txt_x2.getText()),
-						Integer.valueOf(txt_y2.getText()));
-
-				lista = retas.getListaDePontos();
-				panelPlanoCartesiano.limparImagem();
-				try {
-					for (Ponto ponto : lista) {
+					for (Ponto ponto : getLista()) {
 						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300,
 								-ponto.getY() + 300);
 					}
@@ -173,10 +148,53 @@ public class PanelReta extends JPanel {
 				}
 			}
 		});
+		btnPontoMedio.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+		btnPontoMedio.setBounds(25, 434, 232, 41);
+		add(btnPontoMedio);
 
-		btnDesenhar.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnDesenhar.setBounds(25, 319, 232, 41);
-		add(btnDesenhar);
+		JButton btnDDA = new JButton("DDA");
+		btnDDA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				getLista().clear();
+				lista = getRetas().dda(Integer.valueOf(txt_x1.getText()),
+						Integer.valueOf(txt_y1.getText()),
+						Integer.valueOf(txt_x2.getText()),
+						Integer.valueOf(txt_y2.getText()));
+				setLista(lista);
+				
+				panelPlanoCartesiano.limparImagem();
+				try {
+					for (Ponto ponto : getLista()) {
+						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300);
+						
+					}
+				} catch (Exception e) {
+
+				}
+			}
+		});
+
+		TelaPrincipal.mntmTranslao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				new Valores(lista, "translacao");				
+			}			
+		});
+		
+		TelaPrincipal.mntmEscala.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Valores(lista, "escala");
+				
+			}
+		});
+		
+		btnDDA.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+		btnDDA.setBounds(25, 319, 232, 41);
+		add(btnDDA);
 
 		JButton btnLimparTela = new JButton("Limpar tela");
 		btnLimparTela.addActionListener(new ActionListener() {
@@ -189,56 +207,48 @@ public class PanelReta extends JPanel {
 		btnLimparTela.setBounds(25, 589, 232, 41);
 		add(btnLimparTela);
 
-		JLabel lblEscala = new JLabel("Escala");
-		lblEscala.setForeground(Color.WHITE);
-		lblEscala.setFont(new Font("Century Gothic", Font.BOLD, 18));
-		lblEscala.setBounds(0, 494, 98, 41);
-		add(lblEscala);
-
-		txtEscalaX = new JTextField();
-		txtEscalaX.setText("0");
-		txtEscalaX.setBounds(86, 494, 66, 40);
-		add(txtEscalaX);
-		txtEscalaX.setColumns(10);
-
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.GRAY);
-		panel.setBounds(0, 494, 390, 41);
-		add(panel);
-
-		txtEscalaY = new JTextField();
-		txtEscalaY.setText("0");
-		txtEscalaY.setBounds(185, 0, 66, 40);
-		panel.add(txtEscalaY);
-		txtEscalaY.setColumns(10);
-
-		JButton btnEscala = new JButton("Escala");
-		btnEscala.setBounds(287, -1, 103, 41);
-		panel.add(btnEscala);
-		btnEscala.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Operacoes op = new Operacoes();
-				if (!lista.isEmpty()) {
-					lista = op.escalaReta(lista,
-							Integer.parseInt(txtEscalaX.getText()),
-							Integer.parseInt(txtEscalaY.getText()));
-					
-					panelPlanoCartesiano.limparImagem();
-					try {
-						for (Ponto ponto : lista) {
-							panelPlanoCartesiano.desenharPixel(
-									ponto.getX() + 300, -ponto.getY() + 300);
-							System.out.println(ponto.getX() + ", "
-									+ ponto.getY());
-						}
-					} catch (Exception e) {
-
-					}
-				}
+	}
+	
+	/**
+	 * @param listaPontos
+	 */
+	public static void povoarRetas(List<Ponto> listaPontos) {
+				
+		try {
+			for (Ponto ponto : getLista()) {
+				panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300);
+				System.out.println(ponto.getX()+", "+ponto.getY());
 			}
-		});
-		btnEscala.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+		} catch (Exception e) {
 
+		}
+	}
+
+	/**
+	 * @return the lista
+	 */
+	public static List<Ponto> getLista() {
+		return lista;
+	}
+
+	/**
+	 * @param lista the lista to set
+	 */
+	public static void setLista(List<Ponto> lista) {
+		PanelReta.lista = lista;
+	}
+
+	/**
+	 * @return the retas
+	 */
+	public static Retas getRetas() {
+		return retas;
+	}
+
+	/**
+	 * @param retas the retas to set
+	 */
+	public static void setRetas(Retas retas) {
+		PanelReta.retas = retas;
 	}
 }

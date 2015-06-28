@@ -24,10 +24,10 @@ public class Retas {
 	 * @param x2
 	 * @param y2
 	 */
-	public void dda(int x1, int y1, int x2, int y2) {
+	public List<Ponto> dda(int x1, int y1, int x2, int y2) {
 		lenght = Math.abs(x2 - x1);
 		media = (double) (Math.abs(y2 - y1)) / (double) (Math.abs(x2 - x1));
-		System.out.println("Média: " + media);
+//		System.out.println("Média: " + media);
 		if (0.0 <= media && media <= 1.0 && (x1 < x2)) {
 			imprimirPrimeiroOctante(x1, y1, x2, y2);
 		}
@@ -52,6 +52,7 @@ public class Retas {
 		if (0.0 > media && media > -1 && (y2 < y1)) {
 			imprimirOitavoOctante(x1, y1, x2, y2);
 		}
+		return listaDePontos;
 	}
 
 	private void imprimirOitavoOctante(int x1, int y1, int x2, int y2) {
@@ -203,8 +204,7 @@ public class Retas {
 
 		X = x1;
 		Y = y1;
-		System.out.println("le: " + lenght + " - IncX: " + x_inc + ", IncY: "
-				+ y_inc);
+//		System.out.println("le: " + lenght + " - IncX: " + x_inc + ", IncY: " + y_inc);
 		setPixel(X, Y);
 		if (X == x2) {
 			while (Y <= y2) {
@@ -252,7 +252,7 @@ public class Retas {
 	 * @param y
 	 */
 	private void setPixel(double x, double y) {
-		 System.out.println((int) x + ", " + (int) y);
+//		 System.out.println((int) x + ", " + (int) y);
 		listaDePontos
 				.add(new Ponto((int) Math.round(x), (int) Math.round(y), 0));
 	}

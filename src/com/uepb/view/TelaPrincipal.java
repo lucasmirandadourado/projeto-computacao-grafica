@@ -8,20 +8,24 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
+
+import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.transformacoes2D.Operacoes;
+
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 
-	/**
-	 * 
-	 */
 	private JPanel contentPane;
-	
+	static JMenuItem mntmTranslao, mntmEscala, mntmRotao, mntmCisalhamento, mntmReflexao;
 	
 	PanelReta panelReta;
 	PanelCircunferencia panelCircunferencia;
@@ -29,6 +33,9 @@ public class TelaPrincipal extends JFrame {
 	PanelCircunfExplicita panelCircunfExplicita;
 	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
 	PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
+	
+	// Esta lista vai servir para poder manipular os valores.
+	List<Ponto> lstPontos = new ArrayList<Ponto>();
 	
 	/**
 	 * Launch the application.
@@ -132,6 +139,7 @@ public class TelaPrincipal extends JFrame {
 				getContentPane().add(panelCircunferencia);
 				validate();
 				repaint();
+				lstPontos = panelCircunferencia.getList();
 			}
 		});
 		mnCircunferencia.add(mntmPontoMedio);
@@ -144,6 +152,7 @@ public class TelaPrincipal extends JFrame {
 				getContentPane().add(panelCircunfExplicita);
 				validate();
 				repaint();
+				lstPontos = panelCircunfExplicita.getList();
 			}
 		});
 		mnCircunferencia.add(mntmEquaoExplicita);
@@ -157,9 +166,37 @@ public class TelaPrincipal extends JFrame {
 				getContentPane().add(panelCircunferencia);
 				validate();
 				repaint();
+				lstPontos = panelCircunfTringo.getList();
 			}
 		});
 		menuCoordenadas.add(mntmSair);
+		
+		JMenu mnTransformaes = new JMenu("Transforma\u00E7\u00F5es");
+		barraDeMenu.add(mnTransformaes);
+		
+		JMenu mnd = new JMenu("2D");
+		mnTransformaes.add(mnd);
+		
+		mntmTranslao = new JMenuItem("Transla\u00E7\u00E3o");		
+		mnd.add(mntmTranslao);
+		
+		mntmEscala = new JMenuItem("Escala");
+		mnd.add(mntmEscala);
+		
+		mntmRotao = new JMenuItem("Rota\u00E7\u00E3o");
+		mntmRotao.setEnabled(false);
+		mnd.add(mntmRotao);
+		
+		mntmCisalhamento = new JMenuItem("Cisalhamento");
+		mntmCisalhamento.setEnabled(false);
+		mnd.add(mntmCisalhamento);
+		
+		mntmReflexao = new JMenuItem("Reflex\u00E3o");
+		mntmReflexao.setEnabled(false);
+		mnd.add(mntmReflexao);
+		
+		JMenu mnd3D = new JMenu("3D");
+		mnTransformaes.add(mnd3D);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

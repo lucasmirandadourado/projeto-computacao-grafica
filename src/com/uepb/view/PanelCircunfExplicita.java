@@ -30,7 +30,7 @@ public class PanelCircunfExplicita extends JPanel {
 	private JTextField txtOrigemY;
 	private JTextField txtRaio;
 	Circunferencia circunferencia;
-	List<Ponto> list;
+	private List<Ponto> list;
 	private JTextField txt_escalaX;
 	private JTextField txt_escalaY;
 
@@ -115,7 +115,7 @@ public class PanelCircunfExplicita extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					circunferencia.getListaPontos().clear();
-					list.clear();
+					getList().clear();
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -131,14 +131,14 @@ public class PanelCircunfExplicita extends JPanel {
 		btnEscala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Operacoes op = new Operacoes();
-				List<Ponto> pontos = op.escalaReta(list,
+				List<Ponto> pontos = op.escalaReta(getList(),
 						Integer.parseInt(txt_escalaX.getText()),
 						Integer.parseInt(txt_escalaY.getText()));
-				if (list.isEmpty()) {
+				if (getList().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Desenhe o objeto");
 					return;
 				}
-				for (Ponto p : list) {
+				for (Ponto p : getList()) {
 					try {
 						panelPlanoCartesiano.desenharPixel(p.getX() + 300, -p.getY() + 300);
 					} catch (Exception e2) {
@@ -171,5 +171,19 @@ public class PanelCircunfExplicita extends JPanel {
 		txt_escalaY.setBounds(98, 361, 63, 41);
 		add(txt_escalaY);
 
+	}
+
+	/**
+	 * @return the list
+	 */
+	public List<Ponto> getList() {
+		return list;
+	}
+
+	/**
+	 * @param list the list to set
+	 */
+	public void setList(List<Ponto> list) {
+		this.list = list;
 	}
 }
