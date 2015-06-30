@@ -25,7 +25,7 @@ import java.util.List;
 public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	static JMenuItem mntmTranslao, mntmEscala, mntmRotao, mntmCisalhamento, mntmReflexao;
+	static JMenuItem mntmTranslao, mntmEscala, mntmRotacao, mntmCisalhamento, mntmReflexao;
 	
 	PanelReta panelReta;
 	PanelCircunferencia panelCircunferencia;
@@ -183,9 +183,8 @@ public class TelaPrincipal extends JFrame {
 		mntmEscala = new JMenuItem("Escala");
 		mnd.add(mntmEscala);
 		
-		mntmRotao = new JMenuItem("Rota\u00E7\u00E3o");
-		mntmRotao.setEnabled(false);
-		mnd.add(mntmRotao);
+		mntmRotacao = new JMenuItem("Rota\u00E7\u00E3o");
+		mnd.add(mntmRotacao);
 		
 		mntmCisalhamento = new JMenuItem("Cisalhamento");
 		mntmCisalhamento.setEnabled(false);

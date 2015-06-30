@@ -165,30 +165,37 @@ public class PanelReta extends JPanel {
 				panelPlanoCartesiano.limparImagem();
 				try {
 					for (Ponto ponto : getLista()) {
-						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300);
-						
+						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300);						
 					}
 				} catch (Exception e) {
-
+					System.out.println("Deu erro Botão DDA");
 				}
 			}
 		});
 
+		// Translação
 		TelaPrincipal.mntmTranslao.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {				
 				new Valores(lista, "translacao");				
 			}			
 		});
-		
+		// Escala
 		TelaPrincipal.mntmEscala.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Valores(lista, "escala");
 				
+			}
+		});
+		// Rotação
+		TelaPrincipal.mntmRotacao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Valores(lista, "rotacao");				
 			}
 		});
 		
@@ -213,11 +220,10 @@ public class PanelReta extends JPanel {
 	 * @param listaPontos
 	 */
 	public static void povoarRetas(List<Ponto> listaPontos) {
-				
+		
 		try {
-			for (Ponto ponto : getLista()) {
+			for (Ponto ponto : listaPontos) {
 				panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300);
-				System.out.println(ponto.getX()+", "+ponto.getY());
 			}
 		} catch (Exception e) {
 

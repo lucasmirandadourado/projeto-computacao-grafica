@@ -32,16 +32,20 @@ public class Valores extends JDialog {
 
 	/**
 	 * Create the dialog.
-	 * @param tipo 
+	 * 
+	 * @param tipo
 	 */
 	public Valores(List<Ponto> lista, String tipo) {
+		if (tipo.equals("rotacao")) {
+			
+		}
+		
 		lstPontos = lista;
 		status = true;
 		setResizable(false);
 		setVisible(true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setAutoRequestFocus(false);
-
 
 		setBounds(100, 100, 307, 276);
 		getContentPane().setLayout(new BorderLayout());
@@ -86,19 +90,27 @@ public class Valores extends JDialog {
 				y = txtTranslacaoY.getText();
 				List<Ponto> listaPontos = null;
 				if (tipo == "translacao") {
-					 listaPontos = translação();
-				} 
-				if (tipo=="escala") {
+					listaPontos = translação();
+				}
+				if (tipo == "escala") {
 					listaPontos = escala();
 				}
+				if (tipo == "rotacao") {
+					listaPontos = rotacao();
+				}
+				PanelReta.setLista(listaPontos);
 				PanelReta.povoarRetas(listaPontos);
 
 				setVisible(false);
 			}
 
+			private List<Ponto> rotacao() {
+				List<Ponto> listaPontos = new Operacoes().rotacao(lstPontos, Integer.valueOf(txtTranslacaoX.getText()));
+				return listaPontos;
+			}
+
 			private List<Ponto> escala() {
-				List<Ponto> listaPontos = new Operacoes()
-				.escalaReta(lstPontos, Integer.valueOf(x), Integer.valueOf(y));
+				List<Ponto> listaPontos = new Operacoes().escalaReta(lstPontos, Double.valueOf(x), Double.valueOf(y));
 				return listaPontos;
 			}
 
@@ -106,9 +118,7 @@ public class Valores extends JDialog {
 			 * @return
 			 */
 			private List<Ponto> translação() {
-				List<Ponto> listaPontos = new Operacoes()
-						.translacaoCircunferencia(lstPontos,
-								Integer.valueOf(x), Integer.valueOf(y));
+				List<Ponto> listaPontos = new Operacoes().translacaoCircunferencia(lstPontos, Integer.valueOf(x), Integer.valueOf(y));
 				return listaPontos;
 			}
 		});
@@ -116,15 +126,15 @@ public class Valores extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				status = false;
 				setVisible(false);
 			}
 		});
-		
-		cancelButton.setActionCommand("Cancel");
+
+		cancelButton.setActionCommand("Cancelar");
 		buttonPane.add(cancelButton);
 
 	}
