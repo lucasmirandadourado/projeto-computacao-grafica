@@ -34,6 +34,7 @@ public class PanelReta extends JPanel {
 	public int x, y, x2, y2;
 	
 	public PanelReta() {
+		
 		setBackground(Color.DARK_GRAY);
 
 		setBounds(0, 0, 1008, 660);
@@ -187,7 +188,6 @@ public class PanelReta extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Valores(lista, "escala");
-				
 			}
 		});
 		// Rotação
@@ -195,7 +195,8 @@ public class PanelReta extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Valores(lista, "rotacao");				
+				new ValoresRotacao(lista, "rotacao");
+				System.out.println("Rotação");
 			}
 		});
 		

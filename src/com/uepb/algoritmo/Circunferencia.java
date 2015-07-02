@@ -59,7 +59,7 @@ public class Circunferencia {
 		}
 		
 		if (trans) {
-			listaPontos = operacoes.translacaoCircunferencia(listaPontos, x_dif, y_dif);
+			listaPontos = operacoes.translacao(listaPontos, x_dif, y_dif);
 		}
 	}
 
