@@ -109,7 +109,7 @@ public class Valores extends JDialog {
 			 * @return
 			 */
 			private List<Ponto> translação() {
-				List<Ponto> listaPontos = new Operacoes().translacao(lstPontos,
+				List<Ponto> listaPontos = new Operacoes().translacaoMulti(lstPontos,
 						Integer.valueOf(x), Integer.valueOf(y));
 				return listaPontos;
 			}

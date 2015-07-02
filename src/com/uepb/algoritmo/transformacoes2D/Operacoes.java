@@ -77,16 +77,6 @@ public class Operacoes {
 		return matriz;
 	}
 
-	public List<Ponto> translacao(List<Ponto> objeto, int x, int y) {
-		List<Ponto> list = new ArrayList<Ponto>();
-		for (Ponto ponto : objeto) {
-			ponto.setX(ponto.getX() + x);
-			ponto.setY(ponto.getY() + y);
-			list.add(ponto);
-		}
-		return list;
-	}
-
 	/**
 	 * 
 	 * @param matriz
@@ -94,7 +84,7 @@ public class Operacoes {
 	 * @param y
 	 * @return
 	 */
-	public double[][] translacaoMulti(double[][] matriz, int x, int y) {
+	private double[][] translacaoMulti(double[][] matriz, int x, int y) {
 
 		try {
 			double[][] d = Matriz.multiplicaMatrizes(
@@ -107,10 +97,33 @@ public class Operacoes {
 		return matriz;
 	}
 
+	public List<Ponto> translacaoMulti(List<Ponto> objeto, int x, int y) {
+		List<Ponto> list = new ArrayList<Ponto>();
+		double[][] matriz = new double[3][objeto.size()];
+
+		// Criando o objeto de matriz
+		for (int i = 0; i < objeto.size(); i++) {
+			matriz[0][i] = objeto.get(i).getX(); // Coluna i na linha 0
+			matriz[1][i] = objeto.get(i).getY(); // Coluna i na linha 1
+			matriz[2][i] = 1; // Coluna i na linha 2 = 1
+		}
+		double[][] d = null;
+		try {
+			d = Matriz.multiplicaMatrizes(
+					gerarMatrizTranslacao(x, y), matriz);
+		} catch (Exception e) {
+			System.out.println("ERRO NA TRANSLAÇÃO");
+		}
+		
+		list = new Retas().dda((int) d[0][0], (int) d[1][0], (int) d[0][d[0].length-1], (int) d[1][d[0].length-1]);
+		
+		return list;
+	}
+	
 	public List<Ponto> escalaReta(List<Ponto> objeto, double x, double y) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][objeto.size() + 1];
-
+		
 		// Criando o objeto de matriz
 		for (int i = 0; i < objeto.size(); i++) {
 			matriz[0][i] = objeto.get(i).getX(); // Coluna i na linha 0
@@ -160,8 +173,8 @@ public class Operacoes {
 		}
 
 		
-		List<Ponto> trans = translacao(lis, -lis.get(0).getX(), -lis.get(0).getY());
-		System.out.println(lis.size());
+		List<Ponto> trans = translacaoMulti(lis, -lis.get(0).getX(), -lis.get(0).getY());
+		
 		double[][] matrizNaOrigem = new double[3][lis.size()];
 		
 		int size = trans.size();
@@ -171,11 +184,7 @@ public class Operacoes {
 			matrizNaOrigem[1][i] = (double) trans.get(i).getY();
 			matrizNaOrigem[2][i] = (double) trans.get(i).getZ();
 		}
-		
-		
-		System.out.println("Matriz na origem ");
 	
-		System.out.println();
 		// Gerar a matriz de rotação
 		double[][] rotacao = gerarMatrizRotacao(angulo);
 
@@ -228,7 +237,7 @@ public class Operacoes {
 
 		Operacoes op = new Operacoes();
 
-		List<Ponto> a = op.rotacao(lis, 30);
+		List<Ponto> a = op.translacaoMulti(lis, 30, 30);
 
 	}
 }
