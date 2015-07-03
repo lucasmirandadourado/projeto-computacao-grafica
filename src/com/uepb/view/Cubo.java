@@ -14,33 +14,33 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.algoritmo.Quadrado;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ValoresRotacao extends JDialog {
+public class Cubo extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtRotacao;
+	private JTextField txtX;
+	private JTextField txtY;
 	public String x, y;
 	protected boolean status;
 	public static List<Ponto> lstPontos;
 
 	/**
 	 * Create the dialog.
+	 * @param lista 
 	 * 
 	 * @param tipo
 	 */
-	public ValoresRotacao(List<Ponto> lista, String tipo) {
-
+	public Cubo(List<Ponto> lista) {
 		lstPontos = lista;
 		status = true;
-		setResizable(false);
 		setVisible(true);
+		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setAutoRequestFocus(false);
 
@@ -50,10 +50,10 @@ public class ValoresRotacao extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblRotacao = new JLabel("Rota\u00E7\u00E3o");
-		lblRotacao.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
-		lblRotacao.setBounds(10, 11, 102, 40);
-		contentPanel.add(lblRotacao);
+		JLabel lblTranslao = new JLabel("Crie um quadrado.");
+		lblTranslao.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblTranslao.setBounds(10, 11, 245, 40);
+		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
 		getTxtTranslacaoX().setText("0");
@@ -61,10 +61,19 @@ public class ValoresRotacao extends JDialog {
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
-		JLabel lblAngulo = new JLabel("Angulo");
-		lblAngulo.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
-		lblAngulo.setBounds(20, 75, 102, 30);
-		contentPanel.add(lblAngulo);
+		setTxtTranslacaoY(new JTextField());
+		getTxtTranslacaoY().setText("0");
+		getTxtTranslacaoY().setBounds(151, 129, 86, 30);
+		contentPanel.add(getTxtTranslacaoY());
+		getTxtTranslacaoY().setColumns(10);
+
+		JLabel lblTranslaoEmX = new JLabel("Largura:");
+		lblTranslaoEmX.setBounds(20, 75, 102, 30);
+		contentPanel.add(lblTranslaoEmX);
+
+		JLabel lblTranslaoEmY = new JLabel("Comprimento:");
+		lblTranslaoEmY.setBounds(20, 129, 102, 30);
+		contentPanel.add(lblTranslaoEmY);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -74,25 +83,16 @@ public class ValoresRotacao extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
-				x = txtRotacao.getText();
-				List<Ponto> listaPontos = new ArrayList<Ponto>();
-
-				if (tipo == "rotacao") {
-					listaPontos = rotacao();
-					
-				}
 				
+				x = txtX.getText();
+				y = txtY.getText();
+				
+				List<Ponto> listaPontos = new Quadrado().quadrado(Integer.valueOf(x), Integer.valueOf(y));
 				PanelReta.setLista(listaPontos);
+				TelaPrincipal.getLista().clear();
+				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos);
-
 				setVisible(false);
-			}
-
-			private List<Ponto> rotacao() {
-				List<Ponto> listaPontos = new Operacoes().rotacao(lstPontos,
-						Integer.valueOf(txtRotacao.getText()));
-				System.out.println("Lista de pontos: " + listaPontos);
-				return listaPontos;
 			}
 		});
 		okButton.setActionCommand("OK");
@@ -113,17 +113,25 @@ public class ValoresRotacao extends JDialog {
 	}
 
 	/**
+	 * @return the txtTranslacaoY
+	 */
+	public JTextField getTxtTranslacaoY() {
+		return txtY;
+	}
+
+	/**
 	 * @param txtTranslacaoY
 	 *            the txtTranslacaoY to set
 	 */
 	public void setTxtTranslacaoY(JTextField txtTranslacaoY) {
+		this.txtY = txtTranslacaoY;
 	}
 
 	/**
 	 * @return the txtTranslacaoX
 	 */
 	public JTextField getTxtTranslacaoX() {
-		return txtRotacao;
+		return txtX;
 	}
 
 	/**
@@ -131,6 +139,6 @@ public class ValoresRotacao extends JDialog {
 	 *            the txtTranslacaoX to set
 	 */
 	public void setTxtTranslacaoX(JTextField txtTranslacaoX) {
-		this.txtRotacao = txtTranslacaoX;
+		this.txtX = txtTranslacaoX;
 	}
 }
