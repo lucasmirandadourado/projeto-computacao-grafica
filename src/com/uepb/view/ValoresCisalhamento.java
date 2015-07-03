@@ -20,24 +20,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class Valores extends JDialog {
+public class ValoresCisalhamento extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtTranslacaoX;
-	private JTextField txtTranslacaoY;
+	private JTextField txtX;
+	private JTextField txtY;
 	public String x, y;
 	protected boolean status;
-	public static List<Ponto> lstPontos;
 
 	/**
 	 * Create the dialog.
 	 * 
 	 * @param tipo
 	 */
-	public Valores(List<Ponto> lista, String tipo) {
+	public ValoresCisalhamento(List<Ponto> lista, String tipo) {
 
-		lstPontos = lista;
 		status = true;
 		setResizable(false);
 		setVisible(true);
@@ -50,7 +48,7 @@ public class Valores extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblTranslao = new JLabel("Transla\u00E7\u00E3o");
+		JLabel lblTranslao = new JLabel("Cisalhamento");
 		lblTranslao.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblTranslao.setBounds(10, 11, 102, 40);
 		contentPanel.add(lblTranslao);
@@ -67,13 +65,13 @@ public class Valores extends JDialog {
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
 
-		JLabel lblTranslaoEmX = new JLabel("Transla\u00E7\u00E3o em X");
-		lblTranslaoEmX.setBounds(20, 75, 102, 30);
-		contentPanel.add(lblTranslaoEmX);
+		JLabel lblCisalhamentoEmX = new JLabel("Cisalhamento em X");
+		lblCisalhamentoEmX.setBounds(20, 75, 102, 30);
+		contentPanel.add(lblCisalhamentoEmX);
 
-		JLabel lblTranslaoEmY = new JLabel("Transla\u00E7\u00E3o em Y");
-		lblTranslaoEmY.setBounds(20, 129, 102, 30);
-		contentPanel.add(lblTranslaoEmY);
+		JLabel lblCisalhamentoEmY = new JLabel("Cisalhamento em Y");
+		lblCisalhamentoEmY.setBounds(20, 129, 102, 30);
+		contentPanel.add(lblCisalhamentoEmY);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -84,35 +82,21 @@ public class Valores extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				
-				x = txtTranslacaoX.getText();
-				y = txtTranslacaoY.getText();
+				x = txtX.getText();
+				y = txtY.getText();
 				
 				List<Ponto> listaPontos = null;
-				if (tipo == "translacao") {
-					listaPontos = translação();
-				}
-				if (tipo == "escala") {
-					listaPontos = escala();
-				}
+				listaPontos = cisalhamentoX(Integer.valueOf(txtX.getText()), Integer.valueOf(txtY.getText()));
+			
 				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos);
 				setVisible(false);
 			}
 
-			private List<Ponto> escala() {
-				List<Ponto> listaPontos = new Operacoes().escalaReta(lstPontos,
-						Double.valueOf(x), Double.valueOf(y));
-				return listaPontos;
+			private List<Ponto> cisalhamentoX(Integer a, Integer b) {
+				return new Operacoes().cisalhamentoEmXY(lista, a, b);
 			}
 
-			/**
-			 * @return
-			 */
-			private List<Ponto> translação() {
-				List<Ponto> listaPontos = new Operacoes().translacaoMulti(lstPontos,
-						Integer.valueOf(x), Integer.valueOf(y));
-				return listaPontos;
-			}
 		});
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
@@ -135,7 +119,7 @@ public class Valores extends JDialog {
 	 * @return the txtTranslacaoY
 	 */
 	public JTextField getTxtTranslacaoY() {
-		return txtTranslacaoY;
+		return txtY;
 	}
 
 	/**
@@ -143,14 +127,14 @@ public class Valores extends JDialog {
 	 *            the txtTranslacaoY to set
 	 */
 	public void setTxtTranslacaoY(JTextField txtTranslacaoY) {
-		this.txtTranslacaoY = txtTranslacaoY;
+		this.txtY = txtTranslacaoY;
 	}
 
 	/**
 	 * @return the txtTranslacaoX
 	 */
 	public JTextField getTxtTranslacaoX() {
-		return txtTranslacaoX;
+		return txtX;
 	}
 
 	/**
@@ -158,6 +142,6 @@ public class Valores extends JDialog {
 	 *            the txtTranslacaoX to set
 	 */
 	public void setTxtTranslacaoX(JTextField txtTranslacaoX) {
-		this.txtTranslacaoX = txtTranslacaoX;
+		this.txtX = txtTranslacaoX;
 	}
 }

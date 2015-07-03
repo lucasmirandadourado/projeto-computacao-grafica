@@ -137,45 +137,45 @@ public class Operacoes {
 		return matriz;
 	}
 
-	private double[][] gerarMatrizCisalhamentoX(int a) {
+//	private double[][] gerarMatrizCisalhamentoX(int a) {
+//
+//		double[][] matriz = new double[3][3];
+//
+//		// Linha 0
+//		matriz[0][0] = 1;
+//		matriz[1][0] = 0;
+//		matriz[2][0] = 0;
+//		// Linha 1
+//		matriz[0][1] = a;
+//		matriz[1][1] = 1;
+//		matriz[2][1] = 0;
+//		// Linha 2
+//		matriz[0][2] = 0;
+//		matriz[1][2] = 0;
+//		matriz[2][2] = 1;
+//
+//		return matriz;
+//	}
 
-		double[][] matriz = new double[3][3];
-
-		// Linha 0
-		matriz[0][0] = 1;
-		matriz[1][0] = 0;
-		matriz[2][0] = 0;
-		// Linha 1
-		matriz[0][1] = a;
-		matriz[1][1] = 1;
-		matriz[2][1] = 0;
-		// Linha 2
-		matriz[0][2] = 0;
-		matriz[1][2] = 0;
-		matriz[2][2] = 1;
-
-		return matriz;
-	}
-
-	private double[][] gerarMatrizCisalhamentoY(int b) {
-
-		double[][] matriz = new double[3][3];
-
-		// Linha 0
-		matriz[0][0] = 1;
-		matriz[1][0] = b;
-		matriz[2][0] = 0;
-		// Linha 1
-		matriz[0][1] = 0;
-		matriz[1][1] = 1;
-		matriz[2][1] = 0;
-		// Linha 2
-		matriz[0][2] = 0;
-		matriz[1][2] = 0;
-		matriz[2][2] = 1;
-
-		return matriz;
-	}
+//	private double[][] gerarMatrizCisalhamentoY(int b) {
+//
+//		double[][] matriz = new double[3][3];
+//
+//		// Linha 0
+//		matriz[0][0] = 1;
+//		matriz[1][0] = b;
+//		matriz[2][0] = 0;
+//		// Linha 1
+//		matriz[0][1] = 0;
+//		matriz[1][1] = 1;
+//		matriz[2][1] = 0;
+//		// Linha 2
+//		matriz[0][2] = 0;
+//		matriz[1][2] = 0;
+//		matriz[2][2] = 1;
+//
+//		return matriz;
+//	}
 
 	private double[][] gerarMatrizCisalhamentoXY(int a, int b) {
 
@@ -229,7 +229,7 @@ public class Operacoes {
 		} catch (Exception e) {
 			System.out.println("ERRO NA TRANSLAÇÃO");
 		}
-		
+		System.out.println(d.length+", "+d[0].length);
 		list = new Retas().dda((int) d[0][0], (int) d[1][0], (int) d[0][d[0].length-1], (int) d[1][d[0].length-1]);
 		
 		return list;
@@ -294,7 +294,7 @@ public class Operacoes {
 		
 		int size = trans.size();
 		
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size-1; i++) {
 			matrizNaOrigem[0][i] = (double) trans.get(i).getX();
 			matrizNaOrigem[1][i] = (double) trans.get(i).getY();
 			matrizNaOrigem[2][i] = (double) trans.get(i).getZ();
@@ -414,67 +414,68 @@ public class Operacoes {
 	}
 
 	// Cisalhamento
-	public List<Ponto> cisalhamentoEmX(List<Ponto> lista, int a) { 
-		List<Ponto> list = new ArrayList<Ponto>();
-		double[][] matriz = new double[3][lista.size()];
+//	public List<Ponto> cisalhamentoEmX(List<Ponto> lista, int a) { 
+//		List<Ponto> list = new ArrayList<Ponto>();
+//		double[][] matriz = new double[3][lista.size()];
+//
+//		// Criando o objeto de matriz
+//		for (int i = 0; i < lista.size(); i++) {
+//			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
+//			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
+//			matriz[2][i] = 1; // Coluna j na linha 2 = 1
+//		}
+//
+//		double[][] cisalhamento = gerarMatrizCisalhamentoX(a);
+//		
+//		double[][] matrizRefetida = null;
+//		try {
+//			matrizRefetida = Matriz.multiplicaMatrizes(cisalhamento, matriz);
+//		} catch (Exception e) {
+//			System.out.println("Erro no  cisalhamento.");
+//			e.printStackTrace();
+//		}
+//		
+//		list.clear();
+//		for (int i = 0; i < matrizRefetida[0].length; i++) {
+//			list.add(new Ponto((int) matrizRefetida[0][i], (int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+//			
+//		}
+//		
+//		return list;
+//	}
 
-		// Criando o objeto de matriz
-		for (int i = 0; i < lista.size(); i++) {
-			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
-			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
-			matriz[2][i] = 1; // Coluna j na linha 2 = 1
-		}
-
-		double[][] cisalhamento = gerarMatrizCisalhamentoX(a);
-		
-		double[][] matrizRefetida = null;
-		try {
-			matrizRefetida = Matriz.multiplicaMatrizes(cisalhamento, matriz);
-		} catch (Exception e) {
-			System.out.println("Erro no  cisalhamento.");
-			e.printStackTrace();
-		}
-		
-		list.clear();
-		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i], (int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
-			
-		}
-		
-		return list;
-	}
-
-	public List<Ponto> cisalhamentoEmY(List<Ponto> lista, int b) { 
-		List<Ponto> list = new ArrayList<Ponto>();
-		double[][] matriz = new double[3][lista.size()];
-
-		// Criando o objeto de matriz
-		for (int i = 0; i < lista.size(); i++) {
-			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
-			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
-			matriz[2][i] = 1; // Coluna j na linha 2 = 1
-		}
-
-		double[][] cisalhamento = gerarMatrizCisalhamentoY(b);
-		
-		double[][] matrizRefetida = null;
-		try {
-			matrizRefetida = Matriz.multiplicaMatrizes(cisalhamento, matriz);
-		} catch (Exception e) {
-			System.out.println("Erro no  cisalhamento em Y.");
-			e.printStackTrace();
-		}
-		
-		list.clear();
-		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i], (int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
-			
-		}
-		
-		return list;
-	}
+//	public List<Ponto> cisalhamentoEmY(List<Ponto> lista, int b) { 
+//		List<Ponto> list = new ArrayList<Ponto>();
+//		double[][] matriz = new double[3][lista.size()];
+//
+//		// Criando o objeto de matriz
+//		for (int i = 0; i < lista.size(); i++) {
+//			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
+//			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
+//			matriz[2][i] = 1; // Coluna j na linha 2 = 1
+//		}
+//
+//		double[][] cisalhamento = gerarMatrizCisalhamentoY(b);
+//		
+//		double[][] matrizRefetida = null;
+//		try {
+//			matrizRefetida = Matriz.multiplicaMatrizes(cisalhamento, matriz);
+//		} catch (Exception e) {
+//			System.out.println("Erro no  cisalhamento em Y.");
+//			e.printStackTrace();
+//		}
+//		
+//		list.clear();
+//		for (int i = 0; i < matrizRefetida[0].length; i++) {
+//			list.add(new Ponto((int) matrizRefetida[0][i], (int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+//			
+//		}
+//		
+//		return list;
+//	}
 	
 	public List<Ponto> cisalhamentoEmXY(List<Ponto> lista, int a, int b) { 
+		
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][lista.size()];
 

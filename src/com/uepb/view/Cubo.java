@@ -86,10 +86,9 @@ public class Cubo extends JDialog {
 				
 				x = txtX.getText();
 				y = txtY.getText();
+				TelaPrincipal.getLista().clear();
 				
 				List<Ponto> listaPontos = new Quadrado().quadrado(Integer.valueOf(x), Integer.valueOf(y));
-				PanelReta.setLista(listaPontos);
-				TelaPrincipal.getLista().clear();
 				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos);
 				setVisible(false);

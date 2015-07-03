@@ -24,8 +24,7 @@ public class PanelReta extends JPanel {
 	static PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();
 	FuncoesDeNormalizacao funcoesDeNormalizacao = new FuncoesDeNormalizacao();
 	private static Retas retas = new Retas();
-	private static List<Ponto> lista = new ArrayList<Ponto>();
-
+	
 	public static JTextField txt_x1;
 	public static JTextField txt_y1;
 	public static JTextField txt_x2;
@@ -132,18 +131,19 @@ public class PanelReta extends JPanel {
 				.setFont(new Font("Century Gothic", Font.BOLD, 18));
 
 		btnPontoMedio = new JButton("Ponto m\u00E9dio");
+		
 		btnPontoMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				getLista().clear();
+				TelaPrincipal.getLista().clear();
 				getRetas().retaPontoMedio(Integer.valueOf(txt_x1.getText()),
 						Integer.valueOf(txt_y1.getText()),
 						Integer.valueOf(txt_x2.getText()),
 						Integer.valueOf(txt_y2.getText()));
-				setLista(getRetas().getListaDePontos());
-				System.out.println("Lista: "+getRetas().getListaDePontos());
+				TelaPrincipal.setLista(getRetas().getListaDePontos());
+				
 				panelPlanoCartesiano.limparImagem();
 				try {
-					for (Ponto ponto : getLista()) {
+					for (Ponto ponto : TelaPrincipal.getLista()) {
 						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300,
 								-ponto.getY() + 300);
 					}
@@ -159,18 +159,14 @@ public class PanelReta extends JPanel {
 		btnDDA = new JButton("DDA");
 		btnDDA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lista = PanelReta.getLista();
-				lista.clear();
-				
-				lista = getRetas().dda(Integer.valueOf(txt_x1.getText()),
+				TelaPrincipal.setLista(getRetas().dda(Integer.valueOf(txt_x1.getText()),
 						Integer.valueOf(txt_y1.getText()),
 						Integer.valueOf(txt_x2.getText()),
-						Integer.valueOf(txt_y2.getText()));
-				setLista(lista);
+						Integer.valueOf(txt_y2.getText())));
 				
 				panelPlanoCartesiano.limparImagem();
 				try {
-					for (Ponto ponto : lista) {
+					for (Ponto ponto : TelaPrincipal.getLista()) {
 						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300);						
 					}
 				} catch (Exception e) {
@@ -196,20 +192,6 @@ public class PanelReta extends JPanel {
 
 	}
 	
-	/**
-	 * @return the lista
-	 */
-	public static List<Ponto> getLista() {
-		return lista;
-	}
-
-	/**
-	 * @param lista the lista to set
-	 */
-	public static void setLista(List<Ponto> lista) {
-		PanelReta.lista = lista;
-	}
-
 	/**
 	 * @return the retas
 	 */

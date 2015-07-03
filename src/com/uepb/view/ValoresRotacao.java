@@ -82,7 +82,7 @@ public class ValoresRotacao extends JDialog {
 					
 				}
 				
-				PanelReta.setLista(listaPontos);
+				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos);
 
 				setVisible(false);

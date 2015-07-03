@@ -25,7 +25,7 @@ public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	static JMenuItem mntmTranslacao, mntmEscala, mntmRotacao,
-			mntmCisalhamentoEmX, mntmCisalhamentoEmY, mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY;
+			mntmCisalhamento, mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY;
 
 	PanelReta panelReta;
 	PanelCircunferencia panelCircunferencia;
@@ -33,10 +33,8 @@ public class TelaPrincipal extends JFrame {
 	PanelCircunfExplicita panelCircunfExplicita;
 	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
 	public static PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
-	private static List<Ponto> lista = new ArrayList<Ponto>();
-
-	// Esta lista vai servir para poder manipular os valores.
-	List<Ponto> lstPontos = new ArrayList<Ponto>();
+	
+	private static List<Ponto> listaGLOBAL = new ArrayList<Ponto>();
 
 	/**
 	 * Launch the application.
@@ -94,7 +92,7 @@ public class TelaPrincipal extends JFrame {
 					new Ajuda().setVisible(true);
 				}
 				if (e.getKeyCode() == KeyEvent.VK_X && KeyEvent.CTRL_MASK != 0) {
-					List<Ponto> lista = PanelReta.getLista();
+					List<Ponto> lista = getLista();
 					for (Ponto ponto : lista) {
 						System.out.println(ponto.toString());
 					}
@@ -104,14 +102,14 @@ public class TelaPrincipal extends JFrame {
 						System.out.println(ponto.toString());
 					}
 					PanelReta.panelPlanoCartesiano.limparImagem();
-					PanelReta.setLista(lstP);			
+					setLista(lstP);			
 					povoarRetas(lstP);
 				}
 				if (e.getKeyCode() == KeyEvent.VK_Y && KeyEvent.CTRL_MASK != 0) {
-					List<Ponto> lista = PanelReta.getLista();
+					List<Ponto> lista = getLista();
 					List<Ponto> lstP = new Operacoes().reflexaoY(lista);				
 					PanelReta.panelPlanoCartesiano.limparImagem();
-					PanelReta.setLista(lstP);			
+					setLista(lstP);			
 					povoarRetas(lstP);
 				}
 			}
@@ -228,8 +226,8 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCubo = new JMenuItem("Cubo");
 		mntmCubo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lista.clear();
-				new Cubo(lista);
+				listaGLOBAL.clear();
+				new Cubo(listaGLOBAL);
 				validate();
 				repaint();
 			}
@@ -249,7 +247,8 @@ public class TelaPrincipal extends JFrame {
 		mntmTranslacao = new JMenuItem("Transla\u00E7\u00E3o");
 		mntmTranslacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Valores(TelaPrincipal.getLista(), "translacao");	
+				System.out.println(listaGLOBAL.toString());
+				new Valores(listaGLOBAL, "translacao");	
 			}
 		});
 		mnd.add(mntmTranslacao);
@@ -259,23 +258,24 @@ public class TelaPrincipal extends JFrame {
 
 		mntmRotacao = new JMenuItem("Rota\u00E7\u00E3o");
 		mnd.add(mntmRotacao);
-
-		JMenu mnCisalhamento = new JMenu("Cisalhamento");
-		mnd.add(mnCisalhamento);
-
-		mntmCisalhamentoEmX = new JMenuItem("Cisalhamento em X");
-		mntmCisalhamentoEmX.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		mnCisalhamento.add(mntmCisalhamentoEmX);
-
-		mntmCisalhamentoEmY = new JMenuItem("Cisalhamento em Y");
-		mnCisalhamento.add(mntmCisalhamentoEmY);
 		
-		JMenuItem mntmCisalhamentoEmX_1 = new JMenuItem("Cisalhamento em X e Y");
-		mnCisalhamento.add(mntmCisalhamentoEmX_1);
+				mntmCisalhamento = new JMenuItem("Cisalhamento");
+				mnd.add(mntmCisalhamento);
+				mntmCisalhamento.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						new ValoresCisalhamento(listaGLOBAL, "cisa x");
+					}
+				});
+				
+				// Cisalhamento em X
+				mntmCisalhamento.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Cisalhamento");
+						
+					}
+				});
 
 		JMenu mnReflexao = new JMenu("Reflex\u00E3o");
 		mnd.add(mnReflexao);
@@ -284,13 +284,13 @@ public class TelaPrincipal extends JFrame {
 		mntmReflexaoEmX.addActionListener(new ActionListener() {
 		
 			public void actionPerformed(ActionEvent e) {
-				List<Ponto> lista = PanelReta.getLista();
+				List<Ponto> lista = getLista();
 				
 				System.out.println("Reflexao em X");
 				List<Ponto> lstP = new Operacoes().reflexaoX(lista);
 				
 				PanelReta.panelPlanoCartesiano.limparImagem();
-				PanelReta.setLista(lstP);			
+				setLista(lstP);			
 				povoarRetas(lstP);
 			}
 		});
@@ -299,10 +299,10 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmReflexaoEmY = new JMenuItem("Reflexao em Y");
 		mntmReflexaoEmY.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<Ponto> lista = PanelReta.getLista();
+				List<Ponto> lista = getLista();
 				List<Ponto> lstP = new Operacoes().reflexaoY(lista);				
 				PanelReta.panelPlanoCartesiano.limparImagem();
-				PanelReta.setLista(lstP);			
+				setLista(lstP);			
 				povoarRetas(lstP);
 			}
 		});
@@ -311,12 +311,12 @@ public class TelaPrincipal extends JFrame {
 		mntmReflexaoEmXeY = new JMenuItem("Reflex\u00E3o em X e Y");
 		mntmReflexaoEmXeY.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<Ponto> lista = PanelReta.getLista();
+				List<Ponto> lista = getLista();
 				
 				List<Ponto> lstP = new Operacoes().reflexaoXY(lista);
 				
 				PanelReta.panelPlanoCartesiano.limparImagem();
-				PanelReta.setLista(lstP);			
+				setLista(lstP);			
 				povoarRetas(lstP);
 			}
 		});
@@ -360,26 +360,6 @@ public class TelaPrincipal extends JFrame {
 				new ValoresRotacao(getLista(), "rotacao");
 			}
 		});
-		
-		// Cisalhamento em X
-		mntmCisalhamentoEmX.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Cisalhamento");
-				
-			}
-		});
-
-		
-		// Cisalhamento em Y
-		mntmCisalhamentoEmY.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Cisalhamento");
-			}
-		});
 	}
 	/**
 	 * @param listaPontos
@@ -398,13 +378,13 @@ public class TelaPrincipal extends JFrame {
 	 * @return the lista
 	 */
 	public static List<Ponto> getLista() {
-		return lista;
+		return listaGLOBAL;
 	}
 
 	/**
 	 * @param lista the lista to set
 	 */
 	public static void setLista(List<Ponto> lista) {
-		TelaPrincipal.lista = lista;
+		TelaPrincipal.listaGLOBAL = lista;
 	}
 }
