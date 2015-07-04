@@ -2,17 +2,31 @@ package com.uepb.algoritmo;
 
 /**
  * Ponto. Têm dois valores. X e Y
+ * 
  * @author Lucas Miranda Dourado
  *
  */
 public class Ponto {
-	private int x, y;
-	private int z = 0;
-	
+	private int x, y, z = 1, w = 1;
+
+	/**
+	 * Coordenadas com 2D (Duas dimenções)
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public Ponto(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+
+	public Ponto(int x, int y, int z, int w) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.w = w;
 	}
 
 	/**
@@ -23,7 +37,8 @@ public class Ponto {
 	}
 
 	/**
-	 * @param x the x to set
+	 * @param x
+	 *            the x to set
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -37,7 +52,8 @@ public class Ponto {
 	}
 
 	/**
-	 * @param y the y to set
+	 * @param y
+	 *            the y to set
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -51,19 +67,40 @@ public class Ponto {
 	}
 
 	/**
-	 * @param z the z to set
+	 * @param z
+	 *            the z to set
 	 */
 	public void setZ(int z) {
 		this.z = z;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the w
+	 */
+	public int getW() {
+		return w;
+	}
+
+	/**
+	 * @param w the w to set
+	 */
+	public void setW(int w) {
+		this.w = w;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Ponto [x=" + x + ", y=" + y + ", z=" + z + "]";
 	}
-	
-	
+
+	public String imprime3D() {
+		return "Ponto [x=" + x + ", y=" + y + ", z=" + z + ", w=" + getW() + "]";
+
+	}
+
 }

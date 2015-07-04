@@ -19,13 +19,15 @@ import javax.swing.border.EmptyBorder;
 
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	static JMenuItem mntmTranslacao, mntmEscala, mntmRotacao,
-			mntmCisalhamento, mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY;
+	static JMenuItem mntmTranslacao, mntmEscala, mntmRotacao, mntmCisalhamento,
+			mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY;
 
 	PanelReta panelReta;
 	PanelCircunferencia panelCircunferencia;
@@ -33,7 +35,7 @@ public class TelaPrincipal extends JFrame {
 	PanelCircunfExplicita panelCircunfExplicita;
 	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
 	public static PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
-	
+
 	private static List<Ponto> listaGLOBAL = new ArrayList<Ponto>();
 
 	/**
@@ -93,23 +95,19 @@ public class TelaPrincipal extends JFrame {
 				}
 				if (e.getKeyCode() == KeyEvent.VK_X && KeyEvent.CTRL_MASK != 0) {
 					List<Ponto> lista = getLista();
-					for (Ponto ponto : lista) {
-						System.out.println(ponto.toString());
-					}
+
 					System.out.println("Reflexao em X");
 					List<Ponto> lstP = new Operacoes().reflexaoX(lista);
-					for (Ponto ponto : lista) {
-						System.out.println(ponto.toString());
-					}
+
 					PanelReta.panelPlanoCartesiano.limparImagem();
-					setLista(lstP);			
+					setLista(lstP);
 					povoarRetas(lstP);
 				}
 				if (e.getKeyCode() == KeyEvent.VK_Y && KeyEvent.CTRL_MASK != 0) {
 					List<Ponto> lista = getLista();
-					List<Ponto> lstP = new Operacoes().reflexaoY(lista);				
+					List<Ponto> lstP = new Operacoes().reflexaoY(lista);
 					PanelReta.panelPlanoCartesiano.limparImagem();
-					setLista(lstP);			
+					setLista(lstP);
 					povoarRetas(lstP);
 				}
 			}
@@ -124,7 +122,7 @@ public class TelaPrincipal extends JFrame {
 		setJMenuBar(barraDeMenu);
 
 		JMenuItem mntmHome = new JMenuItem("Home");
-		mntmHome.setMaximumSize(new Dimension(80, 60));
+		mntmHome.setMaximumSize(new Dimension(80, 120));
 		mntmHome.setIgnoreRepaint(true);
 		mntmHome.setInheritsPopupMenu(true);
 		mntmHome.setIcon(new ImageIcon(TelaPrincipal.class
@@ -147,7 +145,7 @@ public class TelaPrincipal extends JFrame {
 		barraDeMenu.add(mntmHome);
 
 		JMenu menuCoordenadas = new JMenu("Coordenadas");
-		menuCoordenadas.setMaximumSize(new Dimension(90, 60));
+		menuCoordenadas.setMaximumSize(new Dimension(90, 120));
 		barraDeMenu.add(menuCoordenadas);
 
 		JMenuItem itemMenuReta = new JMenuItem("Reta");
@@ -166,13 +164,6 @@ public class TelaPrincipal extends JFrame {
 		menuItemNormalizacao.setEnabled(false);
 
 		menuCoordenadas.add(itemMenuReta);
-
-		JMenuItem mntmSair = new JMenuItem("Sair");
-		mntmSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
 
 		JMenu mnCircunferencia = new JMenu("Circunferencia");
 		mnCircunferencia.addActionListener(new ActionListener() {
@@ -222,111 +213,161 @@ public class TelaPrincipal extends JFrame {
 				repaint();
 			}
 		});
-		
-		JMenuItem mntmCubo = new JMenuItem("Cubo");
-		mntmCubo.addActionListener(new ActionListener() {
+
+		JMenuItem mntmRetangulo = new JMenuItem("Retangulo");
+		mntmRetangulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				listaGLOBAL.clear();
-				new Cubo(listaGLOBAL);
+				new Retangulo();
+				validate();
+				repaint();
+			}
+		});
+		menuCoordenadas.add(mntmRetangulo);
+
+		JMenuItem mntmCubo = new JMenuItem("Cubo");
+		mntmCubo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				listaGLOBAL.clear();
+				new Cubo();
 				validate();
 				repaint();
 			}
 		});
 		menuCoordenadas.add(mntmCubo);
-		menuCoordenadas.add(mntmSair);
 
 		JMenu mnTransformaes = new JMenu("Transforma\u00E7\u00F5es");
 		barraDeMenu.add(mnTransformaes);
 
 		JMenu mnd = new JMenu("2D");
 		mnd.setOpaque(true);
-		mnd.setMinimumSize(new Dimension(100, 15));
-		mnd.setMaximumSize(new Dimension(100, 32767));
+		mnd.setMinimumSize(new Dimension(200, 60));
+		mnd.setMaximumSize(new Dimension(200, 32767));
 		mnTransformaes.add(mnd);
 
-		mntmTranslacao = new JMenuItem("Transla\u00E7\u00E3o");
-		mntmTranslacao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(listaGLOBAL.toString());
-				new Valores(listaGLOBAL, "translacao");	
+		mntmCisalhamento = new JMenuItem("Cisalhamento");
+		mnd.add(mntmCisalhamento);
+		mntmCisalhamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ValoresCisalhamento(listaGLOBAL, "cisa x");
 			}
 		});
-		mnd.add(mntmTranslacao);
+
+		// Cisalhamento em X
+		mntmCisalhamento.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Cisalhamento");
+
+			}
+		});
 
 		mntmEscala = new JMenuItem("Escala");
+		mntmEscala.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Valores("escala");
+				repaint();
+			}
+		});
 		mnd.add(mntmEscala);
 
 		mntmRotacao = new JMenuItem("Rota\u00E7\u00E3o");
+		mntmRotacao.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new ValoresRotacao();
+				repaint();
+				validate();
+			}
+		});
 		mnd.add(mntmRotacao);
-		
-				mntmCisalhamento = new JMenuItem("Cisalhamento");
-				mnd.add(mntmCisalhamento);
-				mntmCisalhamento.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						new ValoresCisalhamento(listaGLOBAL, "cisa x");
-					}
-				});
-				
-				// Cisalhamento em X
-				mntmCisalhamento.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Cisalhamento");
-						
-					}
-				});
 
 		JMenu mnReflexao = new JMenu("Reflex\u00E3o");
 		mnd.add(mnReflexao);
 
 		mntmReflexaoEmX = new JMenuItem("Reflex\u00E3o em X");
 		mntmReflexaoEmX.addActionListener(new ActionListener() {
-		
+
 			public void actionPerformed(ActionEvent e) {
 				List<Ponto> lista = getLista();
-				
+
 				System.out.println("Reflexao em X");
 				List<Ponto> lstP = new Operacoes().reflexaoX(lista);
-				
+
 				PanelReta.panelPlanoCartesiano.limparImagem();
-				setLista(lstP);			
+				setLista(lstP);
 				povoarRetas(lstP);
 			}
 		});
 		mnReflexao.add(mntmReflexaoEmX);
-		
+
 		JMenuItem mntmReflexaoEmY = new JMenuItem("Reflexao em Y");
 		mntmReflexaoEmY.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Ponto> lista = getLista();
-				List<Ponto> lstP = new Operacoes().reflexaoY(lista);				
+				List<Ponto> lstP = new Operacoes().reflexaoY(lista);
 				PanelReta.panelPlanoCartesiano.limparImagem();
-				setLista(lstP);			
+				setLista(lstP);
 				povoarRetas(lstP);
 			}
 		});
 		mnReflexao.add(mntmReflexaoEmY);
-		
+
 		mntmReflexaoEmXeY = new JMenuItem("Reflex\u00E3o em X e Y");
 		mntmReflexaoEmXeY.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Ponto> lista = getLista();
-				
+
 				List<Ponto> lstP = new Operacoes().reflexaoXY(lista);
-				
+
 				PanelReta.panelPlanoCartesiano.limparImagem();
-				setLista(lstP);			
+				setLista(lstP);
 				povoarRetas(lstP);
 			}
 		});
 		mnReflexao.add(mntmReflexaoEmXeY);
 
+		mntmTranslacao = new JMenuItem("Transla\u00E7\u00E3o");
+		mntmTranslacao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Valores("translacao");
+				repaint();
+			}
+		});
+		mnd.add(mntmTranslacao);
+
 		JMenu mnd3D = new JMenu("3D");
+		mnd3D.setMinimumSize(new Dimension(100, 0));
 		mnTransformaes.add(mnd3D);
 
+		JMenuItem mntmCisalhamento_1 = new JMenuItem("Cisalhamento");
+		mnd3D.add(mntmCisalhamento_1);
+
+		JMenuItem mntmEscala_1 = new JMenuItem("Escala");
+		mnd3D.add(mntmEscala_1);
+
+		JMenuItem mntmReflexo = new JMenuItem("Reflex\u00E3o");
+		mnd3D.add(mntmReflexo);
+
+		JMenuItem mntmRotao = new JMenuItem("Rota\u00E7\u00E3o");
+		mnd3D.add(mntmRotao);
+
+		JMenuItem mntmTranslao = new JMenuItem("Transla\u00E7\u00E3o");
+		mntmTranslao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Valores3D("translacao");				
+				revalidate();
+				repaint();
+			}
+		});
+		mnd3D.add(mntmTranslao);
+
 		JMenuItem mntmSobre = new JMenuItem("Sobre");
-		mntmSobre.setMaximumSize(new Dimension(100, 60));
+		mntmSobre.setMaximumSize(new Dimension(140, 120));
 		mntmSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Ajuda().setVisible(true);
@@ -334,43 +375,73 @@ public class TelaPrincipal extends JFrame {
 		});
 		barraDeMenu.add(mntmSobre);
 
+		JMenuItem mntmSair = new JMenuItem("Sair");
+		mntmSair.setToolTipText("Sair");
+		mntmSair.setIcon(new ImageIcon(TelaPrincipal.class
+				.getResource("/com/uepb/icon/icon-sair-logado.png")));
+		mntmSair.setMaximumSize(new Dimension(120, 32767));
+		barraDeMenu.add(mntmSair);
+		mntmSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 
 		getContentPane().add(panelNormalizacao);
-		
-		
-		// Translação
-		
-		// Escala
-		mntmEscala.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new Valores(getLista(), "escala");
-			}
-		});
-		// Rotação
-		mntmRotacao.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new ValoresRotacao(getLista(), "rotacao");
-			}
-		});
 	}
+
 	/**
 	 * @param listaPontos
 	 */
 	public static void povoarRetas(List<Ponto> listaPontos) {
 		try {
 			for (Ponto ponto : listaPontos) {
-				PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300);
+				PanelReta.panelPlanoCartesiano.desenharPixel(
+						ponto.getX() + 300, -ponto.getY() + 300);
 			}
 		} catch (Exception e) {
 			System.out.println("Erro ao povoar os valores.");
+		}
+	}
+
+	/**
+	 * @param listaPontos
+	 */
+	public static void povoarRetas3D(List<Ponto> listaPontos, int x, int y,
+			int z) {
+		try {
+			for (Ponto ponto : listaPontos) {
+				PanelReta.panelPlanoCartesiano.desenharPixel(
+						ponto.getX() + 300, -ponto.getY() + 300);
+
+				PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX() + 300
+						- z, ponto.getY() + 300 + z - y);
+
+			}
+		} catch (Exception e) {
+			System.out.println("Erro ao povoar os valores nas 3 dimensões.");
+		}
+		
+		try {
+			for (int i = 0; i < z; i++) {
+				PanelReta.panelPlanoCartesiano.desenharPixel(300 + x - i, 300 + i);
+			}
+			for (int i = 0; i < z; i++) {
+				PanelReta.panelPlanoCartesiano.desenharPixel(300 - i, 300 + i);
+			}
+			for (int i = 0; i < z; i++) {
+				PanelReta.panelPlanoCartesiano.desenharPixel(300 - i, 300 - y + i);
+			}
+			for (int i = 0; i < z; i++) {
+				PanelReta.panelPlanoCartesiano.desenharPixel(300 + x - i, 300 - y + i);
+			}
+		} catch (Exception e) {
+			System.out.println("Erro ao povoar os valores nas 3 dimensões.");
 		}
 	}
 
@@ -382,7 +453,8 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	/**
-	 * @param lista the lista to set
+	 * @param lista
+	 *            the lista to set
 	 */
 	public static void setLista(List<Ponto> lista) {
 		TelaPrincipal.listaGLOBAL = lista;

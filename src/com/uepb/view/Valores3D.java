@@ -13,35 +13,32 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 
-import com.uepb.algoritmo.Cubo3D;
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.Quadrado;
+import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.algoritmo.transformacoes2D.Operacoes3D;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class Cubo extends JDialog {
+public class Valores3D extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtX;
 	private JTextField txtY;
 	public String x, y, z;
-	protected boolean status;
-	public static List<Ponto> lstPontos;
 	private JTextField txtZ;
 
 	/**
 	 * Create the dialog.
-	 * @param lista 
 	 * 
 	 * @param tipo
 	 */
-	public Cubo() {
-		status = true;
-		setVisible(true);
+	public Valores3D(String tipo) {
+		
 		setResizable(false);
+		setVisible(true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setAutoRequestFocus(false);
 
@@ -51,42 +48,43 @@ public class Cubo extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblTranslao = new JLabel("Crie um cubo");
-		lblTranslao.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTranslao.setBounds(10, 16, 245, 40);
+		JLabel lblTranslao = new JLabel("Transla\u00E7\u00E3o");
+		lblTranslao.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblTranslao.setBounds(10, 16, 102, 40);
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
 		getTxtTranslacaoX().setText("0");
-		getTxtTranslacaoX().setBounds(70, 72, 185, 30);
+		getTxtTranslacaoX().setBounds(164, 72, 105, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
 		setTxtTranslacaoY(new JTextField());
 		getTxtTranslacaoY().setText("0");
-		getTxtTranslacaoY().setBounds(70, 118, 185, 30);
+		getTxtTranslacaoY().setBounds(164, 118, 105, 30);
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
 
-		JLabel lblX = new JLabel("X:");
-		lblX.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		lblX.setBounds(20, 72, 40, 30);
-		contentPanel.add(lblX);
+		JLabel lblTranslaoEmX = new JLabel("Transla\u00E7\u00E3o em X");
+		lblTranslaoEmX.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblTranslaoEmX.setBounds(20, 72, 134, 30);
+		contentPanel.add(lblTranslaoEmX);
 
-		JLabel lblY = new JLabel("Y:");
-		lblY.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		lblY.setBounds(20, 118, 40, 30);
-		contentPanel.add(lblY);
+		JLabel lblTranslaoEmY = new JLabel("Transla\u00E7\u00E3o em Y");
+		lblTranslaoEmY.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblTranslaoEmY.setBounds(20, 118, 134, 30);
+		contentPanel.add(lblTranslaoEmY);
 		
-		JLabel lblZ = new JLabel("Z:");
-		lblZ.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		lblZ.setBounds(20, 164, 40, 30);
-		contentPanel.add(lblZ);
+		JLabel lblTranslaoEmZ = new JLabel("Transla\u00E7\u00E3o em Z");
+		lblTranslaoEmZ.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblTranslaoEmZ.setBounds(20, 164, 134, 30);
+		contentPanel.add(lblTranslaoEmZ);
 		
 		txtZ = new JTextField();
+		txtZ.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtZ.setText("0");
 		txtZ.setColumns(10);
-		txtZ.setBounds(70, 164, 185, 30);
+		txtZ.setBounds(164, 164, 105, 30);
 		contentPanel.add(txtZ);
 
 		JPanel buttonPane = new JPanel();
@@ -98,21 +96,36 @@ public class Cubo extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				
-				PanelPlanoCartesiano.add3D(true);
-				
 				int x = Integer.valueOf(txtX.getText());
 				int y = Integer.valueOf(txtY.getText());
 				int z = Integer.valueOf(txtZ.getText());
 				
-				TelaPrincipal.getLista().clear();
-				List<Ponto> cubo = new Cubo3D().criarCubo(x,y,z);
+				List<Ponto> listaPontos = null;
+				if (tipo == "translacao") {
+					
+					listaPontos = translação(x, y, z);
+				}
+				if (tipo == "escala") {
+					listaPontos = escala(Double.valueOf(x), Double.valueOf(y));
+				}
 				
-				TelaPrincipal.setLista(cubo);
-				TelaPrincipal.povoarRetas3D(cubo, x, y, z);
-				
+				TelaPrincipal.setLista(listaPontos);
+				TelaPrincipal.povoarRetas3D(listaPontos, Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z));
 				setVisible(false);
-				repaint();
-				validate();
+			}
+
+			private List<Ponto> escala(double x, double y) {
+				List<Ponto> listaPontos = new Operacoes().escalaReta(TelaPrincipal.getLista(),
+						x, y);
+				return listaPontos;
+			}
+
+			/**
+			 * @return
+			 */
+			private List<Ponto> translação(int x, int y, int z) {
+				List<Ponto> listaPontos = new Operacoes3D().translacaoMulti(TelaPrincipal.getLista(), x, y, z);
+				return listaPontos;
 			}
 		});
 		okButton.setActionCommand("OK");
@@ -122,7 +135,6 @@ public class Cubo extends JDialog {
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				status = false;
 				setVisible(false);
 			}
 		});
@@ -145,6 +157,7 @@ public class Cubo extends JDialog {
 	 */
 	public void setTxtTranslacaoY(JTextField txtTranslacaoY) {
 		this.txtY = txtTranslacaoY;
+		txtY.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 	}
 
 	/**
@@ -160,5 +173,6 @@ public class Cubo extends JDialog {
 	 */
 	public void setTxtTranslacaoX(JTextField txtTranslacaoX) {
 		this.txtX = txtTranslacaoX;
+		txtX.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 	}
 }

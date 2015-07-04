@@ -28,16 +28,14 @@ public class ValoresRotacao extends JDialog {
 	private JTextField txtRotacao;
 	public String x, y;
 	protected boolean status;
-	public static List<Ponto> lstPontos;
 
 	/**
 	 * Create the dialog.
 	 * 
 	 * @param tipo
 	 */
-	public ValoresRotacao(List<Ponto> lista, String tipo) {
+	public ValoresRotacao() {
 
-		lstPontos = lista;
 		status = true;
 		setResizable(false);
 		setVisible(true);
@@ -76,20 +74,14 @@ public class ValoresRotacao extends JDialog {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				x = txtRotacao.getText();
 				List<Ponto> listaPontos = new ArrayList<Ponto>();
-
-				if (tipo == "rotacao") {
-					listaPontos = rotacao();
-					
-				}
-				
+				listaPontos = rotacao();				
 				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos);
-
 				setVisible(false);
 			}
 
 			private List<Ponto> rotacao() {
-				List<Ponto> listaPontos = new Operacoes().rotacao(lstPontos,
+				List<Ponto> listaPontos = new Operacoes().rotacao(TelaPrincipal.getLista(),
 						Integer.valueOf(txtRotacao.getText()));
 				System.out.println("Lista de pontos: " + listaPontos);
 				return listaPontos;

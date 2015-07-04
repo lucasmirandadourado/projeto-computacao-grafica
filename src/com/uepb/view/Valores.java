@@ -35,9 +35,7 @@ public class Valores extends JDialog {
 	 * 
 	 * @param tipo
 	 */
-	public Valores(List<Ponto> lista, String tipo) {
-
-		lstPontos = lista;
+	public Valores(String tipo) {
 		status = true;
 		setResizable(false);
 		setVisible(true);
@@ -89,28 +87,28 @@ public class Valores extends JDialog {
 				
 				List<Ponto> listaPontos = null;
 				if (tipo == "translacao") {
-					listaPontos = translação();
+					listaPontos = translação(Integer.valueOf(x), Integer.valueOf(y));
 				}
 				if (tipo == "escala") {
-					listaPontos = escala();
+					listaPontos = escala(Double.valueOf(x), Double.valueOf(y));
 				}
+				
 				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos);
 				setVisible(false);
 			}
 
-			private List<Ponto> escala() {
-				List<Ponto> listaPontos = new Operacoes().escalaReta(lstPontos,
-						Double.valueOf(x), Double.valueOf(y));
+			private List<Ponto> escala(double x, double y) {
+				List<Ponto> listaPontos = new Operacoes().escalaReta(TelaPrincipal.getLista(),
+						x, y);
 				return listaPontos;
 			}
 
 			/**
 			 * @return
 			 */
-			private List<Ponto> translação() {
-				List<Ponto> listaPontos = new Operacoes().translacaoMulti(lstPontos,
-						Integer.valueOf(x), Integer.valueOf(y));
+			private List<Ponto> translação(int x, int y) {
+				List<Ponto> listaPontos = new Operacoes().translacaoMulti(TelaPrincipal.getLista(), x, y);
 				return listaPontos;
 			}
 		});

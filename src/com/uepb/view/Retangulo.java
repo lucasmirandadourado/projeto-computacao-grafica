@@ -13,7 +13,6 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 
-import com.uepb.algoritmo.Cubo3D;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.Quadrado;
 
@@ -21,16 +20,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class Cubo extends JDialog {
+public class Retangulo extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtX;
 	private JTextField txtY;
-	public String x, y, z;
+	public String x, y;
 	protected boolean status;
 	public static List<Ponto> lstPontos;
-	private JTextField txtZ;
 
 	/**
 	 * Create the dialog.
@@ -38,7 +36,7 @@ public class Cubo extends JDialog {
 	 * 
 	 * @param tipo
 	 */
-	public Cubo() {
+	public Retangulo() {
 		status = true;
 		setVisible(true);
 		setResizable(false);
@@ -51,43 +49,30 @@ public class Cubo extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblTranslao = new JLabel("Crie um cubo");
+		JLabel lblTranslao = new JLabel("Crie um quadrado.");
 		lblTranslao.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTranslao.setBounds(10, 16, 245, 40);
+		lblTranslao.setBounds(10, 11, 245, 40);
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
 		getTxtTranslacaoX().setText("0");
-		getTxtTranslacaoX().setBounds(70, 72, 185, 30);
+		getTxtTranslacaoX().setBounds(151, 75, 86, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
 		setTxtTranslacaoY(new JTextField());
 		getTxtTranslacaoY().setText("0");
-		getTxtTranslacaoY().setBounds(70, 118, 185, 30);
+		getTxtTranslacaoY().setBounds(151, 129, 86, 30);
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
 
-		JLabel lblX = new JLabel("X:");
-		lblX.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		lblX.setBounds(20, 72, 40, 30);
-		contentPanel.add(lblX);
+		JLabel lblTranslaoEmX = new JLabel("Largura:");
+		lblTranslaoEmX.setBounds(20, 75, 102, 30);
+		contentPanel.add(lblTranslaoEmX);
 
-		JLabel lblY = new JLabel("Y:");
-		lblY.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		lblY.setBounds(20, 118, 40, 30);
-		contentPanel.add(lblY);
-		
-		JLabel lblZ = new JLabel("Z:");
-		lblZ.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
-		lblZ.setBounds(20, 164, 40, 30);
-		contentPanel.add(lblZ);
-		
-		txtZ = new JTextField();
-		txtZ.setText("0");
-		txtZ.setColumns(10);
-		txtZ.setBounds(70, 164, 185, 30);
-		contentPanel.add(txtZ);
+		JLabel lblTranslaoEmY = new JLabel("Comprimento:");
+		lblTranslaoEmY.setBounds(20, 129, 102, 30);
+		contentPanel.add(lblTranslaoEmY);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -98,21 +83,16 @@ public class Cubo extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				
-				PanelPlanoCartesiano.add3D(true);
-				
-				int x = Integer.valueOf(txtX.getText());
-				int y = Integer.valueOf(txtY.getText());
-				int z = Integer.valueOf(txtZ.getText());
-				
+				x = txtX.getText();
+				y = txtY.getText();
 				TelaPrincipal.getLista().clear();
-				List<Ponto> cubo = new Cubo3D().criarCubo(x,y,z);
 				
-				TelaPrincipal.setLista(cubo);
-				TelaPrincipal.povoarRetas3D(cubo, x, y, z);
-				
-				setVisible(false);
+				List<Ponto> listaPontos = new Quadrado().quadrado(Integer.valueOf(x), Integer.valueOf(y));
+				TelaPrincipal.setLista(listaPontos);
+				TelaPrincipal.povoarRetas(listaPontos);
 				repaint();
 				validate();
+				setVisible(false);
 			}
 		});
 		okButton.setActionCommand("OK");

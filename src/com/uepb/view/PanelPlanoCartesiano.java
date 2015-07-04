@@ -1,17 +1,15 @@
 package com.uepb.view;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-
-
-
+import sun.awt.RepaintArea;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 
 public class PanelPlanoCartesiano extends JPanel {
 
@@ -19,12 +17,14 @@ public class PanelPlanoCartesiano extends JPanel {
 	final static int ALTURA = 600;
 	final static int LARGURA = 600;
 	private static BufferedImage imagemCoordenadas;
-	
+
 	public PanelPlanoCartesiano() {
-		setBounds(400,30,LARGURA, ALTURA);		
-		imagemCoordenadas = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_ARGB);		
-		limparImagem();			
+		setBounds(400, 30, LARGURA, ALTURA);
+		imagemCoordenadas = new BufferedImage(LARGURA, ALTURA,
+				BufferedImage.TYPE_INT_ARGB);
+		limparImagem();
 		setPixel();
+
 	}
 
 	/**
@@ -40,41 +40,55 @@ public class PanelPlanoCartesiano extends JPanel {
 		addCoordenadas();
 	}
 
+	/**
+	 * Adicionando a 3 dimensão.
+	 * 
+	 * @param dimencao
+	 */
+	public static void add3D(boolean dimencao) {
+		if (dimencao) {
+			for (int j = 1; j < LARGURA - 1; j++) {
+				imagemCoordenadas.setRGB(j, LARGURA - j, Color.BLACK.getRGB());
+			}
+		}
+	}
+
 	private void setPixel() {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent mouse) {
-				imagemCoordenadas.setRGB(mouse.getX(), mouse.getY(), Color.BLACK.getRGB() );
+				imagemCoordenadas.setRGB(mouse.getX(), mouse.getY(),
+						Color.BLACK.getRGB());
 				repaint();
 			}
 		});
 	}
-	
-	public void desenharPixel(int x, int y) {		
-		imagemCoordenadas.setRGB(x, y, Color.BLACK.getRGB());
+
+	public void desenharPixel(int x, int y) {
+		imagemCoordenadas.setRGB(x, y, Color.RED.getRGB());
 		repaint();
 	}
-	
+
 	private void addCoordenadas() {
-		int metade = (int) LARGURA/2;
-		
-		for (int j = 1; j < ALTURA-1; j++) {
+		int metade = (int) LARGURA / 2;
+
+		for (int j = 1; j < ALTURA - 1; j++) {
 			imagemCoordenadas.setRGB(metade, j, Color.BLACK.getRGB());
 			repaint();
 		}
-		metade = (int) ALTURA/2;
-		for (int j = 1; j < LARGURA-1; j++) {
+		metade = (int) ALTURA / 2;
+		for (int j = 1; j < LARGURA - 1; j++) {
 			imagemCoordenadas.setRGB(j, metade, Color.BLACK.getRGB());
 			repaint();
 		}
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {	
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.create();		
+		g.create();
 		g.drawImage(imagemCoordenadas, 0, 0, null);
-		
+
 	}
 
 	/**
@@ -85,7 +99,8 @@ public class PanelPlanoCartesiano extends JPanel {
 	}
 
 	/**
-	 * @param imagemCoordenadas the imagemCoordenadas to set
+	 * @param imagemCoordenadas
+	 *            the imagemCoordenadas to set
 	 */
 	public static void setImagemCoordenadas(BufferedImage imagemCoordenadas) {
 		PanelPlanoCartesiano.imagemCoordenadas = imagemCoordenadas;
