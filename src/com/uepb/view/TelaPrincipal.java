@@ -1,5 +1,6 @@
 package com.uepb.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -19,8 +20,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
@@ -359,7 +358,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmTranslao = new JMenuItem("Transla\u00E7\u00E3o");
 		mntmTranslao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Valores3D("translacao");				
+				new Valores3D("translacao");
 				revalidate();
 				repaint();
 			}
@@ -402,7 +401,7 @@ public class TelaPrincipal extends JFrame {
 		try {
 			for (Ponto ponto : listaPontos) {
 				PanelReta.panelPlanoCartesiano.desenharPixel(
-						ponto.getX() + 300, -ponto.getY() + 300);
+						ponto.getX() + 300, -ponto.getY() + 300, Color.GREEN);
 			}
 		} catch (Exception e) {
 			System.out.println("Erro ao povoar os valores.");
@@ -417,34 +416,42 @@ public class TelaPrincipal extends JFrame {
 		try {
 			for (Ponto ponto : listaPontos) {
 				PanelReta.panelPlanoCartesiano.desenharPixel(
-						ponto.getX() + 300, -ponto.getY() + 300);
+						ponto.getX() + 300, -ponto.getY() + 300, Color.BLUE);
 
 				PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX() + 300
-						- z, ponto.getY() + 300 + z - y);
+						- z, ponto.getY() + 300 + z - y, Color.BLUE);
 
 			}
 		} catch (Exception e) {
 			System.out.println("Erro ao povoar os valores nas 3 dimensões.");
 		}
-		
+
 		try {
-			for (int i = 0; i < z; i++) {
-				PanelReta.panelPlanoCartesiano.desenharPixel(300 + x - i, 300 + i);
+			for (Ponto ponto : listaPontos) {
+				// Z1
+				PanelReta.panelPlanoCartesiano.desenharPixel(300 + ponto.getZ(), 300 - ponto.getZ() - y, Color.orange);
+				// z2
+				PanelReta.panelPlanoCartesiano.desenharPixel(
+						300 + x + ponto.getZ(), 300 - y - ponto.getZ(),
+						Color.orange);
+				// Z3
+				PanelReta.panelPlanoCartesiano.desenharPixel(
+						300 + x + ponto.getZ(), 300 - ponto.getZ(),
+						Color.ORANGE);
+				// Z4
+				PanelReta.panelPlanoCartesiano.desenharPixel(
+						300 + ponto.getZ(), 300 - ponto.getZ(), Color.ORANGE);
 			}
-			for (int i = 0; i < z; i++) {
-				PanelReta.panelPlanoCartesiano.desenharPixel(300 - i, 300 + i);
-			}
-			for (int i = 0; i < z; i++) {
-				PanelReta.panelPlanoCartesiano.desenharPixel(300 - i, 300 - y + i);
-			}
-			for (int i = 0; i < z; i++) {
-				PanelReta.panelPlanoCartesiano.desenharPixel(300 + x - i, 300 - y + i);
-			}
+
 		} catch (Exception e) {
 			System.out.println("Erro ao povoar os valores nas 3 dimensões.");
 		}
 	}
 
+	int f(int z) {
+		
+		return 0;
+	}
 	/**
 	 * @return the lista
 	 */

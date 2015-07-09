@@ -145,7 +145,7 @@ public class PanelReta extends JPanel {
 				try {
 					for (Ponto ponto : TelaPrincipal.getLista()) {
 						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300,
-								-ponto.getY() + 300);
+								-ponto.getY() + 300, Color.GREEN);
 					}
 				} catch (Exception e) {
 
@@ -167,7 +167,7 @@ public class PanelReta extends JPanel {
 				panelPlanoCartesiano.limparImagem();
 				try {
 					for (Ponto ponto : TelaPrincipal.getLista()) {
-						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300);						
+						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300, Color.GREEN);						
 					}
 				} catch (Exception e) {
 					System.out.println("Deu erro Botão DDA");

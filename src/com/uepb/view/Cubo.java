@@ -20,6 +20,7 @@ import com.uepb.algoritmo.Quadrado;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import javax.swing.SwingConstants;
 
 public class Cubo extends JDialog {
 
@@ -57,13 +58,13 @@ public class Cubo extends JDialog {
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
-		getTxtTranslacaoX().setText("0");
+		getTxtTranslacaoX().setText("100");
 		getTxtTranslacaoX().setBounds(70, 72, 185, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
 		setTxtTranslacaoY(new JTextField());
-		getTxtTranslacaoY().setText("0");
+		getTxtTranslacaoY().setText("100");
 		getTxtTranslacaoY().setBounds(70, 118, 185, 30);
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
@@ -84,7 +85,8 @@ public class Cubo extends JDialog {
 		contentPanel.add(lblZ);
 		
 		txtZ = new JTextField();
-		txtZ.setText("0");
+		txtZ.setHorizontalAlignment(SwingConstants.LEFT);
+		txtZ.setText("100");
 		txtZ.setColumns(10);
 		txtZ.setBounds(70, 164, 185, 30);
 		contentPanel.add(txtZ);

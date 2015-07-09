@@ -29,19 +29,19 @@ public class Matriz {
 		
 		int linha = matrizA.length;
 		int coluna = matrizB[0].length;
-		
+		System.out.println("Linha: "+ linha+", Coluna: "+coluna);
 		if (matrizA[0].length == matrizB.length) {
 			
-			double[][] matrizResultado = new double[matrizA[0].length][matrizB[0].length];			
+			double[][] matrizResultado = new double[4][matrizB[0].length];			
 
-			for (int i = 0; i < linha; i++) {
+			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < coluna; j++) {
-					for (int k = 0; k < linha; k++) {
+					for (int k = 0; k < 4; k++) {
 						matrizResultado[i][j] += matrizA[i][k] * matrizB[k][j];
 					}
 				}
 			}
-			for (int i = 0; i < matrizResultado.length; i++) {
+			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < matrizResultado[0].length; j++) {
 					System.out.print(matrizResultado[i][j]+" ");
 				}

@@ -97,7 +97,7 @@ public class PanelCircunferencia extends JPanel {
 					// BufferImage!
 					try {
 						panelPlanoCartesiano.desenharPixel(pontos.getX() + 300,
-								-pontos.getY() + 300);
+								-pontos.getY() + 300, Color.DARK_GRAY);
 					} catch (Exception e) {
 						e.getClass();
 					}
@@ -139,7 +139,7 @@ public class PanelCircunferencia extends JPanel {
 				}
 				for (Ponto p : getList()) {
 					try {
-						panelPlanoCartesiano.desenharPixel(p.getX() + 300, -p.getY() + 300);
+						panelPlanoCartesiano.desenharPixel(p.getX() + 300, -p.getY() + 300, Color.DARK_GRAY);
 					} catch (Exception e2) {
 						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
 					}

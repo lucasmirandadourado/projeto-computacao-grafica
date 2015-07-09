@@ -7,7 +7,7 @@ import com.uepb.algoritmo.Matriz;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.Retas;
 
-// 2D Composta
+// 3D Composta
 public class Operacoes3D {
 
 	private int x, y;
@@ -24,18 +24,19 @@ public class Operacoes3D {
 
 		matriz[1][0] = 0;
 		matriz[1][1] = 1;
-		matriz[1][2] = 1;
+		matriz[1][2] = 0;
 		matriz[1][3] = ty;
 
 		matriz[2][0] = 0;
 		matriz[2][1] = 0;
-		matriz[2][2] = 0;
-		matriz[2][3] = 1;
+		matriz[2][2] = 1;
+		matriz[2][3] = tz;
 
 		matriz[3][0] = 0;
 		matriz[3][1] = 0;
 		matriz[3][2] = 0;
 		matriz[3][3] = 1;
+		
 		return matriz;
 	}
 
@@ -206,10 +207,11 @@ public class Operacoes3D {
 	}
 
 	// Operações básicas
-	private double[][] translacaoMulti(double[][] matriz, int x, int y, int z) {
+	private double[][] translacaoMulti3D(double[][] matriz, int x, int y, int z) {
 
 		try {
-			double[][] d = Matriz.multiplicaMatrizes(
+			
+			double[][] d = Matriz.multiplicaMatrizes3D(
 					gerarMatrizTranslacao(x, y, z), matriz);
 
 			return d;
@@ -219,7 +221,7 @@ public class Operacoes3D {
 		return matriz;
 	}
 
-	public List<Ponto> translacaoMulti(List<Ponto> objeto, int x, int y, int z) {
+	public List<Ponto> translacaoMulti3D(List<Ponto> objeto, int x, int y, int z) {
 		List<Ponto> list = new ArrayList<Ponto>();
 
 		double[][] matriz = new double[dim][objeto.size()];
@@ -231,18 +233,19 @@ public class Operacoes3D {
 			matriz[2][i] = objeto.get(i).getY(); // Coluna i na linha 2 = 1
 			matriz[3][i] = 1; // Coluna i na linha 2 = 1
 		}
-
+		
 		double[][] d = null;
 		try {
 			d = Matriz.multiplicaMatrizes3D(gerarMatrizTranslacao(x, y, z),
 					matriz);
+			
 		} catch (Exception e) {
 			System.out.println("ERRO NA TRANSLAÇÃO");
 		}
 
 		for (int i = 0; i < d[0].length; i++) {
-			list.add(new Ponto((int) d[0][i], (int) d[0][i], (int) d[0][i],
-					(int) d[0][i]));
+			list.add(new Ponto((int) d[0][i], (int) d[1][i], (int) d[2][i],
+					(int) d[3][i]));
 		}
 
 		return list;
@@ -264,7 +267,7 @@ public class Operacoes3D {
 		int translacaoz = objeto.get(0).getZ();
 
 		// Fazer a translação do objeto
-		double[][] matrizNaOrigem = translacaoMulti(matriz, -translacaox,
+		double[][] matrizNaOrigem = translacaoMulti3D(matriz, -translacaox,
 				-translacaoy, -translacaoz);
 
 		// Matriz da escala.
@@ -280,7 +283,7 @@ public class Operacoes3D {
 		}
 
 		// Voltar a reta a posição de origem
-		double[][] b = translacaoMulti(a, translacaox, translacaoy, translacaoz);
+		double[][] b = translacaoMulti3D(a, translacaox, translacaoy, translacaoz);
 
 		int size = b[0].length - 2;
 		for (int i = 0; i < b[0].length; i++) {
@@ -304,7 +307,7 @@ public class Operacoes3D {
 		int transY = lis.get(0).getY();
 		int transZ = lis.get(0).getZ();
 
-		List<Ponto> trans = translacaoMulti(lis, -transX, -transY, -transZ);
+		List<Ponto> trans = translacaoMulti3D(lis, -transX, -transY, -transZ);
 
 		double[][] matrizNaOrigem = new double[3][lis.size()];
 

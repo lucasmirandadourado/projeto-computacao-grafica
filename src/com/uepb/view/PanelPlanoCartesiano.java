@@ -64,8 +64,8 @@ public class PanelPlanoCartesiano extends JPanel {
 		});
 	}
 
-	public void desenharPixel(int x, int y) {
-		imagemCoordenadas.setRGB(x, y, Color.RED.getRGB());
+	public void desenharPixel(int x, int y, Color color) {
+		imagemCoordenadas.setRGB(x, y, color.getRGB());
 		repaint();
 	}
 

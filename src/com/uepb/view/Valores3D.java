@@ -54,13 +54,13 @@ public class Valores3D extends JDialog {
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
-		getTxtTranslacaoX().setText("0");
+		getTxtTranslacaoX().setText("100");
 		getTxtTranslacaoX().setBounds(164, 72, 105, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
 		setTxtTranslacaoY(new JTextField());
-		getTxtTranslacaoY().setText("0");
+		getTxtTranslacaoY().setText("100");
 		getTxtTranslacaoY().setBounds(164, 118, 105, 30);
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
@@ -82,7 +82,7 @@ public class Valores3D extends JDialog {
 		
 		txtZ = new JTextField();
 		txtZ.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtZ.setText("0");
+		txtZ.setText("100");
 		txtZ.setColumns(10);
 		txtZ.setBounds(164, 164, 105, 30);
 		contentPanel.add(txtZ);
@@ -101,8 +101,7 @@ public class Valores3D extends JDialog {
 				int z = Integer.valueOf(txtZ.getText());
 				
 				List<Ponto> listaPontos = null;
-				if (tipo == "translacao") {
-					
+				if (tipo == "translacao") {					
 					listaPontos = translação(x, y, z);
 				}
 				if (tipo == "escala") {
@@ -124,7 +123,7 @@ public class Valores3D extends JDialog {
 			 * @return
 			 */
 			private List<Ponto> translação(int x, int y, int z) {
-				List<Ponto> listaPontos = new Operacoes3D().translacaoMulti(TelaPrincipal.getLista(), x, y, z);
+				List<Ponto> listaPontos = new Operacoes3D().translacaoMulti3D(TelaPrincipal.getLista(), x, y, z);
 				return listaPontos;
 			}
 		});
