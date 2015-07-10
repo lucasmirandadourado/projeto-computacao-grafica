@@ -7,7 +7,7 @@ package com.uepb.algoritmo;
  *
  */
 public class Ponto {
-	private int x, y, z = 1, w = 1;
+	private int x, y, z = 0, w = 1;
 
 	/**
 	 * Coordenadas com 2D (Duas dimenções)

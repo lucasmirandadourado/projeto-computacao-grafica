@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.uepb.algoritmo.Matriz;
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.Retas;
 
 // 2D Composta
 public class Operacoes {

@@ -18,8 +18,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.uepb.algoritmo.Cubo3D;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.algoritmo.transformacoes2D.Operacoes3D;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
@@ -346,14 +348,99 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCisalhamento_1 = new JMenuItem("Cisalhamento");
 		mnd3D.add(mntmCisalhamento_1);
 
-		JMenuItem mntmEscala_1 = new JMenuItem("Escala");
-		mnd3D.add(mntmEscala_1);
+		JMenuItem mntmEscala3D = new JMenuItem("Escala");
+		mnd3D.add(mntmEscala3D);
 
-		JMenuItem mntmReflexo = new JMenuItem("Reflex\u00E3o");
-		mnd3D.add(mntmReflexo);
+		JMenu mnRotao = new JMenu("Rota\u00E7\u00E3o");
+		mnd3D.add(mnRotao);
 
-		JMenuItem mntmRotao = new JMenuItem("Rota\u00E7\u00E3o");
-		mnd3D.add(mntmRotao);
+		JMenuItem mntmRotacaoEmX = new JMenuItem("Rota\u00E7\u00E3o em torno de X");
+		mntmRotacaoEmX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ValoresRotacao3D("x");
+			}
+		});
+		mnRotao.add(mntmRotacaoEmX);
+
+		JMenuItem mntmRotaoEmY = new JMenuItem("Rota\u00E7\u00E3o em torno de Y");
+		mntmRotaoEmY.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ValoresRotacao3D("y");
+			}
+		});
+		mnRotao.add(mntmRotaoEmY);
+
+		JMenuItem mntmRotaoEmZ = new JMenuItem("Rota\u00E7\u00E3o em torno de Z");
+		mntmRotaoEmZ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ValoresRotacao3D("z");
+			}
+		});
+		mnRotao.add(mntmRotaoEmZ);
+
+		JMenu mnReflexao3d = new JMenu("Reflex\u00E3o");
+		mnd3D.add(mnReflexao3d);
+
+		JMenuItem mntmReflexaoXY = new JMenuItem("Reflex\u00E3o em XY");
+		mntmReflexaoXY.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelReta.panelPlanoCartesiano.limparImagem();
+				PanelPlanoCartesiano.add3D(true);
+
+				List<Ponto> lst = new Cubo3D().reflexaoXY(listaGLOBAL);
+
+				TelaPrincipal.setLista(lst);
+				TelaPrincipal.povoar3D();
+				repaint();
+				validate();
+			}
+		});
+		mnReflexao3d.add(mntmReflexaoXY);
+
+		JMenuItem mntmReflexaoEmYZ = new JMenuItem("Reflex\u00E3o em YZ");
+		mntmReflexaoEmYZ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelReta.panelPlanoCartesiano.limparImagem();
+				PanelPlanoCartesiano.add3D(true);
+
+				List<Ponto> lst = new Cubo3D().reflexaoYZ(listaGLOBAL);
+
+				TelaPrincipal.setLista(lst);
+				TelaPrincipal.povoar3D();
+				repaint();
+				validate();
+			}
+		});
+		mntmReflexaoEmY.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PanelReta.panelPlanoCartesiano.limparImagem();
+				PanelPlanoCartesiano.add3D(true);
+
+				List<Ponto> lst = new Cubo3D().reflexaoYZ(listaGLOBAL);
+
+				TelaPrincipal.setLista(lst);
+				TelaPrincipal.povoar3D();
+				repaint();
+				validate();
+			}
+		});
+		mnReflexao3d.add(mntmReflexaoEmYZ);
+
+		JMenuItem mntmReflexaoEmXZ = new JMenuItem("Reflex\u00E3o em XZ");
+		mntmReflexaoEmXZ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PanelReta.panelPlanoCartesiano.limparImagem();
+				PanelPlanoCartesiano.add3D(true);
+
+				List<Ponto> lst = new Cubo3D().reflexaoXZ(listaGLOBAL);
+
+				TelaPrincipal.setLista(lst);
+				TelaPrincipal.povoar3D();
+				repaint();
+				validate();
+			}
+		});
+		mnReflexao3d.add(mntmReflexaoEmXZ);
 
 		JMenuItem mntmTranslao = new JMenuItem("Transla\u00E7\u00E3o");
 		mntmTranslao.addActionListener(new ActionListener() {
@@ -411,47 +498,26 @@ public class TelaPrincipal extends JFrame {
 	/**
 	 * @param listaPontos
 	 */
-	public static void povoarRetas3D(List<Ponto> listaPontos, int x, int y,
-			int z) {
+	public static void povoar3D() {
 		try {
-			for (Ponto ponto : listaPontos) {
-				PanelReta.panelPlanoCartesiano.desenharPixel(
-						ponto.getX() + 300, -ponto.getY() + 300, Color.BLUE);
+			for (Ponto ponto : getLista()) {
+				if (ponto.getZ() == 0) {
+					PanelReta.panelPlanoCartesiano
+							.desenharPixel(ponto.getX() + 300,
+									-ponto.getY() + 300, Color.BLUE);
+				} else {
+					PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX()
+							+ 300 - ponto.getZ() / 2, -ponto.getY() + 300
+							+ ponto.getZ() / 2, Color.BLUE);
 
-				PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX() + 300
-						- z, ponto.getY() + 300 + z - y, Color.BLUE);
+				}
 
 			}
 		} catch (Exception e) {
 			System.out.println("Erro ao povoar os valores nas 3 dimensões.");
 		}
-
-		try {
-			for (Ponto ponto : listaPontos) {
-				// Z1
-				PanelReta.panelPlanoCartesiano.desenharPixel(300 + ponto.getZ(), 300 - ponto.getZ() - y, Color.orange);
-				// z2
-				PanelReta.panelPlanoCartesiano.desenharPixel(
-						300 + x + ponto.getZ(), 300 - y - ponto.getZ(),
-						Color.orange);
-				// Z3
-				PanelReta.panelPlanoCartesiano.desenharPixel(
-						300 + x + ponto.getZ(), 300 - ponto.getZ(),
-						Color.ORANGE);
-				// Z4
-				PanelReta.panelPlanoCartesiano.desenharPixel(
-						300 + ponto.getZ(), 300 - ponto.getZ(), Color.ORANGE);
-			}
-
-		} catch (Exception e) {
-			System.out.println("Erro ao povoar os valores nas 3 dimensões.");
-		}
 	}
 
-	int f(int z) {
-		
-		return 0;
-	}
 	/**
 	 * @return the lista
 	 */

@@ -14,7 +14,6 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.transformacoes2D.Operacoes;
 import com.uepb.algoritmo.transformacoes2D.Operacoes3D;
 
 import java.awt.event.ActionListener;
@@ -54,13 +53,13 @@ public class Valores3D extends JDialog {
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
-		getTxtTranslacaoX().setText("100");
+		getTxtTranslacaoX().setText("10");
 		getTxtTranslacaoX().setBounds(164, 72, 105, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
 		setTxtTranslacaoY(new JTextField());
-		getTxtTranslacaoY().setText("100");
+		getTxtTranslacaoY().setText("0");
 		getTxtTranslacaoY().setBounds(164, 118, 105, 30);
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
@@ -82,7 +81,7 @@ public class Valores3D extends JDialog {
 		
 		txtZ = new JTextField();
 		txtZ.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtZ.setText("100");
+		txtZ.setText("0");
 		txtZ.setColumns(10);
 		txtZ.setBounds(164, 164, 105, 30);
 		contentPanel.add(txtZ);
@@ -107,14 +106,14 @@ public class Valores3D extends JDialog {
 				if (tipo == "escala") {
 					listaPontos = escala(Double.valueOf(x), Double.valueOf(y));
 				}
-				
+				PanelPlanoCartesiano.add3D(true);
 				TelaPrincipal.setLista(listaPontos);
-				TelaPrincipal.povoarRetas3D(listaPontos, Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z));
+				TelaPrincipal.povoar3D();
 				setVisible(false);
 			}
 
 			private List<Ponto> escala(double x, double y) {
-				List<Ponto> listaPontos = new Operacoes().escalaReta(TelaPrincipal.getLista(),
+				List<Ponto> listaPontos = new Operacoes3D().escalaReta(TelaPrincipal.getLista(),
 						x, y);
 				return listaPontos;
 			}

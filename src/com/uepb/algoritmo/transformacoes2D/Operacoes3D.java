@@ -88,21 +88,31 @@ public class Operacoes3D {
 
 	private double[][] gerarMatrizReflexaoX() {
 
-		double[][] matriz = new double[3][3];
+		double[][] matriz = new double[4][4];
 
-		// Linha 0
+		// Coluna 0
 		matriz[0][0] = 1;
 		matriz[1][0] = 0;
 		matriz[2][0] = 0;
-		// Linha 1
+		matriz[3][0] = 0;
+		
+		// Coluna 1
 		matriz[0][1] = 0;
-		matriz[1][1] = -1;
+		matriz[1][1] = 1;
 		matriz[2][1] = 0;
-		// Linha 2
+		matriz[3][1] = 0;
+		
+		// Coluna 2
 		matriz[0][2] = 0;
 		matriz[1][2] = 0;
-		matriz[2][2] = 1;
+		matriz[2][2] = -1;
+		matriz[3][2] = 0;
 
+		// Coluna 3
+		matriz[0][3] = 0;
+		matriz[1][3] = 0;
+		matriz[2][3] = 0;
+		matriz[3][3] = 1;
 		return matriz;
 	}
 
@@ -230,8 +240,8 @@ public class Operacoes3D {
 		for (int i = 0; i < objeto.size(); i++) {
 			matriz[0][i] = objeto.get(i).getX(); // Coluna i na linha 0
 			matriz[1][i] = objeto.get(i).getY(); // Coluna i na linha 1
-			matriz[2][i] = objeto.get(i).getY(); // Coluna i na linha 2 = 1
-			matriz[3][i] = 1; // Coluna i na linha 2 = 1
+			matriz[2][i] = objeto.get(i).getZ(); // Coluna i na linha 2 
+			matriz[3][i] = objeto.get(i).getW(); // Coluna i na linha 3 = 1
 		}
 		
 		double[][] d = null;
@@ -242,10 +252,9 @@ public class Operacoes3D {
 		} catch (Exception e) {
 			System.out.println("ERRO NA TRANSLAÇÃO");
 		}
-
+//		System.out.println("Class.Operacoes3D Tamanho: "+d[0].length);
 		for (int i = 0; i < d[0].length; i++) {
-			list.add(new Ponto((int) d[0][i], (int) d[1][i], (int) d[2][i],
-					(int) d[3][i]));
+			list.add(new Ponto((int) d[0][i], (int) d[1][i], (int) d[2][i], (int) d[3][i]));
 		}
 
 		return list;
@@ -343,20 +352,21 @@ public class Operacoes3D {
 	// Reflexão
 	public List<Ponto> reflexaoX(List<Ponto> lstPontos) {
 		List<Ponto> list = new ArrayList<Ponto>();
-		double[][] matriz = new double[3][lstPontos.size()];
+		double[][] matriz = new double[4][lstPontos.size()];
 
 		// Criando o objeto de matriz
 		for (int i = 0; i < lstPontos.size(); i++) {
 			matriz[0][i] = lstPontos.get(i).getX(); // Coluna i na linha 0
 			matriz[1][i] = lstPontos.get(i).getY(); // Coluna i na linha 1
-			matriz[2][i] = 1; // Coluna j na linha 2 = 1
+			matriz[2][i] = lstPontos.get(i).getZ(); // Coluna i na linha 1
+			matriz[3][i] = lstPontos.get(i).getW(); // Coluna j na linha 2 = 1
 		}
 
 		double[][] reflexao = gerarMatrizReflexaoX();
 
 		double[][] matrizRefetida = null;
 		try {
-			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
+			matrizRefetida = Matriz.multiplicaMatrizes3D(reflexao, matriz);
 		} catch (Exception e) {
 			System.out.println("Erro na reflexão.");
 			e.printStackTrace();
@@ -364,8 +374,11 @@ public class Operacoes3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
-					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+			list.add(new Ponto(
+					(int) matrizRefetida[0][i], 
+					(int) matrizRefetida[1][i], 
+					(int) matrizRefetida[2][i], 
+					(int) matrizRefetida[3][i]));
 
 		}
 
