@@ -66,11 +66,11 @@ public class ValoresCisalhamento extends JDialog {
 		getTxtTranslacaoY().setColumns(10);
 
 		JLabel lblCisalhamentoEmX = new JLabel("Cisalhamento em X");
-		lblCisalhamentoEmX.setBounds(20, 75, 102, 30);
+		lblCisalhamentoEmX.setBounds(20, 75, 121, 30);
 		contentPanel.add(lblCisalhamentoEmX);
 
 		JLabel lblCisalhamentoEmY = new JLabel("Cisalhamento em Y");
-		lblCisalhamentoEmY.setBounds(20, 129, 102, 30);
+		lblCisalhamentoEmY.setBounds(20, 129, 121, 30);
 		contentPanel.add(lblCisalhamentoEmY);
 
 		JPanel buttonPane = new JPanel();
@@ -89,12 +89,13 @@ public class ValoresCisalhamento extends JDialog {
 				listaPontos = cisalhamentoX(Integer.valueOf(txtX.getText()), Integer.valueOf(txtY.getText()));
 			
 				TelaPrincipal.setLista(listaPontos);
-				TelaPrincipal.povoarRetas(listaPontos);
+				TelaPrincipal.povoarRetas(listaPontos); 
+				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}
 
 			private List<Ponto> cisalhamentoX(Integer a, Integer b) {
-				return new Operacoes().cisalhamentoEmXY(lista, a, b);
+				return new Operacoes().cisalhamentoEmZ(lista, a, b);
 			}
 
 		});

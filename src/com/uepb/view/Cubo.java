@@ -20,6 +20,7 @@ import com.uepb.algoritmo.Quadrado;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
+
 import javax.swing.SwingConstants;
 
 public class Cubo extends JDialog {
@@ -111,7 +112,7 @@ public class Cubo extends JDialog {
 				
 				TelaPrincipal.setLista(cubo);
 				TelaPrincipal.povoar3D();
-				
+				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 				repaint();
 				validate();

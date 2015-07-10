@@ -103,6 +103,7 @@ public class PanelCircunfTrigonometrica extends JPanel {
 						e.getClass();
 					}
 				}
+				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
 		
@@ -145,6 +146,7 @@ public class PanelCircunfTrigonometrica extends JPanel {
 						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
 					}
 				}
+				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
 		btnEscala.setFont(new Font("Century Gothic", Font.PLAIN, 16));

@@ -95,6 +95,7 @@ public class Valores extends JDialog {
 				
 				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos);
+				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}
 

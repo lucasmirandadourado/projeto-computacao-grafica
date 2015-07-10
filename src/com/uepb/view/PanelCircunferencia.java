@@ -102,6 +102,7 @@ public class PanelCircunferencia extends JPanel {
 						e.getClass();
 					}
 				}
+				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
 		
@@ -144,6 +145,7 @@ public class PanelCircunferencia extends JPanel {
 						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
 					}
 				}
+				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
 		btnEscala.setFont(new Font("Century Gothic", Font.PLAIN, 16));

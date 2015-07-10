@@ -28,13 +28,12 @@ public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	static JMenuItem mntmTranslacao, mntmEscala, mntmRotacao, mntmCisalhamento,
-			mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY;
-
-	PanelReta panelReta;
-	PanelCircunferencia panelCircunferencia;
-	PanelCircunfTrigonometrica panelCircunfTringo;
-	PanelCircunfExplicita panelCircunfExplicita;
-	PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
+			mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY, mntmReflexaoEmY, mntmReflexaoEmY3D;
+	public PanelReta panelReta;
+	public PanelCircunferencia panelCircunferencia;
+	public PanelCircunfTrigonometrica panelCircunfTringo;
+	public PanelCircunfExplicita panelCircunfExplicita;
+	public static PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
 	public static PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
 
 	private static List<Ponto> listaGLOBAL = new ArrayList<Ponto>();
@@ -254,16 +253,6 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 
-		// Cisalhamento em X
-		mntmCisalhamento.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Cisalhamento");
-
-			}
-		});
-
 		mntmEscala = new JMenuItem("Escala");
 		mntmEscala.addActionListener(new ActionListener() {
 
@@ -294,26 +283,27 @@ public class TelaPrincipal extends JFrame {
 		mntmReflexaoEmX.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				List<Ponto> lista = getLista();
-
-				System.out.println("Reflexao em X");
-				List<Ponto> lstP = new Operacoes().reflexaoX(lista);
+				List<Ponto> lstP = new Operacoes().reflexaoX(getLista());
 
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
-				povoarRetas(lstP);
+				povoarRetas(TelaPrincipal.listaGLOBAL);
+				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
 		mnReflexao.add(mntmReflexaoEmX);
 
-		JMenuItem mntmReflexaoEmY = new JMenuItem("Reflexao em Y");
+		mntmReflexaoEmY = new JMenuItem("Reflexao em Y");
 		mntmReflexaoEmY.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {				
 				List<Ponto> lista = getLista();
+
 				List<Ponto> lstP = new Operacoes().reflexaoY(lista);
+
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
 				povoarRetas(lstP);
+				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
 		mnReflexao.add(mntmReflexaoEmY);
@@ -328,6 +318,7 @@ public class TelaPrincipal extends JFrame {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
 				povoarRetas(lstP);
+				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
 		mnReflexao.add(mntmReflexaoEmXeY);
@@ -336,6 +327,7 @@ public class TelaPrincipal extends JFrame {
 		mntmTranslacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Valores("translacao");
+				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 			}
 		});
@@ -346,9 +338,19 @@ public class TelaPrincipal extends JFrame {
 		mnTransformaes.add(mnd3D);
 
 		JMenuItem mntmCisalhamento_1 = new JMenuItem("Cisalhamento");
+		mntmCisalhamento_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ValoresCisalhamento3D();
+			}
+		});
 		mnd3D.add(mntmCisalhamento_1);
 
 		JMenuItem mntmEscala3D = new JMenuItem("Escala");
+		mntmEscala3D.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ValoresEscala3D();
+			}
+		});
 		mnd3D.add(mntmEscala3D);
 
 		JMenu mnRotao = new JMenu("Rota\u00E7\u00E3o");
@@ -391,6 +393,7 @@ public class TelaPrincipal extends JFrame {
 
 				TelaPrincipal.setLista(lst);
 				TelaPrincipal.povoar3D();
+				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 				validate();
 			}
@@ -407,11 +410,13 @@ public class TelaPrincipal extends JFrame {
 
 				TelaPrincipal.setLista(lst);
 				TelaPrincipal.povoar3D();
+				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 				validate();
 			}
 		});
-		mntmReflexaoEmY.addActionListener(new ActionListener() {
+		mntmReflexaoEmY3D = new JMenuItem("3D");
+		mntmReflexaoEmY3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				PanelPlanoCartesiano.add3D(true);
@@ -420,6 +425,7 @@ public class TelaPrincipal extends JFrame {
 
 				TelaPrincipal.setLista(lst);
 				TelaPrincipal.povoar3D();
+				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 				validate();
 			}
@@ -436,6 +442,7 @@ public class TelaPrincipal extends JFrame {
 
 				TelaPrincipal.setLista(lst);
 				TelaPrincipal.povoar3D();
+				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 				validate();
 			}
@@ -446,6 +453,7 @@ public class TelaPrincipal extends JFrame {
 		mntmTranslao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Valores3D("translacao");
+				TelaPrincipal.panelNormalizacao.repaint();
 				revalidate();
 				repaint();
 			}
@@ -493,6 +501,7 @@ public class TelaPrincipal extends JFrame {
 		} catch (Exception e) {
 			System.out.println("Erro ao povoar os valores.");
 		}
+		TelaPrincipal.panelNormalizacao.repaint();
 	}
 
 	/**
@@ -504,11 +513,11 @@ public class TelaPrincipal extends JFrame {
 				if (ponto.getZ() == 0) {
 					PanelReta.panelPlanoCartesiano
 							.desenharPixel(ponto.getX() + 300,
-									-ponto.getY() + 300, Color.BLUE);
+									-ponto.getY() + 300, Color.RED);
 				} else {
 					PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX()
 							+ 300 - ponto.getZ() / 2, -ponto.getY() + 300
-							+ ponto.getZ() / 2, Color.BLUE);
+							+ ponto.getZ() / 2, Color.RED);
 
 				}
 
@@ -516,6 +525,7 @@ public class TelaPrincipal extends JFrame {
 		} catch (Exception e) {
 			System.out.println("Erro ao povoar os valores nas 3 dimensões.");
 		}
+		TelaPrincipal.panelNormalizacao.repaint();
 	}
 
 	/**

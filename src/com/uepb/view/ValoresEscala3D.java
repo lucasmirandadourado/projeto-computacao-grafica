@@ -20,13 +20,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class Valores3D extends JDialog {
+public class ValoresEscala3D extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtX;
 	private JTextField txtY;
 	public String x, y, z;
+	protected boolean status;
 	private JTextField txtZ;
 
 	/**
@@ -34,8 +35,10 @@ public class Valores3D extends JDialog {
 	 * 
 	 * @param tipo
 	 */
-	public Valores3D(String tipo) {
+	public ValoresEscala3D() {
+		
 		setVisible(true);
+		status = true;
 		setResizable(false);
 		setVisible(true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -47,43 +50,39 @@ public class Valores3D extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblTranslao = new JLabel("Transla\u00E7\u00E3o");
-		lblTranslao.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		JLabel lblTranslao = new JLabel("Escala");
+		lblTranslao.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblTranslao.setBounds(10, 16, 102, 40);
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
-		getTxtTranslacaoX().setText("10");
-		getTxtTranslacaoX().setBounds(164, 72, 105, 30);
+		getTxtTranslacaoX().setText("0");
+		getTxtTranslacaoX().setBounds(151, 72, 86, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
 		setTxtTranslacaoY(new JTextField());
 		getTxtTranslacaoY().setText("0");
-		getTxtTranslacaoY().setBounds(164, 118, 105, 30);
+		getTxtTranslacaoY().setBounds(151, 118, 86, 30);
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
 
-		JLabel lblTranslaoEmX = new JLabel("Transla\u00E7\u00E3o em X");
-		lblTranslaoEmX.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblTranslaoEmX.setBounds(20, 72, 134, 30);
-		contentPanel.add(lblTranslaoEmX);
+		JLabel lblCisalhamentoEmX = new JLabel("Cisalhamento em X");
+		lblCisalhamentoEmX.setBounds(20, 72, 121, 30);
+		contentPanel.add(lblCisalhamentoEmX);
 
-		JLabel lblTranslaoEmY = new JLabel("Transla\u00E7\u00E3o em Y");
-		lblTranslaoEmY.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblTranslaoEmY.setBounds(20, 118, 134, 30);
-		contentPanel.add(lblTranslaoEmY);
+		JLabel lblCisalhamentoEmY = new JLabel("Cisalhamento em Y");
+		lblCisalhamentoEmY.setBounds(20, 118, 121, 30);
+		contentPanel.add(lblCisalhamentoEmY);
 		
-		JLabel lblTranslaoEmZ = new JLabel("Transla\u00E7\u00E3o em Z");
-		lblTranslaoEmZ.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblTranslaoEmZ.setBounds(20, 164, 134, 30);
-		contentPanel.add(lblTranslaoEmZ);
+		JLabel lblCisalhamentoEmZ = new JLabel("Cisalhamento em Z");
+		lblCisalhamentoEmZ.setBounds(20, 164, 121, 30);
+		contentPanel.add(lblCisalhamentoEmZ);
 		
 		txtZ = new JTextField();
-		txtZ.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtZ.setText("0");
 		txtZ.setColumns(10);
-		txtZ.setBounds(164, 164, 105, 30);
+		txtZ.setBounds(151, 164, 86, 30);
 		contentPanel.add(txtZ);
 
 		JPanel buttonPane = new JPanel();
@@ -95,28 +94,24 @@ public class Valores3D extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				
-				int x = Integer.valueOf(txtX.getText());
-				int y = Integer.valueOf(txtY.getText()); 
-				int z = Integer.valueOf(txtZ.getText());
+				x = txtX.getText();
+				y = txtY.getText();
+				z = txtZ.getText();
 				
-				List<Ponto> listaPontos = null;
-				if (tipo == "translacao") {					
-					listaPontos = translação(x, y, z);
-				}
-			
+				List<Ponto> listaPontos = escala(Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z));	
+				
 				PanelPlanoCartesiano.add3D(true);
 				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
-			} 
-			/**
-			 * @return
-			 */
-			private List<Ponto> translação(int x, int y, int z) {
-				List<Ponto> listaPontos = new Operacoes3D().translacaoMulti3D(TelaPrincipal.getLista(), x, y, z);
-				return listaPontos;
 			}
+
+			private List<Ponto> escala(Integer a, Integer b, Integer c) {
+				List<Ponto> lis = new Operacoes3D().escala(TelaPrincipal.getLista(), a, b, c); 
+				return lis;
+			}
+
 		});
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
@@ -125,6 +120,7 @@ public class Valores3D extends JDialog {
 		JButton cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				status = false;
 				setVisible(false);
 			}
 		});
@@ -147,7 +143,6 @@ public class Valores3D extends JDialog {
 	 */
 	public void setTxtTranslacaoY(JTextField txtTranslacaoY) {
 		this.txtY = txtTranslacaoY;
-		txtY.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 	}
 
 	/**
@@ -163,6 +158,5 @@ public class Valores3D extends JDialog {
 	 */
 	public void setTxtTranslacaoX(JTextField txtTranslacaoX) {
 		this.txtX = txtTranslacaoX;
-		txtX.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 	}
 }

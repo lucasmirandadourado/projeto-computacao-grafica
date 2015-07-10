@@ -5,22 +5,11 @@ import java.util.List;
 
 public class Quadrado {
 
-	double lenght;
-	double X, Y, x_inc, y_inc;
-	double media = 0.0;
-
 	List<Ponto> listaDePontos = new ArrayList<Ponto>();
 
 	public Quadrado() {
 
 	}
-
-	
-	public static void main(String[] args) { 
-		Quadrado r = new Quadrado();
-		r.quadrado(10, 10);
-	}
-
 
 	public List<Ponto> quadrado(int x, int y) {
 		

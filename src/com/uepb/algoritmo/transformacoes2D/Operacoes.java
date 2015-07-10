@@ -59,7 +59,7 @@ public class Operacoes {
 
 		double sen = Math.sin(Math.toRadians(angulo));
 		double cos = Math.cos(Math.toRadians(angulo));
-		
+
 		// Linha 0
 		matriz[0][0] = cos;
 		matriz[1][0] = sen;
@@ -115,7 +115,7 @@ public class Operacoes {
 
 		return matriz;
 	}
-	
+
 	private double[][] gerarMatrizReflexaoXY() {
 
 		double[][] matriz = new double[3][3];
@@ -136,50 +136,10 @@ public class Operacoes {
 		return matriz;
 	}
 
-	private double[][] gerarMatrizCisalhamentoX(int a) {
+	private double[][] gerarMatrizCisalhamentoX(int a, int b) {
 
 		double[][] matriz = new double[3][3];
-
-		// Linha 0
-		matriz[0][0] = 1;
-		matriz[1][0] = 0;
-		matriz[2][0] = 0;
-		// Linha 1
-		matriz[0][1] = a;
-		matriz[1][1] = 1;
-		matriz[2][1] = 0;
-		// Linha 2
-		matriz[0][2] = 0;
-		matriz[1][2] = 0;
-		matriz[2][2] = 1;
-
-		return matriz;
-	}
-
-	private double[][] gerarMatrizCisalhamentoY(int b) {
-
-		double[][] matriz = new double[3][3];
-
-		// Linha 0
-		matriz[0][0] = 1;
-		matriz[1][0] = b;
-		matriz[2][0] = 0;
-		// Linha 1
-		matriz[0][1] = 0;
-		matriz[1][1] = 1;
-		matriz[2][1] = 0;
-		// Linha 2
-		matriz[0][2] = 0;
-		matriz[1][2] = 0;
-		matriz[2][2] = 1;
-
-		return matriz;
-	}
-
-	private double[][] gerarMatrizCisalhamentoXY(int a, int b) {
-
-		double[][] matriz = new double[3][3];
-
+		
 		// Linha 0
 		matriz[0][0] = 1;
 		matriz[1][0] = b;
@@ -195,7 +155,7 @@ public class Operacoes {
 
 		return matriz;
 	}
-	
+
 	// Operações básicas
 	private double[][] translacaoMulti(double[][] matriz, int x, int y) {
 
@@ -212,7 +172,7 @@ public class Operacoes {
 
 	public List<Ponto> translacaoMulti(List<Ponto> objeto, int x, int y) {
 		List<Ponto> list = new ArrayList<Ponto>();
-		
+
 		double[][] matriz = new double[3][objeto.size()];
 
 		// Criando o objeto de matriz
@@ -221,26 +181,25 @@ public class Operacoes {
 			matriz[1][i] = objeto.get(i).getY(); // Coluna i na linha 1
 			matriz[2][i] = 1; // Coluna i na linha 2 = 1
 		}
-		
+
 		double[][] d = null;
 		try {
-			d = Matriz.multiplicaMatrizes(
-					gerarMatrizTranslacao(x, y), matriz);
+			d = Matriz.multiplicaMatrizes(gerarMatrizTranslacao(x, y), matriz);
 		} catch (Exception e) {
 			System.out.println("ERRO NA TRANSLAÇÃO");
 		}
-		
+
 		for (int i = 0; i < d[0].length; i++) {
 			list.add(new Ponto((int) d[0][i], (int) d[1][i], (int) d[2][i]));
 		}
-		System.out.println(list.toString()+"a\n");
+		System.out.println(list.toString() + "a\n");
 		return list;
 	}
-	
+
 	public List<Ponto> escalaReta(List<Ponto> objeto, double x, double y) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][objeto.size() + 1];
-		
+
 		// Criando o objeto de matriz
 		for (int i = 0; i < objeto.size(); i++) {
 			matriz[0][i] = objeto.get(i).getX(); // Coluna i na linha 0
@@ -261,16 +220,15 @@ public class Operacoes {
 		// Gerando a matriz da escala
 		double[][] a = null;
 		try {
-			a = new Matriz().multiplicaMatrizes(escala, matrizNaOrigem);
+			new Matriz();
+			a = Matriz.multiplicaMatrizes(escala, matrizNaOrigem);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		// Voltar a reta a posição de origem
 		double[][] b = translacaoMulti(a, translacaox, translacaoy);
 
-		int size = b[0].length - 2;
 		for (int i = 0; i < b[0].length; i++) {
 			list.add(new Ponto((int) b[0][i], (int) b[1][i], (int) b[2][i]));
 		}
@@ -288,23 +246,24 @@ public class Operacoes {
 			matriz[2][i] = 1; // Coluna j na linha 2 = 1
 		}
 
+		int translacaoX = lis.get(0).getX();
+		int translacaoY = lis.get(0).getY();
 		
-		List<Ponto> trans = translacaoMulti(lis, -lis.get(0).getX(), -lis.get(0).getY());
-		
+		List<Ponto> trans = translacaoMulti(lis, -translacaoX, -translacaoY);
+
 		double[][] matrizNaOrigem = new double[3][lis.size()];
-		
+
 		int size = trans.size();
-		
+
 		for (int i = 0; i < size; i++) {
 			matrizNaOrigem[0][i] = (double) trans.get(i).getX();
 			matrizNaOrigem[1][i] = (double) trans.get(i).getY();
 			matrizNaOrigem[2][i] = (double) trans.get(i).getZ();
 		}
-	
+
 		// Gerar a matriz de rotação
 		double[][] rotacao = gerarMatrizRotacao(angulo);
 
-	
 		// Fazer a rotação
 		double[][] lisPonto = null;
 		try {
@@ -313,13 +272,13 @@ public class Operacoes {
 			System.err.println("Erro ao multiplicar a matriz de rotação");
 			e.printStackTrace();
 		}
-		
-		
+		matrizNaOrigem = null;
+		matrizNaOrigem = translacaoMulti(lisPonto, translacaoX, translacaoY);
 		lis.clear();
-		for (int i = 0; i < lisPonto[0].length; i++) {
-			lis.add(new Ponto((int) lisPonto[0][i], (int) lisPonto[1][i], (int) lisPonto[2][i]));
+		for (int i = 0; i < matrizNaOrigem[0].length; i++) {
+			lis.add(new Ponto((int) matrizNaOrigem[0][i], (int) matrizNaOrigem[1][i],
+					(int) matrizNaOrigem[2][i]));
 		}
-		
 		
 		return lis;
 	}
@@ -337,7 +296,7 @@ public class Operacoes {
 		}
 
 		double[][] reflexao = gerarMatrizReflexaoX();
-		
+
 		double[][] matrizRefetida = null;
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
@@ -345,29 +304,30 @@ public class Operacoes {
 			System.out.println("Erro na reflexão.");
 			e.printStackTrace();
 		}
-		
+
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i], (int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
-			
+			list.add(new Ponto((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+
 		}
-		
+
 		return list;
 	}
 
-	public List<Ponto> reflexaoY(List<Ponto> lista) {
+	public List<Ponto> reflexaoY(List<Ponto> lstPontos) {
 		List<Ponto> list = new ArrayList<Ponto>();
-		double[][] matriz = new double[3][lista.size()];
+		double[][] matriz = new double[3][lstPontos.size()];
 
 		// Criando o objeto de matriz
-		for (int i = 0; i < lista.size(); i++) {
-			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
-			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
+		for (int i = 0; i < lstPontos.size(); i++) {
+			matriz[0][i] = lstPontos.get(i).getX(); // Coluna i na linha 0
+			matriz[1][i] = lstPontos.get(i).getY(); // Coluna i na linha 1
 			matriz[2][i] = 1; // Coluna j na linha 2 = 1
 		}
 
 		double[][] reflexao = gerarMatrizReflexaoY();
-		
+
 		double[][] matrizRefetida = null;
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
@@ -375,17 +335,18 @@ public class Operacoes {
 			System.out.println("Erro na reflexão.");
 			e.printStackTrace();
 		}
-		
+
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i], (int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
-			
+			list.add(new Ponto((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+
 		}
-		
+
 		return list;
 	}
-	
-	public List<Ponto> reflexaoXY(List<Ponto> lista) { 
+
+	public List<Ponto> reflexaoXY(List<Ponto> lista) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][lista.size()];
 
@@ -397,7 +358,7 @@ public class Operacoes {
 		}
 
 		double[][] reflexao = gerarMatrizReflexaoXY();
-		
+
 		double[][] matrizRefetida = null;
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
@@ -405,16 +366,17 @@ public class Operacoes {
 			System.out.println("Erro na reflexão.");
 			e.printStackTrace();
 		}
-		
+
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i], (int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));			
+			list.add(new Ponto((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
 		}
-		
+
 		return list;
 	}
-	
-	public List<Ponto> cisalhamentoEmXY(List<Ponto> lista, int a, int b) { 
+
+	public List<Ponto> cisalhamentoEmX(List<Ponto> lista, Integer a, Integer b) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][lista.size()];
 
@@ -425,8 +387,8 @@ public class Operacoes {
 			matriz[2][i] = 1; // Coluna j na linha 2 = 1
 		}
 
-		double[][] cisalhamento = gerarMatrizCisalhamentoXY(a, b);
-		
+		double[][] cisalhamento = gerarMatrizCisalhamentoX(a, b);
+
 		double[][] matrizRefetida = null;
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes(cisalhamento, matriz);
@@ -434,16 +396,79 @@ public class Operacoes {
 			System.out.println("Erro no  cisalhamento em X e Y.");
 			e.printStackTrace();
 		}
-		
+
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i], (int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
-			
+			list.add(new Ponto((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+
 		}
-		
+
 		return list;
 	}
-	
+
+	public List<Ponto> cisalhamentoEmY(List<Ponto> lista, Integer a, Integer b) {
+		List<Ponto> list = new ArrayList<Ponto>();
+		double[][] matriz = new double[3][lista.size()];
+
+		// Criando o objeto de matriz
+		for (int i = 0; i < lista.size(); i++) {
+			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
+			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
+			matriz[2][i] = 1; // Coluna j na linha 2 = 1
+		}
+
+		double[][] cisalhamento = gerarMatrizCisalhamentoX(a, b);
+
+		double[][] matrizRefetida = null;
+		try {
+			matrizRefetida = Matriz.multiplicaMatrizes(cisalhamento, matriz);
+		} catch (Exception e) {
+			System.out.println("Erro no  cisalhamento em X e Y.");
+			e.printStackTrace();
+		}
+
+		list.clear();
+		for (int i = 0; i < matrizRefetida[0].length; i++) {
+			list.add(new Ponto((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+
+		}
+
+		return list;
+	}
+
+	public List<Ponto> cisalhamentoEmZ(List<Ponto> lista, int a, int b) {
+		List<Ponto> list = new ArrayList<Ponto>();
+		double[][] matriz = new double[3][lista.size()];
+
+		// Criando o objeto de matriz
+		for (int i = 0; i < lista.size(); i++) {
+			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
+			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
+			matriz[2][i] = 1; // Coluna j na linha 2 = 1
+		}
+
+		double[][] cisalhamento = gerarMatrizCisalhamentoX(a, b);
+
+		double[][] matrizRefetida = null;
+		try {
+			matrizRefetida = Matriz.multiplicaMatrizes(cisalhamento, matriz);
+		} catch (Exception e) {
+			System.out.println("Erro no  cisalhamento em X e Y.");
+			e.printStackTrace();
+		}
+
+		list.clear();
+		for (int i = 0; i < matrizRefetida[0].length; i++) {
+			list.add(new Ponto((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+
+		}
+
+		return list;
+	}
+
 	public int getX() {
 		return x;
 	}

@@ -41,7 +41,7 @@ public class ValoresRotacao extends JDialog {
 		setVisible(true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setAutoRequestFocus(false);
-
+ 
 		setBounds(100, 100, 307, 276);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,13 +77,13 @@ public class ValoresRotacao extends JDialog {
 				listaPontos = rotacao();				
 				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos);
-				setVisible(false);
+				TelaPrincipal.panelNormalizacao.repaint();
+				setVisible(false);			
 			}
 
 			private List<Ponto> rotacao() {
 				List<Ponto> listaPontos = new Operacoes().rotacao(TelaPrincipal.getLista(),
-						Integer.valueOf(txtRotacao.getText()));
-				System.out.println("Lista de pontos: " + listaPontos);
+						Integer.valueOf(txtRotacao.getText()));				
 				return listaPontos;
 			}
 		});

@@ -88,13 +88,16 @@ public class Retangulo extends JDialog {
 				TelaPrincipal.getLista().clear();
 				
 				List<Ponto> listaPontos = new Quadrado().quadrado(Integer.valueOf(x), Integer.valueOf(y));
+				
 				TelaPrincipal.setLista(listaPontos);
-				TelaPrincipal.povoarRetas(listaPontos);
+				TelaPrincipal.povoarRetas(TelaPrincipal.getLista());
+				TelaPrincipal.panelNormalizacao.repaint();
+				
 				repaint();
 				validate();
 				setVisible(false);
 			}
-		});
+		}); 
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);

@@ -88,6 +88,7 @@ public class ValoresRotacao3D extends JDialog {
 				TelaPrincipal.setLista(listaPontos);
 				PanelPlanoCartesiano.add3D(true);
 				TelaPrincipal.povoar3D();
+				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}
 		});
