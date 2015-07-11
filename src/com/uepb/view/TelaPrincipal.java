@@ -28,7 +28,8 @@ public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	static JMenuItem mntmTranslacao, mntmEscala, mntmRotacao, mntmCisalhamento,
-			mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY, mntmReflexaoEmY, mntmReflexaoEmY3D;
+			mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY,
+			mntmReflexaoEmY, mntmReflexaoEmY3D;
 	public PanelReta panelReta;
 	public PanelCircunferencia panelCircunferencia;
 	public PanelCircunfTrigonometrica panelCircunfTringo;
@@ -295,7 +296,7 @@ public class TelaPrincipal extends JFrame {
 
 		mntmReflexaoEmY = new JMenuItem("Reflexao em Y");
 		mntmReflexaoEmY.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {
 				List<Ponto> lista = getLista();
 
 				List<Ponto> lstP = new Operacoes().reflexaoY(lista);
@@ -337,26 +338,48 @@ public class TelaPrincipal extends JFrame {
 		mnd3D.setMinimumSize(new Dimension(100, 0));
 		mnTransformaes.add(mnd3D);
 
-		JMenuItem mntmCisalhamento_1 = new JMenuItem("Cisalhamento");
-		mntmCisalhamento_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new ValoresCisalhamento3D();
-			}
-		});
-		mnd3D.add(mntmCisalhamento_1);
-
 		JMenuItem mntmEscala3D = new JMenuItem("Escala");
 		mntmEscala3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new ValoresEscala3D();
 			}
 		});
+
+		JMenu mnCisalhamento = new JMenu("Cisalhamento");
+		mnd3D.add(mnCisalhamento);
+
+		JMenuItem mntmCisalhamentoEmX = new JMenuItem("Cisalhamento em X");
+		mntmCisalhamentoEmX.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ValoresCisalhamento3D("X");
+			}
+		});
+		mnCisalhamento.add(mntmCisalhamentoEmX);
+
+		JMenuItem mntmCisalhamentoEmY = new JMenuItem("Cisalhamento em Y");
+		mntmCisalhamentoEmY.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ValoresCisalhamento3D("Y");
+			}
+		});
+		mnCisalhamento.add(mntmCisalhamentoEmY);
+
+		JMenuItem mntmCisalhamentoEmZ = new JMenuItem("Cisalhamento em Z");
+		mntmCisalhamentoEmZ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ValoresCisalhamento3D("Z");
+			}
+		});
+		mnCisalhamento.add(mntmCisalhamentoEmZ);
+		
+		
 		mnd3D.add(mntmEscala3D);
 
 		JMenu mnRotao = new JMenu("Rota\u00E7\u00E3o");
 		mnd3D.add(mnRotao);
 
-		JMenuItem mntmRotacaoEmX = new JMenuItem("Rota\u00E7\u00E3o em torno de X");
+		JMenuItem mntmRotacaoEmX = new JMenuItem(
+				"Rota\u00E7\u00E3o em torno de X");
 		mntmRotacaoEmX.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ValoresRotacao3D("x");
@@ -364,7 +387,8 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnRotao.add(mntmRotacaoEmX);
 
-		JMenuItem mntmRotaoEmY = new JMenuItem("Rota\u00E7\u00E3o em torno de Y");
+		JMenuItem mntmRotaoEmY = new JMenuItem(
+				"Rota\u00E7\u00E3o em torno de Y");
 		mntmRotaoEmY.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ValoresRotacao3D("y");
@@ -372,7 +396,8 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnRotao.add(mntmRotaoEmY);
 
-		JMenuItem mntmRotaoEmZ = new JMenuItem("Rota\u00E7\u00E3o em torno de Z");
+		JMenuItem mntmRotaoEmZ = new JMenuItem(
+				"Rota\u00E7\u00E3o em torno de Z");
 		mntmRotaoEmZ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ValoresRotacao3D("z");
@@ -511,9 +536,8 @@ public class TelaPrincipal extends JFrame {
 		try {
 			for (Ponto ponto : getLista()) {
 				if (ponto.getZ() == 0) {
-					PanelReta.panelPlanoCartesiano
-							.desenharPixel(ponto.getX() + 300,
-									-ponto.getY() + 300, Color.RED);
+					PanelReta.panelPlanoCartesiano.desenharPixel(
+							ponto.getX() + 300, -ponto.getY() + 300, Color.RED);
 				} else {
 					PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX()
 							+ 300 - ponto.getZ() / 2, -ponto.getY() + 300

@@ -25,17 +25,16 @@ public class ValoresCisalhamento3D extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtX;
-	private JTextField txtY;
 	public String x, y, z;
 	protected boolean status;
-	private JTextField txtZ;
 
 	/**
 	 * Create the dialog.
+	 * @param tipo 
 	 * 
 	 * @param tipo
 	 */
-	public ValoresCisalhamento3D() {
+	public ValoresCisalhamento3D(String tipo) {
 
 		status = true;
 		setResizable(false);
@@ -56,33 +55,14 @@ public class ValoresCisalhamento3D extends JDialog {
 
 		setTxtTranslacaoX(new JTextField());
 		getTxtTranslacaoX().setText("0");
-		getTxtTranslacaoX().setBounds(151, 72, 86, 30);
+		getTxtTranslacaoX().setBounds(189, 72, 86, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
-		setTxtTranslacaoY(new JTextField());
-		getTxtTranslacaoY().setText("0");
-		getTxtTranslacaoY().setBounds(151, 118, 86, 30);
-		contentPanel.add(getTxtTranslacaoY());
-		getTxtTranslacaoY().setColumns(10);
-
-		JLabel lblCisalhamentoEmX = new JLabel("Cisalhamento em X");
-		lblCisalhamentoEmX.setBounds(20, 72, 121, 30);
+		JLabel lblCisalhamentoEmX = new JLabel("Valor do cisalhamento");
+		lblCisalhamentoEmX.setFont(new Font("Segoe UI Light", Font.PLAIN, 14));
+		lblCisalhamentoEmX.setBounds(20, 72, 159, 30);
 		contentPanel.add(lblCisalhamentoEmX);
-
-		JLabel lblCisalhamentoEmY = new JLabel("Cisalhamento em Y");
-		lblCisalhamentoEmY.setBounds(20, 118, 121, 30);
-		contentPanel.add(lblCisalhamentoEmY);
-		
-		JLabel lblCisalhamentoEmZ = new JLabel("Cisalhamento em Z");
-		lblCisalhamentoEmZ.setBounds(20, 164, 121, 30);
-		contentPanel.add(lblCisalhamentoEmZ);
-		
-		txtZ = new JTextField();
-		txtZ.setText("0");
-		txtZ.setColumns(10);
-		txtZ.setBounds(151, 164, 86, 30);
-		contentPanel.add(txtZ);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -94,22 +74,18 @@ public class ValoresCisalhamento3D extends JDialog {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				
 				x = txtX.getText();
-				y = txtY.getText();
-				z = txtZ.getText();
 				
 				List<Ponto> listaPontos = null;
-				if (!(x.isEmpty() || x.equals("0"))) {
-					listaPontos = cisalhamentoX(Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z));	
+				if (tipo.equals("X")) {
+					listaPontos = cisalhamentoX(Double.valueOf(x));	
 				} 
-				if (!(y.isEmpty() || y.equals("0"))) {
-					listaPontos = cisalhamentoY(Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z));	
-				}
-				if (!(z.isEmpty() || z.equals("0"))) {
-					listaPontos = cisalhamentoZ(Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z));	
+				
+				if (tipo.equals("Y")) { 
+					listaPontos = cisalhamentoY(Double.valueOf(x));	
 				}
 				
-				if (TelaPrincipal.getLista().isEmpty()) {
-					System.out.println(TelaPrincipal.getLista().toString());
+				if (tipo.equals("Z")) {
+					listaPontos = cisalhamentoZ(Double.valueOf(x));	
 				}
 				
 				PanelPlanoCartesiano.add3D(true);
@@ -119,18 +95,18 @@ public class ValoresCisalhamento3D extends JDialog {
 				setVisible(false);
 			}
 
-			private List<Ponto> cisalhamentoZ(Integer a, Integer b, Integer c) {
-				List<Ponto> lis = new Operacoes3D().cisalhamentoEmX(TelaPrincipal.getLista(), a, b, c); 
+			private List<Ponto> cisalhamentoZ(Double a) {
+				List<Ponto> lis = new Operacoes3D().cisalhamentoEmZ(TelaPrincipal.getLista(), a); 
 				return lis;
 			}
 
-			private List<Ponto> cisalhamentoY(Integer a, Integer b, Integer c) {
-				List<Ponto> lis = new Operacoes3D().cisalhamentoEmY(TelaPrincipal.getLista(), a, b, c); 
+			private List<Ponto> cisalhamentoY(Double a) {
+				List<Ponto> lis = new Operacoes3D().cisalhamentoEmY(TelaPrincipal.getLista(), a); 
 				return lis;
 			}
 
-			private List<Ponto> cisalhamentoX(Integer a, Integer b, Integer c) {
-				List<Ponto> lis = new Operacoes3D().cisalhamentoEmZ(TelaPrincipal.getLista(), a, b, c); 
+			private List<Ponto> cisalhamentoX(Double a) {
+				List<Ponto> lis = new Operacoes3D().cisalhamentoEmX(TelaPrincipal.getLista(), a); 
 				return lis;
 			}
 
@@ -152,19 +128,13 @@ public class ValoresCisalhamento3D extends JDialog {
 
 	}
 
-	/**
-	 * @return the txtTranslacaoY
-	 */
-	public JTextField getTxtTranslacaoY() {
-		return txtY;
-	}
-
+	
 	/**
 	 * @param txtTranslacaoY
 	 *            the txtTranslacaoY to set
 	 */
 	public void setTxtTranslacaoY(JTextField txtTranslacaoY) {
-		this.txtY = txtTranslacaoY;
+		this.txtX = txtTranslacaoY;
 	}
 
 	/**
@@ -180,5 +150,6 @@ public class ValoresCisalhamento3D extends JDialog {
 	 */
 	public void setTxtTranslacaoX(JTextField txtTranslacaoX) {
 		this.txtX = txtTranslacaoX;
+		txtX.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	}
 }
