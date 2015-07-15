@@ -38,11 +38,7 @@ public class Ajuda extends JDialog {
 		contentPanel.add(lblSobre);
 
 		JLabel lblProjetoDesenvolvidoPelos = new JLabel(
-				"<html>\r\n<body>\r\n<p>Projeto desenvolvido pelos alunos: Alcinael Fernandes,"
-						+ " Daniel Marques e Lucas Miranda. Projeto da cadeira de Computa\u00E7\u00E3o gr\u00E1fica "
-						+ "orientado pelo professor Robson Pequeno.</p>\r\n\r\n<h4>Atalhos</h4>\r\n<ul>\r\n<li>Ctrl + "
-						+ "c = Circunferencia</li>\r\n<li>Ctrol + h = Home</li>\r\n<li>Ctrl + r = Reta</li>\r\n<li>Ctrl +"
-						+ " s = Sobre</li>\r\n</ul>\r\n <h5>Julho / 2015 - UEPB</h5></body>\r\n</html>");
+				"<html><head><meta charset='UTF-8'></head><body><p>Projeto desenvolvido pelos alunos: Alcinael Fernandes Daniel Marques e Lucas Miranda. Projeto da cadeira de Computação gráfica orientado pelo professor Robson Pequeno.</p><h4>Atalhos</h4><ul><li>Ctrl + c = Cubo</li><li>Ctrl + e = Cirfunferencia - Algoritmo equação explicita</li><li>Ctrl + h = Sobre</li><li>Ctrl + r = Reta</li><li>Ctrl + r = Cirfunferencia - Algoritmo de ponto médio</li><li>Ctrl + t = Cirfunferencia - Algoritmo trigonimetrico</li></ul><h5>UEPB</h5></body></html>");
 		lblProjetoDesenvolvidoPelos.setMaximumSize(new Dimension(838, 300));
 		lblProjetoDesenvolvidoPelos
 				.setHorizontalTextPosition(SwingConstants.LEFT);

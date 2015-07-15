@@ -349,11 +349,11 @@ public class Cubo3D {
 		int transy = lis.get(0).getY();
 		int transz = lis.get(0).getZ();
 		
-//		List<Ponto> trans = translacaoMulti(lis, -transx, -transy, -transz);	
+		List<Ponto> trans = translacaoMulti(lis, -transx, -transy, -transz);	
 
 		double[][] matrizNaOrigem = new double[4][lis.size()];
 
-//		int size = trans.size();
+		int size = trans.size();
 
 		for (int i = 0; i < lis.size(); i++) {
 			matrizNaOrigem[0][i] = (double) lis.get(i).getX();
@@ -380,9 +380,9 @@ public class Cubo3D {
 					(int) lisPonto[2][i], (int) lisPonto[3][i]));
 		}
 		
-//		List<Ponto> resultado = translacaoMulti(lis, transx, transy, transz);
+		List<Ponto> resultado = translacaoMulti(lis, transx, transy, transz);
 		
-		return lis;
+		return resultado;
 	}
 
 	public List<Ponto> rotacaoY(List<Ponto> lis, int angulo) {

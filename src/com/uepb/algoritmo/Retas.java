@@ -282,7 +282,7 @@ public class Retas {
 	 * @param x2
 	 * @param y2
 	 */
-	public void retaPontoMedio(int x, int y, int x2, int y2) {
+	public List<Ponto> retaPontoMedio(int x, int y, int x2, int y2) {
 		int wigth = x2 - x;
 		int height = y2 - y;
 		int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
@@ -331,5 +331,6 @@ public class Retas {
 			}
 
 		}
+		return listaDePontos;
 	}
 }

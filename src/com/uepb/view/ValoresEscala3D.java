@@ -98,7 +98,7 @@ public class ValoresEscala3D extends JDialog {
 				y = txtY.getText();
 				z = txtZ.getText();
 				
-				List<Ponto> listaPontos = escala(Integer.valueOf(x), Integer.valueOf(y), Integer.valueOf(z));	
+				List<Ponto> listaPontos = escala(Double.valueOf(x), Double.valueOf(y), Double.valueOf(z));	
 				
 				PanelPlanoCartesiano.add3D(true);
 				TelaPrincipal.setLista(listaPontos);
@@ -107,8 +107,8 @@ public class ValoresEscala3D extends JDialog {
 				setVisible(false);
 			}
 
-			private List<Ponto> escala(Integer a, Integer b, Integer c) {
-				List<Ponto> lis = new Operacoes3D().escala(TelaPrincipal.getLista(), a, b, c); 
+			private List<Ponto> escala(Double x, Double y, Double z) {
+				List<Ponto> lis = new Operacoes3D().escala(TelaPrincipal.getLista(), x, y, z); 
 				return lis;
 			}
 

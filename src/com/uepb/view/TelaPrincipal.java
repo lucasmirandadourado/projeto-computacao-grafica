@@ -12,24 +12,26 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.uepb.algoritmo.Cubo3D;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
-import com.uepb.algoritmo.transformacoes2D.Operacoes3D;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	static JMenuItem mntmTranslacao, mntmEscala, mntmRotacao, mntmCisalhamento,
-			mntmReflexaoEmX, mntmReflexoEmY, mntmReflexaoEmXeY,
-			mntmReflexaoEmY, mntmReflexaoEmY3D;
+	static JMenuItem mntmTranslacao2D, mntmEscala2D, mntmRotacao2D,
+			mntmCisalhamento2D, mntmReflexaoEmX2D, mntmReflexoEmY,
+			mntmReflexaoEmXeY2D, mntmRotacaoEmX3D, mntmReflexaoEmY2D,
+			mntmReflexaoEmY3D, mntmRotacaoEmX2D;
 	public PanelReta panelReta;
 	public PanelCircunferencia panelCircunferencia;
 	public PanelCircunfTrigonometrica panelCircunfTringo;
@@ -38,6 +40,11 @@ public class TelaPrincipal extends JFrame {
 	public static PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
 
 	private static List<Ponto> listaGLOBAL = new ArrayList<Ponto>();
+	/**
+	 * @wbp.nonvisual location=51,9
+	 */
+	private final JLabel label = DefaultComponentFactory.getInstance()
+			.createTitle("New JGoodies title");
 
 	/**
 	 * Launch the application.
@@ -72,7 +79,7 @@ public class TelaPrincipal extends JFrame {
 					validate();
 					repaint();
 				}
-				if ((e.getKeyCode() == KeyEvent.VK_C)
+				if ((e.getKeyCode() == KeyEvent.VK_M)
 						&& ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
 					panelCircunferencia = new PanelCircunferencia();
 					getContentPane().removeAll();
@@ -80,36 +87,52 @@ public class TelaPrincipal extends JFrame {
 					validate();
 					repaint();
 				}
-				if ((e.getKeyCode() == KeyEvent.VK_H)
+				if ((e.getKeyCode() == KeyEvent.VK_T)
 						&& ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+					panelCircunfTringo = new PanelCircunfTrigonometrica();
 					getContentPane().removeAll();
-					contentPane = new JPanel();
-					contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-					contentPane.setLayout(null);
-					setContentPane(contentPane);
-					getContentPane().add(panelNormalizacao);
+					getContentPane().add(panelCircunfTringo);
 					validate();
 					repaint();
 				}
-				if (e.getKeyCode() == KeyEvent.VK_A && KeyEvent.CTRL_MASK != 0) {
+				if (e.getKeyCode() == KeyEvent.VK_E && KeyEvent.CTRL_MASK != 0) {
+					panelCircunfExplicita = new PanelCircunfExplicita();
+					getContentPane().removeAll();
+					getContentPane().add(panelCircunfExplicita);
+					validate();
+					repaint();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_H && KeyEvent.CTRL_MASK != 0) {
 					new Ajuda().setVisible(true);
 				}
-				if (e.getKeyCode() == KeyEvent.VK_X && KeyEvent.CTRL_MASK != 0) {
-					List<Ponto> lista = getLista();
 
-					System.out.println("Reflexao em X");
-					List<Ponto> lstP = new Operacoes().reflexaoX(lista);
-
-					PanelReta.panelPlanoCartesiano.limparImagem();
-					setLista(lstP);
-					povoarRetas(lstP);
+				if (e.getKeyCode() == KeyEvent.VK_R && KeyEvent.CTRL_MASK != 0) {
+					try {
+						listaGLOBAL.clear();
+						new Retangulo();
+						validate();
+						repaint();
+					} catch (Exception e2) {
+						// TODO: handle exception
+					}
 				}
-				if (e.getKeyCode() == KeyEvent.VK_Y && KeyEvent.CTRL_MASK != 0) {
-					List<Ponto> lista = getLista();
-					List<Ponto> lstP = new Operacoes().reflexaoY(lista);
-					PanelReta.panelPlanoCartesiano.limparImagem();
-					setLista(lstP);
-					povoarRetas(lstP);
+
+				if (e.getKeyCode() == KeyEvent.VK_C && KeyEvent.CTRL_MASK != 0) {
+					listaGLOBAL.clear();
+					new Cubo();
+					validate();
+					repaint();
+				}
+
+				// Cisalhamento
+				if (e.getKeyCode() == KeyEvent.VK_X && KeyEvent.SHIFT_MASK != 0) {
+					new ValoresCisalhamento(listaGLOBAL, "cisa x");
+				}
+				if (e.getKeyCode() == KeyEvent.VK_Y && KeyEvent.SHIFT_MASK != 0) {
+					new ValoresCisalhamento(listaGLOBAL, "cisa y");
+				}
+				if (e.getKeyCode() == KeyEvent.VK_Z && KeyEvent.SHIFT_MASK != 0) {
+					new ValoresCisalhamento(listaGLOBAL, "cisa z");
 				}
 			}
 		});
@@ -123,7 +146,7 @@ public class TelaPrincipal extends JFrame {
 		setJMenuBar(barraDeMenu);
 
 		JMenuItem mntmHome = new JMenuItem("Home");
-		mntmHome.setMaximumSize(new Dimension(80, 120));
+		mntmHome.setMaximumSize(new Dimension(100, 120));
 		mntmHome.setIgnoreRepaint(true);
 		mntmHome.setInheritsPopupMenu(true);
 		mntmHome.setIcon(new ImageIcon(TelaPrincipal.class
@@ -149,23 +172,6 @@ public class TelaPrincipal extends JFrame {
 		menuCoordenadas.setMaximumSize(new Dimension(90, 120));
 		barraDeMenu.add(menuCoordenadas);
 
-		JMenuItem itemMenuReta = new JMenuItem("Reta");
-		itemMenuReta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelReta = new PanelReta();
-				getContentPane().removeAll();
-				getContentPane().add(panelReta);
-				validate();
-				repaint();
-			}
-		});
-
-		JMenuItem menuItemNormalizacao = new JMenuItem("Normalização");
-		menuCoordenadas.add(menuItemNormalizacao);
-		menuItemNormalizacao.setEnabled(false);
-
-		menuCoordenadas.add(itemMenuReta);
-
 		JMenu mnCircunferencia = new JMenu("Circunferencia");
 		mnCircunferencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -176,9 +182,29 @@ public class TelaPrincipal extends JFrame {
 				repaint();
 			}
 		});
+
+		JMenu mnRetas = new JMenu("Retas");
+		menuCoordenadas.add(mnRetas);
+
+		JMenuItem mntmDda = new JMenuItem("DDA");
+		mntmDda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Retas("dda");
+			}
+		});
+		mnRetas.add(mntmDda);
+
+		JMenuItem mntmPontoMdio = new JMenuItem("Ponto m\u00E9dio");
+		mntmPontoMdio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Retas("pm");
+			}
+		});
+		mnRetas.add(mntmPontoMdio);
 		menuCoordenadas.add(mnCircunferencia);
 
 		JMenuItem mntmPontoMedio = new JMenuItem("Ponto medio");
+		mntmPontoMedio.setToolTipText("Ctrl + m");
 		mntmPontoMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelCircunferencia = new PanelCircunferencia();
@@ -192,6 +218,7 @@ public class TelaPrincipal extends JFrame {
 
 		JMenuItem mntmEquaoExplicita = new JMenuItem(
 				"Equa\u00E7\u00E3o explicita");
+		mntmEquaoExplicita.setToolTipText("Ctrl + e");
 		mntmEquaoExplicita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelCircunfExplicita = new PanelCircunfExplicita();
@@ -204,6 +231,7 @@ public class TelaPrincipal extends JFrame {
 		mnCircunferencia.add(mntmEquaoExplicita);
 
 		JMenuItem mntmTrigonometrica = new JMenuItem("Trigonometrica");
+		mntmTrigonometrica.setToolTipText("Ctrl + t");
 		mnCircunferencia.add(mntmTrigonometrica);
 		mntmTrigonometrica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -216,12 +244,17 @@ public class TelaPrincipal extends JFrame {
 		});
 
 		JMenuItem mntmRetangulo = new JMenuItem("Retangulo");
+		mntmRetangulo.setToolTipText("Ctrl + r");
 		mntmRetangulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listaGLOBAL.clear();
-				new Retangulo();
-				validate();
-				repaint();
+				try {
+					listaGLOBAL.clear();
+					new Retangulo();
+					validate();
+					repaint();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
 			}
 		});
 		menuCoordenadas.add(mntmRetangulo);
@@ -240,22 +273,27 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnTransformaes = new JMenu("Transforma\u00E7\u00F5es");
 		barraDeMenu.add(mnTransformaes);
 
-		JMenu mnd = new JMenu("2D");
-		mnd.setOpaque(true);
-		mnd.setMinimumSize(new Dimension(200, 60));
-		mnd.setMaximumSize(new Dimension(200, 32767));
-		mnTransformaes.add(mnd);
+		JMenu mnd2D = new JMenu("2D");
+		mnd2D.setOpaque(true);
+		mnd2D.setMinimumSize(new Dimension(200, 60));
+		mnd2D.setMaximumSize(new Dimension(200, 32767));
+		mnTransformaes.add(mnd2D);
 
-		mntmCisalhamento = new JMenuItem("Cisalhamento");
-		mnd.add(mntmCisalhamento);
-		mntmCisalhamento.addActionListener(new ActionListener() {
+		mntmCisalhamento2D = new JMenuItem("Cisalhamento");
+		mntmCisalhamento2D.setToolTipText("SHIFT + c");
+		mnd2D.add(mntmCisalhamento2D);
+		mntmCisalhamento2D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new ValoresCisalhamento(listaGLOBAL, "cisa x");
+				try {
+					new ValoresCisalhamento(listaGLOBAL, "cisa x");
+				} catch (Exception e2) {
+					e2.getCause();
+				}
 			}
 		});
 
-		mntmEscala = new JMenuItem("Escala");
-		mntmEscala.addActionListener(new ActionListener() {
+		mntmEscala2D = new JMenuItem("Escala");
+		mntmEscala2D.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -263,10 +301,10 @@ public class TelaPrincipal extends JFrame {
 				repaint();
 			}
 		});
-		mnd.add(mntmEscala);
+		mnd2D.add(mntmEscala2D);
 
-		mntmRotacao = new JMenuItem("Rota\u00E7\u00E3o");
-		mntmRotacao.addActionListener(new ActionListener() {
+		mntmRotacao2D = new JMenuItem("Rota\u00E7\u00E3o");
+		mntmRotacao2D.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -275,13 +313,13 @@ public class TelaPrincipal extends JFrame {
 				validate();
 			}
 		});
-		mnd.add(mntmRotacao);
+		mnd2D.add(mntmRotacao2D);
 
 		JMenu mnReflexao = new JMenu("Reflex\u00E3o");
-		mnd.add(mnReflexao);
+		mnd2D.add(mnReflexao);
 
-		mntmReflexaoEmX = new JMenuItem("Reflex\u00E3o em X");
-		mntmReflexaoEmX.addActionListener(new ActionListener() {
+		mntmReflexaoEmX2D = new JMenuItem("Reflex\u00E3o em X");
+		mntmReflexaoEmX2D.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				List<Ponto> lstP = new Operacoes().reflexaoX(getLista());
@@ -292,10 +330,10 @@ public class TelaPrincipal extends JFrame {
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
-		mnReflexao.add(mntmReflexaoEmX);
+		mnReflexao.add(mntmReflexaoEmX2D);
 
-		mntmReflexaoEmY = new JMenuItem("Reflexao em Y");
-		mntmReflexaoEmY.addActionListener(new ActionListener() {
+		mntmReflexaoEmY2D = new JMenuItem("Reflexao em Y");
+		mntmReflexaoEmY2D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Ponto> lista = getLista();
 
@@ -307,10 +345,10 @@ public class TelaPrincipal extends JFrame {
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
-		mnReflexao.add(mntmReflexaoEmY);
+		mnReflexao.add(mntmReflexaoEmY2D);
 
-		mntmReflexaoEmXeY = new JMenuItem("Reflex\u00E3o em X e Y");
-		mntmReflexaoEmXeY.addActionListener(new ActionListener() {
+		mntmReflexaoEmXeY2D = new JMenuItem("Reflex\u00E3o em X e Y");
+		mntmReflexaoEmXeY2D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Ponto> lista = getLista();
 
@@ -322,17 +360,17 @@ public class TelaPrincipal extends JFrame {
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
-		mnReflexao.add(mntmReflexaoEmXeY);
+		mnReflexao.add(mntmReflexaoEmXeY2D);
 
-		mntmTranslacao = new JMenuItem("Transla\u00E7\u00E3o");
-		mntmTranslacao.addActionListener(new ActionListener() {
+		mntmTranslacao2D = new JMenuItem("Transla\u00E7\u00E3o");
+		mntmTranslacao2D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Valores("translacao");
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 			}
 		});
-		mnd.add(mntmTranslacao);
+		mnd2D.add(mntmTranslacao2D);
 
 		JMenu mnd3D = new JMenu("3D");
 		mnd3D.setMinimumSize(new Dimension(100, 0));
@@ -348,68 +386,67 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnCisalhamento = new JMenu("Cisalhamento");
 		mnd3D.add(mnCisalhamento);
 
-		JMenuItem mntmCisalhamentoEmX = new JMenuItem("Cisalhamento em X");
-		mntmCisalhamentoEmX.addActionListener(new ActionListener() {
+		JMenuItem mntmCisalhamentoEmX3D = new JMenuItem("Cisalhamento em X");
+		mntmCisalhamentoEmX3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ValoresCisalhamento3D("X");
 			}
 		});
-		mnCisalhamento.add(mntmCisalhamentoEmX);
+		mnCisalhamento.add(mntmCisalhamentoEmX3D);
 
-		JMenuItem mntmCisalhamentoEmY = new JMenuItem("Cisalhamento em Y");
-		mntmCisalhamentoEmY.addActionListener(new ActionListener() {
+		JMenuItem mntmCisalhamentoEmY3D = new JMenuItem("Cisalhamento em Y");
+		mntmCisalhamentoEmY3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new ValoresCisalhamento3D("Y");
 			}
 		});
-		mnCisalhamento.add(mntmCisalhamentoEmY);
+		mnCisalhamento.add(mntmCisalhamentoEmY3D);
 
-		JMenuItem mntmCisalhamentoEmZ = new JMenuItem("Cisalhamento em Z");
-		mntmCisalhamentoEmZ.addActionListener(new ActionListener() {
+		JMenuItem mntmCisalhamentoEmZ3D = new JMenuItem("Cisalhamento em Z");
+		mntmCisalhamentoEmZ3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ValoresCisalhamento3D("Z");
 			}
 		});
-		mnCisalhamento.add(mntmCisalhamentoEmZ);
-		
-		
+		mnCisalhamento.add(mntmCisalhamentoEmZ3D);
+
 		mnd3D.add(mntmEscala3D);
 
 		JMenu mnRotao = new JMenu("Rota\u00E7\u00E3o");
 		mnd3D.add(mnRotao);
 
-		JMenuItem mntmRotacaoEmX = new JMenuItem(
+		JMenuItem mntmRotacaoEmX3D = new JMenuItem(
 				"Rota\u00E7\u00E3o em torno de X");
-		mntmRotacaoEmX.addActionListener(new ActionListener() {
+		mntmRotacaoEmX3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ValoresRotacao3D("x");
 			}
 		});
-		mnRotao.add(mntmRotacaoEmX);
+		mnRotao.add(mntmRotacaoEmX3D);
 
-		JMenuItem mntmRotaoEmY = new JMenuItem(
+		JMenuItem mntmRotaoEmY3D = new JMenuItem(
 				"Rota\u00E7\u00E3o em torno de Y");
-		mntmRotaoEmY.addActionListener(new ActionListener() {
+		mntmRotaoEmY3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ValoresRotacao3D("y");
 			}
 		});
-		mnRotao.add(mntmRotaoEmY);
+		mnRotao.add(mntmRotaoEmY3D);
 
-		JMenuItem mntmRotaoEmZ = new JMenuItem(
+		JMenuItem mntmRotaoEmZ3D = new JMenuItem(
 				"Rota\u00E7\u00E3o em torno de Z");
-		mntmRotaoEmZ.addActionListener(new ActionListener() {
+		mntmRotaoEmZ3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ValoresRotacao3D("z");
 			}
 		});
-		mnRotao.add(mntmRotaoEmZ);
+		mnRotao.add(mntmRotaoEmZ3D);
 
 		JMenu mnReflexao3d = new JMenu("Reflex\u00E3o");
 		mnd3D.add(mnReflexao3d);
 
-		JMenuItem mntmReflexaoXY = new JMenuItem("Reflex\u00E3o em XY");
-		mntmReflexaoXY.addActionListener(new ActionListener() {
+		JMenuItem mntmReflexaoXY3D = new JMenuItem("Reflex\u00E3o em XY");
+		mntmReflexaoXY3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				PanelPlanoCartesiano.add3D(true);
@@ -423,10 +460,10 @@ public class TelaPrincipal extends JFrame {
 				validate();
 			}
 		});
-		mnReflexao3d.add(mntmReflexaoXY);
+		mnReflexao3d.add(mntmReflexaoXY3D);
 
-		JMenuItem mntmReflexaoEmYZ = new JMenuItem("Reflex\u00E3o em YZ");
-		mntmReflexaoEmYZ.addActionListener(new ActionListener() {
+		JMenuItem mntmReflexaoEmYZ3D = new JMenuItem("Reflex\u00E3o em YZ");
+		mntmReflexaoEmYZ3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				PanelPlanoCartesiano.add3D(true);
@@ -455,10 +492,10 @@ public class TelaPrincipal extends JFrame {
 				validate();
 			}
 		});
-		mnReflexao3d.add(mntmReflexaoEmYZ);
+		mnReflexao3d.add(mntmReflexaoEmYZ3D);
 
-		JMenuItem mntmReflexaoEmXZ = new JMenuItem("Reflex\u00E3o em XZ");
-		mntmReflexaoEmXZ.addActionListener(new ActionListener() {
+		JMenuItem mntmReflexaoEmXZ3D = new JMenuItem("Reflex\u00E3o em XZ");
+		mntmReflexaoEmXZ3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				PanelPlanoCartesiano.add3D(true);
@@ -472,10 +509,10 @@ public class TelaPrincipal extends JFrame {
 				validate();
 			}
 		});
-		mnReflexao3d.add(mntmReflexaoEmXZ);
+		mnReflexao3d.add(mntmReflexaoEmXZ3D);
 
-		JMenuItem mntmTranslao = new JMenuItem("Transla\u00E7\u00E3o");
-		mntmTranslao.addActionListener(new ActionListener() {
+		JMenuItem mntmTranslao3D = new JMenuItem("Transla\u00E7\u00E3o");
+		mntmTranslao3D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Valores3D("translacao");
 				TelaPrincipal.panelNormalizacao.repaint();
@@ -483,7 +520,7 @@ public class TelaPrincipal extends JFrame {
 				repaint();
 			}
 		});
-		mnd3D.add(mntmTranslao);
+		mnd3D.add(mntmTranslao3D);
 
 		JMenuItem mntmSobre = new JMenuItem("Sobre");
 		mntmSobre.setMaximumSize(new Dimension(140, 120));
@@ -521,7 +558,7 @@ public class TelaPrincipal extends JFrame {
 		try {
 			for (Ponto ponto : listaPontos) {
 				PanelReta.panelPlanoCartesiano.desenharPixel(
-						ponto.getX() + 300, -ponto.getY() + 300, Color.GREEN);
+						ponto.getX() + 300, -ponto.getY() + 300, Color.BLUE);
 			}
 		} catch (Exception e) {
 			System.out.println("Erro ao povoar os valores.");
@@ -536,12 +573,13 @@ public class TelaPrincipal extends JFrame {
 		try {
 			for (Ponto ponto : getLista()) {
 				if (ponto.getZ() == 0) {
-					PanelReta.panelPlanoCartesiano.desenharPixel(
-							ponto.getX() + 300, -ponto.getY() + 300, Color.RED);
+					PanelReta.panelPlanoCartesiano
+							.desenharPixel(ponto.getX() + 300,
+									-ponto.getY() + 300, Color.BLUE);
 				} else {
 					PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX()
 							+ 300 - ponto.getZ() / 2, -ponto.getY() + 300
-							+ ponto.getZ() / 2, Color.RED);
+							+ ponto.getZ() / 2, Color.BLUE);
 
 				}
 

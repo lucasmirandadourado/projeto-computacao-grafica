@@ -31,8 +31,6 @@ public class PanelCircunferencia extends JPanel {
 	private JTextField txtRaio;
 	Circunferencia circunferencia;
 	private List<Ponto> list;
-	private JTextField txt_escalaX;
-	private JTextField txt_escalaY;
 
 	public PanelCircunferencia() {
 		setBackground(Color.DARK_GRAY);
@@ -124,53 +122,8 @@ public class PanelCircunferencia extends JPanel {
 			}
 		});
 		btnLimparTela.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnLimparTela.setBounds(25, 485, 232, 41);
+		btnLimparTela.setBounds(10, 589, 348, 41);
 		add(btnLimparTela);
-
-		JButton btnEscala = new JButton("Escala");
-		btnEscala.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Operacoes op = new Operacoes();
-				List<Ponto> pontos = op.escalaReta(getList(),
-						Integer.parseInt(txt_escalaX.getText()),
-						Integer.parseInt(txt_escalaY.getText()));
-				if (getList().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Desenhe o objeto");
-					return;
-				}
-				for (Ponto p : getList()) {
-					try {
-						panelPlanoCartesiano.desenharPixel(p.getX() + 300, -p.getY() + 300, Color.DARK_GRAY);
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "Desenhe o objeto");
-					}
-				}
-				TelaPrincipal.panelNormalizacao.repaint();
-			}
-		});
-		btnEscala.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnEscala.setBounds(25, 413, 232, 41);
-		add(btnEscala);
-
-		txt_escalaX = new JTextField();
-		txt_escalaX.setText("0");
-		txt_escalaX.setColumns(10);
-		txt_escalaX.setBorder(new TitledBorder(UIManager
-
-		.getBorder("TitledBorder.border"), "X", TitledBorder.LEADING,
-
-		TitledBorder.TOP, null, new Color(0, 0, 0)));
-		txt_escalaX.setBounds(25, 361, 63, 41);
-		add(txt_escalaX);
-
-		txt_escalaY = new JTextField();
-		txt_escalaY.setText("0");
-		txt_escalaY.setColumns(10);
-		txt_escalaY.setBorder(new TitledBorder(null, "Y",
-
-		TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		txt_escalaY.setBounds(98, 361, 63, 41);
-		add(txt_escalaY);
 
 	}
 

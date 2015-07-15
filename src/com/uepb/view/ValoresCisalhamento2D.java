@@ -100,13 +100,13 @@ public class ValoresCisalhamento2D extends JDialog {
 				
 				List<Ponto> listaPontos = null;
 				if (!(x.isEmpty() || x.equals("0"))) {
-					listaPontos = cisalhamentoX(Integer.valueOf(x), Integer.valueOf(y));	
+					listaPontos = cisalhamentoX(Double.valueOf(x), Double.valueOf(y));	
 				} 
 				if (!(y.isEmpty() || y.equals("0"))) {
-					listaPontos = cisalhamentoY(Integer.valueOf(x), Integer.valueOf(y));	
+					listaPontos = cisalhamentoY(Double.valueOf(x), Double.valueOf(y));	
 				}
 				if (!(z.isEmpty() || z.equals("0"))) {
-					listaPontos = cisalhamentoZ(Integer.valueOf(x), Integer.valueOf(y));	
+					listaPontos = cisalhamentoZ(Double.valueOf(x), Double.valueOf(y));	
 				}
 				
 				if (TelaPrincipal.getLista().isEmpty()) {
@@ -120,17 +120,17 @@ public class ValoresCisalhamento2D extends JDialog {
 				setVisible(false);
 			}
 
-			private List<Ponto> cisalhamentoZ(Integer a, Integer b) {
+			private List<Ponto> cisalhamentoZ(Double a, Double b) {
 				List<Ponto> lis = new Operacoes().cisalhamentoEmZ(TelaPrincipal.getLista(), a, b); 
 				return lis;
 			}
 
-			private List<Ponto> cisalhamentoY(Integer a, Integer b) {
+			private List<Ponto> cisalhamentoY(Double a, Double b) {
 				List<Ponto> lis = new Operacoes().cisalhamentoEmY(TelaPrincipal.getLista(), a, b); 
 				return lis;
 			}
 
-			private List<Ponto> cisalhamentoX(Integer a, Integer b) {
+			private List<Ponto> cisalhamentoX(Double a, Double b) {
 				List<Ponto> lis = new Operacoes().cisalhamentoEmX(TelaPrincipal.getLista(), a, b); 
 				return lis;
 			}

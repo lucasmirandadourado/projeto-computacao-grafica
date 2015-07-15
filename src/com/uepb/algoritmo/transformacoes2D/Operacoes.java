@@ -136,7 +136,7 @@ public class Operacoes {
 		return matriz;
 	}
 
-	private double[][] gerarMatrizCisalhamentoX(int a, int b) {
+	private double[][] gerarMatrizCisalhamentoX(Double a, Double b) {
 
 		double[][] matriz = new double[3][3];
 		
@@ -376,7 +376,7 @@ public class Operacoes {
 		return list;
 	}
 
-	public List<Ponto> cisalhamentoEmX(List<Ponto> lista, Integer a, Integer b) {
+	public List<Ponto> cisalhamentoEmX(List<Ponto> lista, Double a, Double b) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][lista.size()];
 
@@ -407,7 +407,7 @@ public class Operacoes {
 		return list;
 	}
 
-	public List<Ponto> cisalhamentoEmY(List<Ponto> lista, Integer a, Integer b) {
+	public List<Ponto> cisalhamentoEmY(List<Ponto> lista, Double a, Double b) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][lista.size()];
 
@@ -438,7 +438,7 @@ public class Operacoes {
 		return list;
 	}
 
-	public List<Ponto> cisalhamentoEmZ(List<Ponto> lista, int a, int b) {
+	public List<Ponto> cisalhamentoEmZ(List<Ponto> lista, Double a, Double b) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][lista.size()];
 

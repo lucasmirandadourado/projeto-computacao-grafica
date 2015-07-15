@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.uepb.algoritmo.Matriz;
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.Retas;
 
 // 3D Composta
 public class Operacoes3D {
@@ -40,16 +39,16 @@ public class Operacoes3D {
 		return matriz;
 	}
 
-	private double[][] gerarMatrizEscala(int sx, int sy, int sz) {
+	private double[][] gerarMatrizEscala(Double sx, Double sy, Double sz) {
 		double[][] matriz = new double[4][4];
-		if (sx == 0) {
-			sx = 1;
+		if (sx == 0.0) {
+			sx = 1.0;
 		}
-		if (sy == 0) {
-			sy = 1;
+		if (sy == 0.0) {
+			sy = 1.0;
 		}
-		if (sz == 0) {
-			sz = 1;
+		if (sz == 0.0) {
+			sz = 1.0;
 		}
 		matriz[0][0] = sx;
 		matriz[1][0] = 0;
@@ -229,7 +228,7 @@ public class Operacoes3D {
 
 		// Coluna 0
 		matriz[0][0] = 1;
-		matriz[1][0] = 0;
+		matriz[1][0] = Z;
 		matriz[2][0] = 0;
 		matriz[3][0] = 0;
 
@@ -240,8 +239,8 @@ public class Operacoes3D {
 		matriz[3][1] = 0;
 
 		// Coluna 2
-		matriz[0][2] = Z;
-		matriz[1][2] = Z;
+		matriz[0][2] = 0;
+		matriz[1][2] = -Z;
 		matriz[2][2] = 1;
 		matriz[3][2] = 0;
 
@@ -298,7 +297,7 @@ public class Operacoes3D {
 		return list;
 	}
 
-	public List<Ponto> escala(List<Ponto> lista, Integer a, Integer b, Integer c) {
+	public List<Ponto> escala(List<Ponto> lista, Double a, Double b, Double c) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[4][lista.size() + 1];
 

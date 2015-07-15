@@ -86,7 +86,7 @@ public class ValoresCisalhamento extends JDialog {
 				y = txtY.getText();
 				
 				List<Ponto> listaPontos = null;
-				listaPontos = cisalhamentoX(Integer.valueOf(txtX.getText()), Integer.valueOf(txtY.getText()));
+				listaPontos = cisalhamentoX(Double.valueOf(txtX.getText()), Double.valueOf(txtY.getText()));
 			
 				TelaPrincipal.setLista(listaPontos);
 				TelaPrincipal.povoarRetas(listaPontos); 
@@ -94,7 +94,7 @@ public class ValoresCisalhamento extends JDialog {
 				setVisible(false);
 			}
 
-			private List<Ponto> cisalhamentoX(Integer a, Integer b) {
+			private List<Ponto> cisalhamentoX(Double a, Double b) {
 				return new Operacoes().cisalhamentoEmZ(lista, a, b);
 			}
 
