@@ -1,9 +1,7 @@
 package com.uepb.algoritmo;
 
-import java.util.ArrayList;
+import java.util.ArrayList;  
 import java.util.List;
-
-import javafx.geometry.Side;
 
 public class Cubo3D {
 
@@ -20,7 +18,7 @@ public class Cubo3D {
 
 		matriz[1][0] = 0;
 		matriz[1][1] = 1;
-		matriz[1][2] = tx;
+		matriz[1][2] = 0;
 		matriz[1][3] = ty;
 
 		matriz[2][0] = 0;
@@ -169,77 +167,7 @@ public class Cubo3D {
 		
 	}
 	
-	private double[][] gerarMatrizCisalhamentoX(int a) { 
-
-		double[][] matriz = new double[3][3];
-
-		// Linha 0
-		matriz[0][0] = 1;
-		matriz[1][0] = 0;
-		matriz[2][0] = 0;
-		// Linha 1
-		matriz[0][1] = a;
-		matriz[1][1] = 1;
-		matriz[2][1] = 0;
-		// Linha 2
-		matriz[0][2] = 0;
-		matriz[1][2] = 0;
-		matriz[2][2] = 1;
-
-		return matriz;
-	}
-
-	private double[][] gerarMatrizCisalhamentoY(int b) {
-
-		double[][] matriz = new double[3][3];
-
-		// Linha 0
-		matriz[0][0] = 1;
-		matriz[1][0] = b;
-		matriz[2][0] = 0;
-		// Linha 1
-		matriz[0][1] = 0;
-		matriz[1][1] = 1;
-		matriz[2][1] = 0;
-		// Linha 2
-		matriz[0][2] = 0;
-		matriz[1][2] = 0;
-		matriz[2][2] = 1;
-
-		return matriz;
-	}
-
-	private double[][] gerarMatrizCisalhamentoZ(int sx, int sy) { 
-
-		double[][] matriz = new double[4][4];
-
-		// Linha 0
-		matriz[0][0] = 1;
-		matriz[1][0] = 0;
-		matriz[2][0] = 0;
-		matriz[3][0] = 0;
-		// Linha 1
-		matriz[0][1] = 0;
-		matriz[1][1] = 1;
-		matriz[2][1] = 0;
-		matriz[3][1] = 0;
-		// Linha 2
-		matriz[0][2] = sx;
-		matriz[1][2] = sy;
-		matriz[2][2] = 1;
-		matriz[3][2] = 0;
-
-		matriz[0][3] = 0;
-		matriz[1][3] = 0;
-		matriz[2][3] = 0;
-		matriz[3][3] = 1;
-		
-		return matriz;
-	}
-
-	
 	private double[][] gerarMatrizCisalhamentoXY(int a, int b) {
-
 		double[][] matriz = new double[3][3];
 
 		// Linha 0
@@ -272,9 +200,7 @@ public class Cubo3D {
 		return matriz;
 	}
 
-	public List<Ponto> translacaoMulti(List<Ponto> objeto, int x, int y, int z) {
-		List<Ponto> list = new ArrayList<Ponto>();
-		
+	public List<Ponto3D> translacaoMulti(List<Ponto3D> objeto, int x, int y, int z) {
 		double[][] matriz = new double[4][objeto.size()];
 
 		// Criando o objeto de matriz
@@ -282,25 +208,26 @@ public class Cubo3D {
 			matriz[0][i] = objeto.get(i).getX(); // Coluna i na linha 0
 			matriz[1][i] = objeto.get(i).getY(); // Coluna i na linha 1
 			matriz[2][i] = objeto.get(i).getZ(); // Coluna i na linha 2 
-			matriz[3][i] = objeto.get(i).getW(); // Coluna i na linha 3
+			matriz[3][i] = 1; // Coluna i na linha 3
 		}
-		double[][] d = null;
+		
+		double[][] resultado = null;
 		try {
-			d = Matriz.multiplicaMatrizes3D(gerarMatrizTranslacao(x, y, z),
+			resultado = Matriz.multiplicaMatrizes3D(gerarMatrizTranslacao(x, y, z),
 					matriz);
 		} catch (Exception e) {
 			System.out.println("ERRO NA TRANSLAÇÃO");
 		}
-		for (int i = 0; i < d[0].length; i++) {
-			list.add(new Ponto((int) d[0][i], (int) d[1][i], (int) d[2][i], (int) d[3][i]));
-
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
+		for (int i = 0; i < resultado[0].length; i++) {
+			list.add(new Ponto3D((int) resultado[0][i], (int) resultado[1][i], (int) resultado[2][i], (int) resultado[3][i]));
 		}
 		return list;
 	}
 
-	public List<Ponto> escalaReta(List<Ponto> objeto, double x, double y,
+	public List<Ponto3D> escalaReta(List<Ponto3D> objeto, double x, double y,
 			double z) {
-		List<Ponto> list = new ArrayList<Ponto>();
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][objeto.size() + 1];
 
 		// Criando o objeto de matriz
@@ -336,30 +263,31 @@ public class Cubo3D {
 
 		int size = b[0].length - 2;
 
-		list = new Retas().dda((int) b[0][0], (int) b[1][0], (int) b[0][size],
-				(int) b[1][size]);
+		List<Ponto> lis = new Retas().dda((int) b[0][0], (int) b[1][0], (int) b[0][size], 1);
+		
+		for (Ponto ds : lis) {
+			list.add(new Ponto3D(ds.getX(), ds.getY(), ds.getZ(), 1));
+		}
+		
 
 		return list;
 	}
 
-	public List<Ponto> rotacaoX(List<Ponto> lis, int angulo) { 
-		double[][] matriz = new double[4][lis.size()];
+	public List<Ponto3D> rotacaoX(List<Ponto3D> lis, int angulo) { 
 
 		int transx = lis.get(0).getX();
 		int transy = lis.get(0).getY();
 		int transz = lis.get(0).getZ();
 		
-		List<Ponto> trans = translacaoMulti(lis, -transx, -transy, -transz);	
+		List<Ponto3D> trans = translacaoMulti(lis, -transx, -transy, -transz);	
 
 		double[][] matrizNaOrigem = new double[4][lis.size()];
 
-		int size = trans.size();
-
-		for (int i = 0; i < lis.size(); i++) {
-			matrizNaOrigem[0][i] = (double) lis.get(i).getX();
-			matrizNaOrigem[1][i] = (double) lis.get(i).getY();
-			matrizNaOrigem[2][i] = (double) lis.get(i).getZ();
-			matrizNaOrigem[3][i] = 1;
+		for (int i = 0; i < trans.size(); i++) {
+			matrizNaOrigem[0][i] = (double) trans.get(i).getX();
+			matrizNaOrigem[1][i] = (double) trans.get(i).getY();
+			matrizNaOrigem[2][i] = (double) trans.get(i).getZ();
+			matrizNaOrigem[3][i] = (double) trans.get(i).getW();
 		}
 		
 		// Gerar a matriz de rotação
@@ -376,32 +304,28 @@ public class Cubo3D {
 
 		lis.clear();
 		for (int i = 0; i < lisPonto[0].length; i++) {
-			lis.add(new Ponto((int) lisPonto[0][i], (int) lisPonto[1][i],
-					(int) lisPonto[2][i], (int) lisPonto[3][i]));
+			lis.add(new Ponto3D((int) lisPonto[0][i], (int) lisPonto[1][i], (int) lisPonto[2][i], (int) lisPonto[3][i]));
 		}
 		
-		List<Ponto> resultado = translacaoMulti(lis, transx, transy, transz);
-		
+		List<Ponto3D> resultado = translacaoMulti(lis, transx, transy, transz);
+		System.out.println(resultado.toString());
 		return resultado;
 	}
 
-	public List<Ponto> rotacaoY(List<Ponto> lis, int angulo) {
-		double[][] matriz = new double[4][lis.size()];
+	public List<Ponto3D> rotacaoY(List<Ponto3D> lis, int angulo) {
 
 		int transx = lis.get(0).getX();
 		int transy = lis.get(0).getY();
 		int transz = lis.get(0).getZ();
 		
-//		List<Ponto> trans = translacaoMulti(lis, -transx, -transy, -transz);	
+		List<Ponto3D> trans = translacaoMulti(lis, -transx, -transy, -transz);	
 
 		double[][] matrizNaOrigem = new double[4][lis.size()];
 
-//		int size = trans.size();
-
 		for (int i = 0; i < lis.size(); i++) {
-			matrizNaOrigem[0][i] = (double) lis.get(i).getX();
-			matrizNaOrigem[1][i] = (double) lis.get(i).getY();
-			matrizNaOrigem[2][i] = (double) lis.get(i).getZ();
+			matrizNaOrigem[0][i] = (double) trans.get(i).getX();
+			matrizNaOrigem[1][i] = (double) trans.get(i).getY();
+			matrizNaOrigem[2][i] = (double) trans.get(i).getZ();
 			matrizNaOrigem[3][i] = 1;
 		}
 		
@@ -419,24 +343,24 @@ public class Cubo3D {
 
 		lis.clear();
 		for (int i = 0; i < lisPonto[0].length; i++) {
-			lis.add(new Ponto((int) lisPonto[0][i], (int) lisPonto[1][i],
+			lis.add(new Ponto3D((int) lisPonto[0][i], (int) lisPonto[1][i],
 					(int) lisPonto[2][i], (int) lisPonto[3][i]));
 		}
 		
-//		List<Ponto> resultado = translacaoMulti(lis, transx, transy, transz);
+		List<Ponto3D> resultado = translacaoMulti(lis, transx, transy, transz);
 		
-		return lis;
+		return resultado;
 
 	}
 
-	public List<Ponto> rotacaoZ(List<Ponto> lis, int angulo) {
+	public List<Ponto3D> rotacaoZ(List<Ponto3D> lis, int angulo) {
 		double[][] matriz = new double[4][lis.size()];
 
 		int transx = lis.get(0).getX();
 		int transy = lis.get(0).getY();
 		int transz = lis.get(0).getZ();
 		
-//		List<Ponto> trans = translacaoMulti(lis, -transx, -transy, -transz);	
+		List<Ponto3D> trans = translacaoMulti(lis, -transx, -transy, -transz);	
 
 		double[][] matrizNaOrigem = new double[4][lis.size()];
 
@@ -463,7 +387,7 @@ public class Cubo3D {
 
 		lis.clear();
 		for (int i = 0; i < lisPonto[0].length; i++) {
-			lis.add(new Ponto((int) lisPonto[0][i], (int) lisPonto[1][i],
+			lis.add(new Ponto3D((int) lisPonto[0][i], (int) lisPonto[1][i],
 					(int) lisPonto[2][i], (int) lisPonto[3][i]));
 		}
 		
@@ -572,9 +496,8 @@ public class Cubo3D {
 		return matriz;
 	}
 
-	
-	public List<Ponto> reflexaoXY(List<Ponto> lista) {
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> reflexaoXY(List<Ponto3D> lista) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lista.size()];
 
 		// Criando o objeto de matriz
@@ -597,7 +520,7 @@ public class Cubo3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
 					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i], (int) matrizRefetida[3][i]));
 		}
 
@@ -605,8 +528,8 @@ public class Cubo3D {
 		return list;
 	}
 
-	public List<Ponto> reflexaoYZ(List<Ponto> lista) { 
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> reflexaoYZ(List<Ponto3D> lista) {  
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lista.size()];
 
 		// Criando o objeto de matriz
@@ -629,15 +552,15 @@ public class Cubo3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
 					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i], (int) matrizRefetida[3][i]));
 		}
 
 		return list;
 	}
 	
-	public List<Ponto> reflexaoXZ(List<Ponto> lista) {
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> reflexaoXZ(List<Ponto3D> lista) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lista.size()];
 
 		// Criando o objeto de matriz
@@ -660,7 +583,7 @@ public class Cubo3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
 					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i], (int) matrizRefetida[3][i]));
 		}
 
@@ -714,93 +637,93 @@ public class Cubo3D {
 		this.y = y;
 	}
 
-	public List<Ponto> criarCubo(int x, int y, int z) {
-		List<Ponto> lista = new ArrayList<Ponto>();
+	public List<Ponto3D> criarCubo(int x, int y, int z) {
+		List<Ponto3D> lista = new ArrayList<Ponto3D>();
 		// L1
 		if (x < 0) {
 			for (int i = x; i <= 0; i++) {
-				lista.add(new Ponto(i, 0, 0, 1));
+				lista.add(new Ponto3D(i, 0, 0, 1));
 			}
 		} else {
 			for (int i = 0; i <= x; i++) {
-				lista.add(new Ponto(i, 0, 0, 1));
+				lista.add(new Ponto3D(i, 0, 0, 1));
 			}
 		}
 		// L2
 		if (y < 0) {
 			for (int i = y; i <= 0; i++) {
-				lista.add(new Ponto(x, i, 0, 1));
+				lista.add(new Ponto3D(x, i, 0, 1));
 			}
 		} else {
 			for (int i = 0; i <= y; i++) {
-				lista.add(new Ponto(x, i, 0, 1));
+				lista.add(new Ponto3D(x, i, 0, 1));
 			}
 		}
 		// L3
 		if (x < 0) {
 			for (int i = x; i <= 0; i++) {
-				lista.add(new Ponto(i, y, 0, 1));
+				lista.add(new Ponto3D(i, y, 0, 1));
 			}
 		} else {
 			for (int i = 0; i <= x; i++) {
-				lista.add(new Ponto(i, y, 0, 1));
+				lista.add(new Ponto3D(i, y, 0, 1));
 			}
 		}
 
 		// L4
 		for (int i = 0; i <= y; i++) {
-			lista.add(new Ponto(0, i, 0, 1));
+			lista.add(new Ponto3D(0, i, 0, 1));
 		}
 		// L1'
 		if (x < 0) {
 			for (int i = x; i <= 0; i++) {
-				lista.add(new Ponto(i, 0, z, 1));
+				lista.add(new Ponto3D(i, 0, z, 1));
 			}
 		} else {
 			for (int i = 0; i <= x; i++) {
-				lista.add(new Ponto(i, 0, z, 1));
+				lista.add(new Ponto3D(i, 0, z, 1));
 			}
 		}
 
 		// L2'
 		for (int i = 0; i <= y; i++) {
-			lista.add(new Ponto(x, i, z, 1));
+			lista.add(new Ponto3D(x, i, z, 1));
 		}
 
 		// L3'
 		if (x < 0) {
 			for (int i = x; i <= 0; i++) {
-				lista.add(new Ponto(i, y, z, 1));
+				lista.add(new Ponto3D(i, y, z, 1));
 			}
 		} else {
 			for (int i = 0; i <= x; i++) {
-				lista.add(new Ponto(i, y, z, 1));
+				lista.add(new Ponto3D(i, y, z, 1));
 			}
 		}
 
 		// L4'
 		for (int i = 0; i <= y; i++) {
-			lista.add(new Ponto(0, i, z, 1));
+			lista.add(new Ponto3D(0, i, z, 1));
 		}
 
 		// t1
 		for (int i = 0; i <= z; i++) {
-			lista.add(new Ponto(0, 0, i, 1));
+			lista.add(new Ponto3D(0, 0, i, 1));
 		}
 
 		// t2
 		for (int i = 0; i <= z; i++) {
-			lista.add(new Ponto(x, 0, i, 1));
+			lista.add(new Ponto3D(x, 0, i, 1));
 		}
 
 		// t3
 		for (int i = 0; i <= z; i++) {
-			lista.add(new Ponto(x, y, i, 1));
+			lista.add(new Ponto3D(x, y, i, 1));
 		}
 
 		// t4
 		for (int i = 0; i <= z; i++) {
-			lista.add(new Ponto(0, y, i, 1));
+			lista.add(new Ponto3D(0, y, i, 1));
 		}
 		return lista;
 	}

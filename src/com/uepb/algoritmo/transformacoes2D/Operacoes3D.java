@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.uepb.algoritmo.Matriz;
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.Ponto3D;
 
 // 3D Composta
 public class Operacoes3D {
@@ -194,7 +195,7 @@ public class Operacoes3D {
 		return matriz;
 	}
 
-	private double[][] gerarMatrizCisalhamentoY(double b) { 
+	private double[][] gerarMatrizCisalhamentoY(double b) {
 
 		double[][] matriz = new double[4][4];
 
@@ -267,8 +268,9 @@ public class Operacoes3D {
 		return matriz;
 	}
 
-	public List<Ponto> translacaoMulti3D(List<Ponto> objeto, int x, int y, int z) {
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> translacaoMulti3D(List<Ponto3D> objeto, int x, int y,
+			int z) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 
 		double[][] matriz = new double[dim][objeto.size()];
 
@@ -290,15 +292,16 @@ public class Operacoes3D {
 		}
 		// System.out.println("Class.Operacoes3D Tamanho: "+d[0].length);
 		for (int i = 0; i < d[0].length; i++) {
-			list.add(new Ponto((int) d[0][i], (int) d[1][i], (int) d[2][i],
+			list.add(new Ponto3D((int) d[0][i], (int) d[1][i], (int) d[2][i],
 					(int) d[3][i]));
 		}
 
 		return list;
 	}
 
-	public List<Ponto> escala(List<Ponto> lista, Double a, Double b, Double c) {
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> escala(List<Ponto3D> lista, Double a, Double b,
+			Double c) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lista.size() + 1];
 
 		// Criando o objeto de matriz
@@ -335,13 +338,13 @@ public class Operacoes3D {
 				translacaoz);
 
 		for (int i = 0; i < mat[0].length; i++) {
-			list.add(new Ponto((int) mat[0][i], (int) mat[1][i],
+			list.add(new Ponto3D((int) mat[0][i], (int) mat[1][i],
 					(int) mat[2][i], (int) mat[3][i]));
 		}
 		return list;
 	}
 
-	public List<Ponto> rotacao(List<Ponto> lis, int angulo) {
+	public List<Ponto3D> rotacao(List<Ponto3D> lis, int angulo) {
 
 		double[][] matriz = new double[dim][lis.size()];
 
@@ -356,7 +359,7 @@ public class Operacoes3D {
 		int transY = lis.get(0).getY();
 		int transZ = lis.get(0).getZ();
 
-		List<Ponto> trans = translacaoMulti3D(lis, -transX, -transY, -transZ);
+		List<Ponto3D> trans = translacaoMulti3D(lis, -transX, -transY, -transZ);
 
 		double[][] matrizNaOrigem = new double[3][lis.size()];
 
@@ -382,16 +385,16 @@ public class Operacoes3D {
 
 		lis.clear();
 		for (int i = 0; i < lisPonto[0].length; i++) {
-			lis.add(new Ponto((int) lisPonto[0][i], (int) lisPonto[1][i],
-					(int) lisPonto[2][i]));
+			lis.add(new Ponto3D((int) lisPonto[0][i], (int) lisPonto[1][i],
+					(int) lisPonto[2][i], (int) lisPonto[3][i]));
 		}
 
 		return lis;
 	}
 
 	// Reflexão
-	public List<Ponto> reflexaoX(List<Ponto> lstPontos) {
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> reflexaoX(List<Ponto3D> lstPontos) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lstPontos.size()];
 
 		// Criando o objeto de matriz
@@ -414,7 +417,7 @@ public class Operacoes3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
 					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i],
 					(int) matrizRefetida[3][i]));
 
@@ -423,22 +426,23 @@ public class Operacoes3D {
 		return list;
 	}
 
-	public List<Ponto> reflexaoY(List<Ponto> lista) {
-		List<Ponto> list = new ArrayList<Ponto>();
-		double[][] matriz = new double[3][lista.size()];
+	public List<Ponto3D> reflexaoY(List<Ponto3D> lista) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
+		double[][] matriz = new double[4][lista.size()];
 
 		// Criando o objeto de matriz
 		for (int i = 0; i < lista.size(); i++) {
 			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
 			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
-			matriz[2][i] = 1; // Coluna j na linha 2 = 1
+			matriz[2][i] = lista.get(i).getZ(); // Coluna i na linha 1
+			matriz[3][i] = 1; // Coluna j na linha 2 = 1
 		}
 
 		double[][] reflexao = gerarMatrizReflexaoY();
 
 		double[][] matrizRefetida = null;
 		try {
-			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
+			matrizRefetida = Matriz.multiplicaMatrizes3D(reflexao, matriz);
 		} catch (Exception e) {
 			System.out.println("Erro na reflexão.");
 			e.printStackTrace();
@@ -446,30 +450,32 @@ public class Operacoes3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
-					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i],
+					(int) matrizRefetida[3][i]));
 
 		}
 
 		return list;
 	}
 
-	public List<Ponto> reflexaoXY(List<Ponto> lista) {
-		List<Ponto> list = new ArrayList<Ponto>();
-		double[][] matriz = new double[3][lista.size()];
+	public List<Ponto3D> reflexaoXY(List<Ponto3D> lista) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
+		double[][] matriz = new double[4][lista.size()];
 
 		// Criando o objeto de matriz
 		for (int i = 0; i < lista.size(); i++) {
 			matriz[0][i] = lista.get(i).getX(); // Coluna i na linha 0
 			matriz[1][i] = lista.get(i).getY(); // Coluna i na linha 1
-			matriz[2][i] = 1; // Coluna j na linha 2 = 1
+			matriz[2][i] = lista.get(i).getZ(); // Coluna i na linha 1
+			matriz[3][i] = 1; // Coluna j na linha 2 = 1
 		}
 
 		double[][] reflexao = gerarMatrizReflexaoXY();
 
 		double[][] matrizRefetida = null;
 		try {
-			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
+			matrizRefetida = Matriz.multiplicaMatrizes3D(reflexao, matriz);
 		} catch (Exception e) {
 			System.out.println("Erro na reflexão.");
 			e.printStackTrace();
@@ -477,15 +483,15 @@ public class Operacoes3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
-					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i], (int) matrizRefetida[3][i]));
 		}
 
 		return list;
 	}
 
-	public List<Ponto> cisalhamentoEmZ(List<Ponto> lista, double a) { 
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> cisalhamentoEmZ(List<Ponto3D> lista, double a) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lista.size()];
 
 		// Criando o objeto de matriz
@@ -508,7 +514,7 @@ public class Operacoes3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
 					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i],
 					(int) matrizRefetida[3][i]));
 		}
@@ -516,8 +522,8 @@ public class Operacoes3D {
 		return list;
 	}
 
-	public List<Ponto> cisalhamentoEmY(List<Ponto> lista, double a) { 
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> cisalhamentoEmY(List<Ponto3D> lista, double a) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lista.size()];
 
 		// Criando o objeto de matriz
@@ -527,14 +533,7 @@ public class Operacoes3D {
 			matriz[2][i] = lista.get(i).getZ(); // Coluna j na linha 2 = 1
 			matriz[3][i] = 1; // Coluna j na linha 2 = 1
 		}
-
-		for (int i = 0; i < matriz.length; i++) {
-			for (int j = 0; j < matriz[0].length; j++) {
-				System.out.print(matriz[i][i] + "\t");
-			}
-			System.out.println();
-		}
-
+		
 		double[][] cisalhamento = gerarMatrizCisalhamentoY(a);
 
 		double[][] matrizRefetida = null;
@@ -547,7 +546,7 @@ public class Operacoes3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
 					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i],
 					(int) matrizRefetida[3][i]));
 		}
@@ -555,8 +554,8 @@ public class Operacoes3D {
 		return list;
 	}
 
-	public List<Ponto> cisalhamentoEmX(List<Ponto> lista, Double a) {
-		List<Ponto> list = new ArrayList<Ponto>();
+	public List<Ponto3D> cisalhamentoEmX(List<Ponto3D> lista, Double a) {
+		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lista.size()];
 
 		// Criando o objeto de matriz
@@ -579,7 +578,7 @@ public class Operacoes3D {
 
 		list.clear();
 		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
+			list.add(new Ponto3D((int) matrizRefetida[0][i],
 					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i],
 					(int) matrizRefetida[3][i]));
 		}

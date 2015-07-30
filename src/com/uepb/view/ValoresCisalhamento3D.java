@@ -14,6 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.Ponto3D;
 import com.uepb.algoritmo.transformacoes2D.Operacoes3D;
 
 import java.awt.event.ActionListener;
@@ -75,7 +76,7 @@ public class ValoresCisalhamento3D extends JDialog {
 				
 				x = txtX.getText();
 				
-				List<Ponto> listaPontos = null;
+				List<Ponto3D> listaPontos = null;
 				if (tipo.equals("X")) {
 					listaPontos = cisalhamentoX(Double.valueOf(x));	
 				} 
@@ -89,24 +90,24 @@ public class ValoresCisalhamento3D extends JDialog {
 				}
 				
 				PanelPlanoCartesiano.add3D(true);
-				TelaPrincipal.setLista(listaPontos); 
+				TelaPrincipal.setListaGLOBAL3D(listaPontos);
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}
 
-			private List<Ponto> cisalhamentoZ(Double a) {
-				List<Ponto> lis = new Operacoes3D().cisalhamentoEmZ(TelaPrincipal.getLista(), a); 
+			private List<Ponto3D> cisalhamentoZ(Double a) {
+				List<Ponto3D> lis = new Operacoes3D().cisalhamentoEmZ(TelaPrincipal.getListaGLOBAL3D(), a); 
 				return lis;
 			}
 
-			private List<Ponto> cisalhamentoY(Double a) {
-				List<Ponto> lis = new Operacoes3D().cisalhamentoEmY(TelaPrincipal.getLista(), a); 
+			private List<Ponto3D> cisalhamentoY(Double a) {
+				List<Ponto3D> lis = new Operacoes3D().cisalhamentoEmY(TelaPrincipal.getListaGLOBAL3D(), a); 
 				return lis;
 			}
 
-			private List<Ponto> cisalhamentoX(Double a) {
-				List<Ponto> lis = new Operacoes3D().cisalhamentoEmX(TelaPrincipal.getLista(), a); 
+			private List<Ponto3D> cisalhamentoX(Double a) {
+				List<Ponto3D> lis = new Operacoes3D().cisalhamentoEmX(TelaPrincipal.getListaGLOBAL3D(), a); 
 				return lis;
 			}
 

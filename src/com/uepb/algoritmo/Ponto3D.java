@@ -1,25 +1,27 @@
 package com.uepb.algoritmo;
 
 /**
- * Ponto. Têm dois valores. X e Y
+ * Ponto. Têm três valores. X, Y e Z
  * 
  * @author Lucas Miranda Dourado
  *
  */
-public class Ponto {
-	private int x, y, z = 0;
+public class Ponto3D {
+	private int x, y, z = 0, w = 1;
 
 	/**
-	 * Coordenadas com 2D (Duas dimenções)
+	 * Coordenadas com 3D (Três dimenções)
 	 * 
 	 * @param x
 	 * @param y
 	 * @param z
+	 * @param w 
 	 */
-	public Ponto(int x, int y, int z) {
+	public Ponto3D(int x, int y, int z, int w) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.w = w;
 	}
 
 	/**
@@ -67,6 +69,20 @@ public class Ponto {
 		this.z = z;
 	}
 
+	/**
+	 * @return the w
+	 */
+	public int getW() {
+		return w;
+	}
+
+	/**
+	 * @param w the w to set
+	 */
+	public void setW(int w) {
+		this.w = w;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -78,7 +94,7 @@ public class Ponto {
 	}
 
 	public String imprime3D() {
-		return "Ponto [x=" + x + ", y=" + y + ", z=" + z + "]";
+		return "Ponto [x=" + x + ", y=" + y + ", z=" + z + ", w=" + getW() + "]";
 
 	}
 

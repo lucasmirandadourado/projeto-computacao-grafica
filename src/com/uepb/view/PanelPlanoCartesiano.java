@@ -10,6 +10,9 @@ import sun.awt.RepaintArea;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
 
 public class PanelPlanoCartesiano extends JPanel {
 
@@ -19,6 +22,19 @@ public class PanelPlanoCartesiano extends JPanel {
 	private static BufferedImage imagemCoordenadas;
 
 	public PanelPlanoCartesiano() {
+		
+		addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent event) {
+				
+			}
+			@Override
+			public void mouseDragged(MouseEvent event) {
+				int x = event.getPoint().x;
+				int y = event.getPoint().y;
+				System.out.println(x+", " + y+"Mouse");
+			}
+		});
 		setBounds(400, 30, LARGURA, ALTURA);
 		imagemCoordenadas = new BufferedImage(LARGURA, ALTURA,
 				BufferedImage.TYPE_INT_ARGB);

@@ -14,6 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.Ponto3D;
 import com.uepb.algoritmo.transformacoes2D.Operacoes3D;
 
 import java.awt.event.ActionListener;
@@ -98,17 +99,17 @@ public class ValoresEscala3D extends JDialog {
 				y = txtY.getText();
 				z = txtZ.getText();
 				
-				List<Ponto> listaPontos = escala(Double.valueOf(x), Double.valueOf(y), Double.valueOf(z));	
+				List<Ponto3D> listaPontos = escala(Double.valueOf(x), Double.valueOf(y), Double.valueOf(z));	
 				
 				PanelPlanoCartesiano.add3D(true);
-				TelaPrincipal.setLista(listaPontos);
+				TelaPrincipal.setListaGLOBAL3D(listaPontos);
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}
 
-			private List<Ponto> escala(Double x, Double y, Double z) {
-				List<Ponto> lis = new Operacoes3D().escala(TelaPrincipal.getLista(), x, y, z); 
+			private List<Ponto3D> escala(Double x, Double y, Double z) {
+				List<Ponto3D> lis = new Operacoes3D().escala(TelaPrincipal.getListaGLOBAL3D(), x, y, z); 
 				return lis;
 			}
 

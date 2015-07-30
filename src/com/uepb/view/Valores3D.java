@@ -14,6 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.Ponto3D;
 import com.uepb.algoritmo.transformacoes2D.Operacoes3D;
 
 import java.awt.event.ActionListener;
@@ -99,13 +100,13 @@ public class Valores3D extends JDialog {
 				int y = Integer.valueOf(txtY.getText()); 
 				int z = Integer.valueOf(txtZ.getText());
 				
-				List<Ponto> listaPontos = null;
+				List<Ponto3D> listaPontos = null;
 				if (tipo == "translacao") {					
 					listaPontos = translação(x, y, z);
 				}
 			
 				PanelPlanoCartesiano.add3D(true);
-				TelaPrincipal.setLista(listaPontos);
+				TelaPrincipal.setListaGLOBAL3D(listaPontos);
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
@@ -113,8 +114,8 @@ public class Valores3D extends JDialog {
 			/**
 			 * @return
 			 */
-			private List<Ponto> translação(int x, int y, int z) {
-				List<Ponto> listaPontos = new Operacoes3D().translacaoMulti3D(TelaPrincipal.getLista(), x, y, z);
+			private List<Ponto3D> translação(int x, int y, int z) {
+				List<Ponto3D> listaPontos = new Operacoes3D().translacaoMulti3D(TelaPrincipal.getListaGLOBAL3D(), x, y, z);
 				return listaPontos;
 			}
 		});

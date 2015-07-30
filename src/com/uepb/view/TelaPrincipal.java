@@ -22,7 +22,9 @@ import javax.swing.border.EmptyBorder;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.uepb.algoritmo.Cubo3D;
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.Ponto3D;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
+
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
@@ -40,6 +42,7 @@ public class TelaPrincipal extends JFrame {
 	public static PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
 
 	private static List<Ponto> listaGLOBAL = new ArrayList<Ponto>();
+	private static List<Ponto3D> listaGLOBAL3D = new ArrayList<Ponto3D>();
 	/**
 	 * @wbp.nonvisual location=51,9
 	 */
@@ -451,9 +454,9 @@ public class TelaPrincipal extends JFrame {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				PanelPlanoCartesiano.add3D(true);
 
-				List<Ponto> lst = new Cubo3D().reflexaoXY(listaGLOBAL);
+				List<Ponto3D> lst = new Cubo3D().reflexaoXY(listaGLOBAL3D);
 
-				TelaPrincipal.setLista(lst);
+				TelaPrincipal.setListaGLOBAL3D(lst);
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
@@ -468,9 +471,9 @@ public class TelaPrincipal extends JFrame {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				PanelPlanoCartesiano.add3D(true);
 
-				List<Ponto> lst = new Cubo3D().reflexaoYZ(listaGLOBAL);
+				List<Ponto3D> lst = new Cubo3D().reflexaoYZ(listaGLOBAL3D);
 
-				TelaPrincipal.setLista(lst);
+				TelaPrincipal.setListaGLOBAL3D(lst);
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
@@ -483,9 +486,9 @@ public class TelaPrincipal extends JFrame {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				PanelPlanoCartesiano.add3D(true);
 
-				List<Ponto> lst = new Cubo3D().reflexaoYZ(listaGLOBAL);
+				List<Ponto3D> lst = new Cubo3D().reflexaoYZ(listaGLOBAL3D);
 
-				TelaPrincipal.setLista(lst);
+				TelaPrincipal.setListaGLOBAL3D(lst);;
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
@@ -500,9 +503,9 @@ public class TelaPrincipal extends JFrame {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				PanelPlanoCartesiano.add3D(true);
 
-				List<Ponto> lst = new Cubo3D().reflexaoXZ(listaGLOBAL);
+				List<Ponto3D> lst = new Cubo3D().reflexaoXZ(listaGLOBAL3D);
 
-				TelaPrincipal.setLista(lst);
+				TelaPrincipal.setListaGLOBAL3D(lst);
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
@@ -547,6 +550,7 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		
 
 		getContentPane().add(panelNormalizacao);
 	}
@@ -571,7 +575,7 @@ public class TelaPrincipal extends JFrame {
 	 */
 	public static void povoar3D() {
 		try {
-			for (Ponto ponto : getLista()) {
+			for (Ponto3D ponto : getListaGLOBAL3D()) {
 				if (ponto.getZ() == 0) {
 					PanelReta.panelPlanoCartesiano
 							.desenharPixel(ponto.getX() + 300,
@@ -603,5 +607,19 @@ public class TelaPrincipal extends JFrame {
 	 */
 	public static void setLista(List<Ponto> lista) {
 		TelaPrincipal.listaGLOBAL = lista;
+	}
+
+	/**
+	 * @return the listaGLOBAL3D
+	 */
+	public static List<Ponto3D> getListaGLOBAL3D() {
+		return listaGLOBAL3D;
+	}
+
+	/**
+	 * @param listaGLOBAL3D the listaGLOBAL3D to set
+	 */
+	public static void setListaGLOBAL3D(List<Ponto3D> listaGLOBAL3D) {
+		TelaPrincipal.listaGLOBAL3D = listaGLOBAL3D;
 	}
 }

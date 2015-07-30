@@ -1,6 +1,6 @@
 package com.uepb.view;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -14,8 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Cubo3D;
-import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.Quadrado;
+import com.uepb.algoritmo.Ponto3D;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -31,7 +30,6 @@ public class Cubo extends JDialog {
 	private JTextField txtY;
 	public String x, y, z;
 	protected boolean status;
-	public static List<Ponto> lstPontos;
 	private JTextField txtZ;
 
 	/**
@@ -108,10 +106,10 @@ public class Cubo extends JDialog {
 				int z = Integer.valueOf(txtZ.getText());
 				
 				TelaPrincipal.getLista().clear();
-				List<Ponto> cubo = new Cubo3D().criarCubo(x,y,z);
+				List<Ponto3D> cubo = new Cubo3D().criarCubo(x,y,z);
 				
-				TelaPrincipal.setLista(cubo);
-				TelaPrincipal.povoar3D();
+				TelaPrincipal.setListaGLOBAL3D(cubo);
+				TelaPrincipal.povoar3D(); 
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 				repaint();

@@ -1,6 +1,6 @@
 package com.uepb.view;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -14,8 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Cubo3D;
-import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.algoritmo.Ponto3D;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -75,17 +74,17 @@ public class ValoresRotacao3D extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				int x = Integer.valueOf(txtRotacao.getText());
-				List<Ponto> listaPontos = new ArrayList<Ponto>();
+				List<Ponto3D> listaPontos = new ArrayList<Ponto3D>();
 				if (tipo.equals("x")) {
-					listaPontos = new Cubo3D().rotacaoX(TelaPrincipal.getLista(), x);
+					listaPontos = new Cubo3D().rotacaoX(TelaPrincipal.getListaGLOBAL3D(), x);
 				}
 				if (tipo.equals("y")) {
-					listaPontos = new Cubo3D().rotacaoY(TelaPrincipal.getLista(), x);
+					listaPontos = new Cubo3D().rotacaoY(TelaPrincipal.getListaGLOBAL3D(), x);
 				}
 				if (tipo.equals("z")) {
-					listaPontos = new Cubo3D().rotacaoZ(TelaPrincipal.getLista(), x);
+					listaPontos = new Cubo3D().rotacaoZ(TelaPrincipal.getListaGLOBAL3D(), x);
 				}
-				TelaPrincipal.setLista(listaPontos);
+				TelaPrincipal.setListaGLOBAL3D(listaPontos);
 				PanelPlanoCartesiano.add3D(true);
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
