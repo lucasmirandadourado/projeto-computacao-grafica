@@ -1,6 +1,6 @@
 package com.uepb.view;
 
-import java.awt.Color;
+import java.awt.Color; 
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -12,25 +12,36 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.uepb.algoritmo.Cubo3D;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.Ponto3D;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.view.basica.Ajuda;
+import com.uepb.view.basica.Retangulo;
+import com.uepb.view.basica.Retas;
+import com.uepb.view.basica.Valores;
+import com.uepb.view.basica.Valores3D;
+import com.uepb.view.circunferencia.PanelCircunfExplicita;
+import com.uepb.view.circunferencia.PanelCircunfTrigonometrica;
+import com.uepb.view.circunferencia.PanelCircunferencia;
+import com.uepb.view.cisalhamento.ValoresCisalhamento;
+import com.uepb.view.cisalhamento.ValoresCisalhamento3D;
+import com.uepb.view.rotacao.ValoresRotacao;
+import com.uepb.view.rotacao.ValoresRotacao3D;
 
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	static JMenuItem mntmTranslacao2D, mntmEscala2D, mntmRotacao2D,
+	public static JMenuItem mntmTranslacao2D, mntmEscala2D, mntmRotacao2D,
 			mntmCisalhamento2D, mntmReflexaoEmX2D, mntmReflexoEmY,
 			mntmReflexaoEmXeY2D, mntmRotacaoEmX3D, mntmReflexaoEmY2D,
 			mntmReflexaoEmY3D, mntmRotacaoEmX2D;
@@ -43,15 +54,7 @@ public class TelaPrincipal extends JFrame {
 
 	private static List<Ponto> listaGLOBAL = new ArrayList<Ponto>();
 	private static List<Ponto3D> listaGLOBAL3D = new ArrayList<Ponto3D>();
-	/**
-	 * @wbp.nonvisual location=51,9
-	 */
-	private final JLabel label = DefaultComponentFactory.getInstance()
-			.createTitle("New JGoodies title");
-
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -70,6 +73,7 @@ public class TelaPrincipal extends JFrame {
 	 * Interface principal.
 	 */
 	public TelaPrincipal() {
+		setTitle("Computa\u00E7\u00E3o gr\u00E1fica - 2015");
 		// Comandos do teclado.
 		addKeyListener(new KeyAdapter() {
 			@Override
@@ -311,9 +315,13 @@ public class TelaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new ValoresRotacao();
-				repaint();
-				validate();
+				if (getLista().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Imagem não criada.");
+				} else {
+					new ValoresRotacao();
+					repaint();
+					validate();
+				}
 			}
 		});
 		mnd2D.add(mntmRotacao2D);
@@ -329,7 +337,7 @@ public class TelaPrincipal extends JFrame {
 
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
-				povoarRetas(TelaPrincipal.listaGLOBAL);
+				povoarRetas(getLista());
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
@@ -344,7 +352,7 @@ public class TelaPrincipal extends JFrame {
 
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
-				povoarRetas(lstP);
+				povoarRetas(getLista());
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
@@ -359,7 +367,7 @@ public class TelaPrincipal extends JFrame {
 
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
-				povoarRetas(lstP);
+				povoarRetas(getLista());
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
@@ -558,9 +566,9 @@ public class TelaPrincipal extends JFrame {
 	/**
 	 * @param listaPontos
 	 */
-	public static void povoarRetas(List<Ponto> listaPontos) {
+	public static void povoarRetas(List<Ponto> pontos) {
 		try {
-			for (Ponto ponto : listaPontos) {
+			for (Ponto ponto : pontos) {
 				PanelReta.panelPlanoCartesiano.desenharPixel(
 						ponto.getX() + 300, -ponto.getY() + 300, Color.BLUE);
 			}
@@ -595,7 +603,7 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	/**
-	 * @return the lista
+	 * @return the lista em 2D (Duas dimenções)
 	 */
 	public static List<Ponto> getLista() {
 		return listaGLOBAL;
@@ -610,7 +618,8 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	/**
-	 * @return the listaGLOBAL3D
+	 * Lista de coordenadas em 3D (Três dimenções)
+	 * @return the listaGLOBAL3D 
 	 */
 	public static List<Ponto3D> getListaGLOBAL3D() {
 		return listaGLOBAL3D;

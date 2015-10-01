@@ -1,4 +1,4 @@
-package com.uepb.view;
+package com.uepb.view.basica;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,6 +16,8 @@ import java.awt.Font;
 import javax.swing.border.TitledBorder;
 
 import com.uepb.algoritmo.Ponto;
+import com.uepb.view.PanelReta;
+import com.uepb.view.TelaPrincipal;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

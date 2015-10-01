@@ -1,6 +1,6 @@
-package com.uepb.view;
+package com.uepb.view.rotacao;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -13,28 +13,32 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 
-import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.algoritmo.Cubo3D;
+import com.uepb.algoritmo.Ponto3D;
+import com.uepb.view.PanelPlanoCartesiano;
+import com.uepb.view.PanelReta;
+import com.uepb.view.TelaPrincipal;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ValoresCisalhamento extends JDialog {
+public class ValoresRotacao3D extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtX;
-	private JTextField txtY;
+	private JTextField txtRotacao;
 	public String x, y;
 	protected boolean status;
 
 	/**
 	 * Create the dialog.
+	 * @param tipo 
 	 * 
 	 * @param tipo
 	 */
-	public ValoresCisalhamento(List<Ponto> lista, String tipo) {
+	public ValoresRotacao3D(String tipo) {
 
 		status = true;
 		setResizable(false);
@@ -48,10 +52,10 @@ public class ValoresCisalhamento extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblTranslao = new JLabel("Cisalhamento");
-		lblTranslao.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTranslao.setBounds(10, 11, 102, 40);
-		contentPanel.add(lblTranslao);
+		JLabel lblRotacao = new JLabel("Rota\u00E7\u00E3o");
+		lblRotacao.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		lblRotacao.setBounds(10, 11, 102, 40);
+		contentPanel.add(lblRotacao);
 
 		setTxtTranslacaoX(new JTextField());
 		getTxtTranslacaoX().setText("0");
@@ -59,19 +63,10 @@ public class ValoresCisalhamento extends JDialog {
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
-		setTxtTranslacaoY(new JTextField());
-		getTxtTranslacaoY().setText("0");
-		getTxtTranslacaoY().setBounds(151, 129, 86, 30);
-		contentPanel.add(getTxtTranslacaoY());
-		getTxtTranslacaoY().setColumns(10);
-
-		JLabel lblCisalhamentoEmX = new JLabel("Cisalhamento em X");
-		lblCisalhamentoEmX.setBounds(20, 75, 121, 30);
-		contentPanel.add(lblCisalhamentoEmX);
-
-		JLabel lblCisalhamentoEmY = new JLabel("Cisalhamento em Y");
-		lblCisalhamentoEmY.setBounds(20, 129, 121, 30);
-		contentPanel.add(lblCisalhamentoEmY);
+		JLabel lblAngulo = new JLabel("Angulo");
+		lblAngulo.setFont(new Font("Segoe UI Light", Font.PLAIN, 16));
+		lblAngulo.setBounds(20, 75, 102, 30);
+		contentPanel.add(lblAngulo);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -81,23 +76,23 @@ public class ValoresCisalhamento extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
-				
-				x = txtX.getText();
-				y = txtY.getText();
-				
-				List<Ponto> listaPontos = null;
-				listaPontos = cisalhamentoX(Double.valueOf(txtX.getText()), Double.valueOf(txtY.getText()));
-			
-				TelaPrincipal.setLista(listaPontos);
-				TelaPrincipal.povoarRetas(listaPontos); 
+				int x = Integer.valueOf(txtRotacao.getText());
+				List<Ponto3D> listaPontos = new ArrayList<Ponto3D>();
+				if (tipo.equals("x")) {
+					listaPontos = new Cubo3D().rotacaoX(TelaPrincipal.getListaGLOBAL3D(), x);
+				}
+				if (tipo.equals("y")) {
+					listaPontos = new Cubo3D().rotacaoY(TelaPrincipal.getListaGLOBAL3D(), x);
+				}
+				if (tipo.equals("z")) {
+					listaPontos = new Cubo3D().rotacaoZ(TelaPrincipal.getListaGLOBAL3D(), x);
+				}
+				TelaPrincipal.setListaGLOBAL3D(listaPontos);
+				PanelPlanoCartesiano.add3D(true);
+				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}
-
-			private List<Ponto> cisalhamentoX(Double a, Double b) {
-				return new Operacoes().cisalhamentoEmZ(lista, a, b);
-			}
-
 		});
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
@@ -117,25 +112,17 @@ public class ValoresCisalhamento extends JDialog {
 	}
 
 	/**
-	 * @return the txtTranslacaoY
-	 */
-	public JTextField getTxtTranslacaoY() {
-		return txtY;
-	}
-
-	/**
 	 * @param txtTranslacaoY
 	 *            the txtTranslacaoY to set
 	 */
 	public void setTxtTranslacaoY(JTextField txtTranslacaoY) {
-		this.txtY = txtTranslacaoY;
 	}
 
 	/**
 	 * @return the txtTranslacaoX
 	 */
 	public JTextField getTxtTranslacaoX() {
-		return txtX;
+		return txtRotacao;
 	}
 
 	/**
@@ -143,6 +130,6 @@ public class ValoresCisalhamento extends JDialog {
 	 *            the txtTranslacaoX to set
 	 */
 	public void setTxtTranslacaoX(JTextField txtTranslacaoX) {
-		this.txtX = txtTranslacaoX;
+		this.txtRotacao = txtTranslacaoX;
 	}
 }

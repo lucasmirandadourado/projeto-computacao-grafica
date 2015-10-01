@@ -1,4 +1,4 @@
-package com.uepb.view;
+package com.uepb.view.basica;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

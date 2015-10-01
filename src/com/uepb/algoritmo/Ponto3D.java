@@ -7,7 +7,7 @@ package com.uepb.algoritmo;
  *
  */
 public class Ponto3D {
-	private int x, y, z = 0, w = 1;
+	private int x = 0, y = 0, z = 0, w = 1;
 
 	/**
 	 * Coordenadas com 3D (Três dimenções)

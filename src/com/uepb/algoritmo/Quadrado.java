@@ -17,20 +17,12 @@ public class Quadrado {
 		List<Ponto> r1 = retas.dda(0, 0, x, 0);
 		List<Ponto> r2 = retas.dda(x, 0, x, y-1);
 		List<Ponto> r3 = retas.dda(x, y, 0, y);
-		List<Ponto> r4 = retas.dda(0, y, 0, 0);
-		listaDePontos.clear();
-		for (Ponto ponto : r1) {
-			listaDePontos.add(ponto);
-		}
-		for (Ponto ponto : r2) {
-			listaDePontos.add(ponto);
-		}
-		for (Ponto ponto : r3) {
-			listaDePontos.add(ponto);
-		}
-		for (Ponto ponto : r4) {
-			listaDePontos.add(ponto);
-		}
+		List<Ponto> r4 = retas.dda(0, y, 0, 0);		
+			listaDePontos.clear();
+			listaDePontos.addAll(r1);
+			listaDePontos.addAll(r2);
+			listaDePontos.addAll(r3);
+			listaDePontos.addAll(r4);
 		return listaDePontos;
 	}
 }

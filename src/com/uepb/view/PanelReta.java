@@ -21,7 +21,7 @@ import java.awt.event.ActionEvent;
 public class PanelReta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	static PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();
+	public static PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();
 	FuncoesDeNormalizacao funcoesDeNormalizacao = new FuncoesDeNormalizacao();
 	private static Retas retas = new Retas();
 	

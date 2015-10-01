@@ -1,4 +1,4 @@
-package com.uepb.view;
+package com.uepb.view.circunferencia;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,8 +18,10 @@ import com.uepb.algoritmo.Circunferencia;
 import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.view.PanelPlanoCartesiano;
+import com.uepb.view.TelaPrincipal;
 
-public class PanelCircunfTrigonometrica extends JPanel {
+public class PanelCircunfExplicita extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();
@@ -32,7 +34,7 @@ public class PanelCircunfTrigonometrica extends JPanel {
 	Circunferencia circunferencia;
 	private List<Ponto> list;
 
-	public PanelCircunfTrigonometrica() {
+	public PanelCircunfExplicita() {
 		setBackground(Color.DARK_GRAY);
 
 		setBounds(0, 0, 1008, 660);
@@ -86,7 +88,7 @@ public class PanelCircunfTrigonometrica extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				circunferencia = new Circunferencia();
 				
-				circunferencia.circ_trigonometrica(Integer.valueOf(txtOrigemX
+				circunferencia.circ_explicita(Integer.valueOf(txtOrigemX
 						.getText()), Integer.valueOf(txtOrigemY.getText()),
 						Integer.valueOf(txtRaio.getText()));
 				pontosCircunferencia = circunferencia.getListaPontos();
@@ -123,7 +125,7 @@ public class PanelCircunfTrigonometrica extends JPanel {
 			}
 		});
 		btnLimparTela.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		btnLimparTela.setBounds(25, 589, 333, 41);
+		btnLimparTela.setBounds(25, 589, 346, 41);
 		add(btnLimparTela);
 
 	}

@@ -1,6 +1,6 @@
-package com.uepb.view;
+package com.uepb.view.cisalhamento;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -15,27 +15,31 @@ import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.view.PanelPlanoCartesiano;
+import com.uepb.view.PanelReta;
+import com.uepb.view.TelaPrincipal;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class Valores extends JDialog {
+public class ValoresCisalhamento2D extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtTranslacaoX;
-	private JTextField txtTranslacaoY;
-	public String x, y;
+	private JTextField txtX;
+	private JTextField txtY;
+	public String x, y, z;
 	protected boolean status;
-	public static List<Ponto> lstPontos;
+	private JTextField txtZ;
 
 	/**
 	 * Create the dialog.
 	 * 
 	 * @param tipo
 	 */
-	public Valores(String tipo) {
+	public ValoresCisalhamento2D() {
+
 		status = true;
 		setResizable(false);
 		setVisible(true);
@@ -48,30 +52,40 @@ public class Valores extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblTranslao = new JLabel("Transla\u00E7\u00E3o");
+		JLabel lblTranslao = new JLabel("Cisalhamento");
 		lblTranslao.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTranslao.setBounds(10, 11, 102, 40);
+		lblTranslao.setBounds(10, 16, 102, 40);
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
 		getTxtTranslacaoX().setText("0");
-		getTxtTranslacaoX().setBounds(151, 75, 86, 30);
+		getTxtTranslacaoX().setBounds(151, 72, 86, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
 		setTxtTranslacaoY(new JTextField());
 		getTxtTranslacaoY().setText("0");
-		getTxtTranslacaoY().setBounds(151, 129, 86, 30);
+		getTxtTranslacaoY().setBounds(151, 118, 86, 30);
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
 
-		JLabel lblTranslaoEmX = new JLabel("Transla\u00E7\u00E3o em X");
-		lblTranslaoEmX.setBounds(20, 75, 102, 30);
-		contentPanel.add(lblTranslaoEmX);
+		JLabel lblCisalhamentoEmX = new JLabel("Cisalhamento em X");
+		lblCisalhamentoEmX.setBounds(20, 72, 121, 30);
+		contentPanel.add(lblCisalhamentoEmX);
 
-		JLabel lblTranslaoEmY = new JLabel("Transla\u00E7\u00E3o em Y");
-		lblTranslaoEmY.setBounds(20, 129, 102, 30);
-		contentPanel.add(lblTranslaoEmY);
+		JLabel lblCisalhamentoEmY = new JLabel("Cisalhamento em Y");
+		lblCisalhamentoEmY.setBounds(20, 118, 121, 30);
+		contentPanel.add(lblCisalhamentoEmY);
+		
+		JLabel lblCisalhamentoEmZ = new JLabel("Cisalhamento em Z");
+		lblCisalhamentoEmZ.setBounds(20, 164, 121, 30);
+		contentPanel.add(lblCisalhamentoEmZ);
+		
+		txtZ = new JTextField();
+		txtZ.setText("0");
+		txtZ.setColumns(10);
+		txtZ.setBounds(151, 164, 86, 30);
+		contentPanel.add(txtZ);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -82,36 +96,47 @@ public class Valores extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				
-				x = txtTranslacaoX.getText();
-				y = txtTranslacaoY.getText();
+				x = txtX.getText();
+				y = txtY.getText();
+				
 				
 				List<Ponto> listaPontos = null;
-				if (tipo == "translacao") {
-					listaPontos = translação(Integer.valueOf(x), Integer.valueOf(y));
+				if (!(x.isEmpty() || x.equals("0"))) {
+					listaPontos = cisalhamentoX(Double.valueOf(x), Double.valueOf(y));	
+				} 
+				if (!(y.isEmpty() || y.equals("0"))) {
+					listaPontos = cisalhamentoY(Double.valueOf(x), Double.valueOf(y));	
 				}
-				if (tipo == "escala") {
-					listaPontos = escala(Double.valueOf(x), Double.valueOf(y));
+				if (!(z.isEmpty() || z.equals("0"))) {
+					listaPontos = cisalhamentoZ(Double.valueOf(x), Double.valueOf(y));	
 				}
 				
-				TelaPrincipal.setLista(listaPontos);
-				TelaPrincipal.povoarRetas(listaPontos);
+				if (TelaPrincipal.getLista().isEmpty()) {
+					System.out.println(TelaPrincipal.getLista().toString());
+				}
+				
+				PanelPlanoCartesiano.add3D(true);
+				TelaPrincipal.setLista(listaPontos); 
+				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}
 
-			private List<Ponto> escala(double x, double y) {
-				List<Ponto> listaPontos = new Operacoes().escalaReta(TelaPrincipal.getLista(),
-						x, y);
-				return listaPontos;
+			private List<Ponto> cisalhamentoZ(Double a, Double b) {
+				List<Ponto> lis = new Operacoes().cisalhamentoEmZ(TelaPrincipal.getLista(), a, b); 
+				return lis;
 			}
 
-			/**
-			 * @return
-			 */
-			private List<Ponto> translação(int x, int y) {
-				List<Ponto> listaPontos = new Operacoes().translacaoMulti(TelaPrincipal.getLista(), x, y);
-				return listaPontos;
+			private List<Ponto> cisalhamentoY(Double a, Double b) {
+				List<Ponto> lis = new Operacoes().cisalhamentoEmY(TelaPrincipal.getLista(), a, b); 
+				return lis;
 			}
+
+			private List<Ponto> cisalhamentoX(Double a, Double b) {
+				List<Ponto> lis = new Operacoes().cisalhamentoEmX(TelaPrincipal.getLista(), a, b); 
+				return lis;
+			}
+
 		});
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
@@ -134,7 +159,7 @@ public class Valores extends JDialog {
 	 * @return the txtTranslacaoY
 	 */
 	public JTextField getTxtTranslacaoY() {
-		return txtTranslacaoY;
+		return txtY;
 	}
 
 	/**
@@ -142,14 +167,14 @@ public class Valores extends JDialog {
 	 *            the txtTranslacaoY to set
 	 */
 	public void setTxtTranslacaoY(JTextField txtTranslacaoY) {
-		this.txtTranslacaoY = txtTranslacaoY;
+		this.txtY = txtTranslacaoY;
 	}
 
 	/**
 	 * @return the txtTranslacaoX
 	 */
 	public JTextField getTxtTranslacaoX() {
-		return txtTranslacaoX;
+		return txtX;
 	}
 
 	/**
@@ -157,6 +182,6 @@ public class Valores extends JDialog {
 	 *            the txtTranslacaoX to set
 	 */
 	public void setTxtTranslacaoX(JTextField txtTranslacaoX) {
-		this.txtTranslacaoX = txtTranslacaoX;
+		this.txtX = txtTranslacaoX;
 	}
 }

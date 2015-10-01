@@ -1,4 +1,4 @@
-package com.uepb.view;
+package com.uepb.view.basica;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -14,32 +14,33 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.Quadrado;
+import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.view.PanelReta;
+import com.uepb.view.TelaPrincipal;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class Retangulo extends JDialog {
+public class Valores extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtX;
-	private JTextField txtY;
+	private JTextField txtTranslacaoX;
+	private JTextField txtTranslacaoY;
 	public String x, y;
 	protected boolean status;
 	public static List<Ponto> lstPontos;
 
 	/**
 	 * Create the dialog.
-	 * @param lista 
 	 * 
 	 * @param tipo
 	 */
-	public Retangulo() {
+	public Valores(String tipo) {
 		status = true;
-		setVisible(true);
 		setResizable(false);
+		setVisible(true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setAutoRequestFocus(false);
 
@@ -49,9 +50,9 @@ public class Retangulo extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblTranslao = new JLabel("Crie um quadrado.");
+		JLabel lblTranslao = new JLabel("Transla\u00E7\u00E3o");
 		lblTranslao.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTranslao.setBounds(10, 11, 245, 40);
+		lblTranslao.setBounds(10, 11, 102, 40);
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
@@ -66,11 +67,11 @@ public class Retangulo extends JDialog {
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
 
-		JLabel lblTranslaoEmX = new JLabel("Largura:");
+		JLabel lblTranslaoEmX = new JLabel("Transla\u00E7\u00E3o em X");
 		lblTranslaoEmX.setBounds(20, 75, 102, 30);
 		contentPanel.add(lblTranslaoEmX);
 
-		JLabel lblTranslaoEmY = new JLabel("Comprimento:");
+		JLabel lblTranslaoEmY = new JLabel("Transla\u00E7\u00E3o em Y");
 		lblTranslaoEmY.setBounds(20, 129, 102, 30);
 		contentPanel.add(lblTranslaoEmY);
 
@@ -83,21 +84,37 @@ public class Retangulo extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				
-				x = txtX.getText();
-				y = txtY.getText();
-				TelaPrincipal.getLista().clear();
+				x = txtTranslacaoX.getText();
+				y = txtTranslacaoY.getText();
 				
-				List<Ponto> listaPontos = new Quadrado().quadrado(Integer.valueOf(x), Integer.valueOf(y));
+				List<Ponto> listaPontos = null;
+				if (tipo == "translacao") {
+					listaPontos = translação(Integer.valueOf(x), Integer.valueOf(y));
+				}
+				if (tipo == "escala") {
+					listaPontos = escala(Double.valueOf(x), Double.valueOf(y));
+				}
 				
 				TelaPrincipal.setLista(listaPontos);
-				TelaPrincipal.povoarRetas(TelaPrincipal.getLista());
+				TelaPrincipal.povoarRetas(listaPontos);
 				TelaPrincipal.panelNormalizacao.repaint();
-				
-				repaint();
-				validate();
 				setVisible(false);
 			}
-		}); 
+
+			private List<Ponto> escala(double x, double y) {
+				List<Ponto> listaPontos = new Operacoes().escalaReta(TelaPrincipal.getLista(),
+						x, y);
+				return listaPontos;
+			}
+
+			/**
+			 * @return
+			 */
+			private List<Ponto> translação(int x, int y) {
+				List<Ponto> listaPontos = new Operacoes().translacaoMulti(TelaPrincipal.getLista(), x, y);
+				return listaPontos;
+			}
+		});
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
@@ -119,7 +136,7 @@ public class Retangulo extends JDialog {
 	 * @return the txtTranslacaoY
 	 */
 	public JTextField getTxtTranslacaoY() {
-		return txtY;
+		return txtTranslacaoY;
 	}
 
 	/**
@@ -127,14 +144,14 @@ public class Retangulo extends JDialog {
 	 *            the txtTranslacaoY to set
 	 */
 	public void setTxtTranslacaoY(JTextField txtTranslacaoY) {
-		this.txtY = txtTranslacaoY;
+		this.txtTranslacaoY = txtTranslacaoY;
 	}
 
 	/**
 	 * @return the txtTranslacaoX
 	 */
 	public JTextField getTxtTranslacaoX() {
-		return txtX;
+		return txtTranslacaoX;
 	}
 
 	/**
@@ -142,6 +159,6 @@ public class Retangulo extends JDialog {
 	 *            the txtTranslacaoX to set
 	 */
 	public void setTxtTranslacaoX(JTextField txtTranslacaoX) {
-		this.txtX = txtTranslacaoX;
+		this.txtTranslacaoX = txtTranslacaoX;
 	}
 }

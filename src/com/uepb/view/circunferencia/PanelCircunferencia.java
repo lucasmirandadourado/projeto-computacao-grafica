@@ -1,4 +1,4 @@
-package com.uepb.view;
+package com.uepb.view.circunferencia;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,6 +18,8 @@ import com.uepb.algoritmo.Circunferencia;
 import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.view.PanelPlanoCartesiano;
+import com.uepb.view.TelaPrincipal;
 
 public class PanelCircunferencia extends JPanel {
 

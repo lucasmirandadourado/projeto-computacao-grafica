@@ -1,10 +1,10 @@
+
 package com.uepb.algoritmo.transformacoes2D;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.uepb.algoritmo.Matriz;
-import com.uepb.algoritmo.Ponto;
 import com.uepb.algoritmo.Ponto3D;
 
 // 3D Composta

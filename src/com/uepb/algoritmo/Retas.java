@@ -251,6 +251,7 @@ public class Retas {
 	private void setPixel(double x, double y) {
 		listaDePontos
 				.add(new Ponto((int) Math.round(x), (int) Math.round(y), 0));
+		System.out.println((int) x +", " + (int) y);
 	}
 
 	/**

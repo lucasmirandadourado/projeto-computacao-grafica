@@ -1,17 +1,25 @@
 package com.uepb.algoritmo.transformacoes2D;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
 import com.uepb.algoritmo.Matriz;
 import com.uepb.algoritmo.Ponto;
+import com.uepb.view.TelaPrincipal;
 
-// 2D Composta
+/**
+ * 
+ * @author Lucas
+ *
+ */
 public class Operacoes {
 
-	private int x, y;
-	Matriz matriz = new Matriz();
-
+	/**
+	 * Matriz geradora de translação em uma matriz de 2D (duas dimenções).
+	 * @param tx
+	 * @param ty
+	 * @return vetor 2D (3 x 3) Double
+	 */
 	private double[][] gerarMatrizTranslacao(int tx, int ty) {
 		double[][] matriz = new double[3][3];
 
@@ -30,6 +38,12 @@ public class Operacoes {
 		return matriz;
 	}
 
+	/**
+	 * Matriz geradora de escala em uma matriz de 2D (duas dimenções).
+	 * @param sx
+	 * @param sy
+	 * @return
+	 */
 	private double[][] gerarMatrizEscala(double sx, double sy) {
 		double[][] matriz = new double[3][3];
 		if (sx == 0) {
@@ -53,27 +67,33 @@ public class Operacoes {
 		return matriz;
 	}
 
+	/**
+	 * Matriz de rotação em uma matriz de 2D (duas dimenções)
+	 * @param angulo
+	 * @return vetor 3 x 3 (double)
+	 */
 	private double[][] gerarMatrizRotacao(double angulo) {
 
-		double[][] matriz = new double[3][3];
+		double[][] matriz2D = new double[3][3];
 
 		double sen = Math.sin(Math.toRadians(angulo));
 		double cos = Math.cos(Math.toRadians(angulo));
 
-		// Linha 0
-		matriz[0][0] = cos;
-		matriz[1][0] = sen;
-		matriz[2][0] = 0;
-		// Linha 1
-		matriz[0][1] = -sen;
-		matriz[1][1] = cos;
-		matriz[2][1] = 0;
-		// Linha 2
-		matriz[0][2] = 0;
-		matriz[1][2] = 0;
-		matriz[2][2] = 1;
+		
+		// Coluna 0
+		matriz2D[0][0] = cos;
+		matriz2D[1][0] = sen;
+		matriz2D[2][0] = 0;
+		// Coluna 1
+		matriz2D[0][1] = -sen;
+		matriz2D[1][1] = cos;
+		matriz2D[2][1] = 0;
+		// Coluna 2
+		matriz2D[0][2] = 0;
+		matriz2D[1][2] = 0;
+		matriz2D[2][2] = 1;
 
-		return matriz;
+		return matriz2D;
 	}
 
 	private double[][] gerarMatrizReflexaoX() {
@@ -188,11 +208,11 @@ public class Operacoes {
 		} catch (Exception e) {
 			System.out.println("ERRO NA TRANSLAÇÃO");
 		}
-
+		
 		for (int i = 0; i < d[0].length; i++) {
 			list.add(new Ponto((int) d[0][i], (int) d[1][i], (int) d[2][i]));
 		}
-		System.out.println(list.toString() + "a\n");
+//		System.out.println(list.toString() + "a\n");
 		return list;
 	}
 
@@ -235,52 +255,62 @@ public class Operacoes {
 		return list;
 	}
 
-	public List<Ponto> rotacao(List<Ponto> lis, int angulo) {
-
+	/**
+	 * 
+	 * @param angulo
+	 * @return List<Ponto>, objeto rotacionado.
+	 */
+	public List<Ponto> rotacao(int angulo) {
+	
+		// Pegar a lista de pontos da TelaPrincipal
+		List<Ponto> lis = TelaPrincipal.getLista();
+		
 		double[][] matriz = new double[3][lis.size()];
 
-		// Criando o objeto de matriz
+		// Criando o objeto de matriz da lista.
 		for (int i = 0; i < lis.size(); i++) {
 			matriz[0][i] = lis.get(i).getX(); // Coluna i na linha 0
 			matriz[1][i] = lis.get(i).getY(); // Coluna i na linha 1
 			matriz[2][i] = 1; // Coluna j na linha 2 = 1
 		}
-
-		int translacaoX = lis.get(0).getX();
-		int translacaoY = lis.get(0).getY();
+				
+		// Ponto de origem.
+		final int translacaoX = lis.get(0).getX();
+		final int translacaoY = lis.get(0).getY();
 		
-		List<Ponto> trans = translacaoMulti(lis, -translacaoX, -translacaoY);
-
+		// Fazer a translação.
+		List<Ponto> matrix_trans = translacaoMulti(lis, -translacaoX, -translacaoY);
+		
 		double[][] matrizNaOrigem = new double[3][lis.size()];
 
-		int size = trans.size();
-
-		for (int i = 0; i < size; i++) {
-			matrizNaOrigem[0][i] = (double) trans.get(i).getX();
-			matrizNaOrigem[1][i] = (double) trans.get(i).getY();
-			matrizNaOrigem[2][i] = (double) trans.get(i).getZ();
+		for (int i = 0; i < matrix_trans.size(); i++) {
+			matrizNaOrigem[0][i] = (double) matrix_trans.get(i).getX();
+			matrizNaOrigem[1][i] = (double) matrix_trans.get(i).getY();
+			matrizNaOrigem[2][i] = (double) matrix_trans.get(i).getZ();
 		}
-
+		
 		// Gerar a matriz de rotação
 		double[][] rotacao = gerarMatrizRotacao(angulo);
 
 		// Fazer a rotação
 		double[][] lisPonto = null;
 		try {
-			lisPonto = Matriz.multiplicaMatrizes(rotacao, matriz);
+			lisPonto = Matriz.multiplicaMatrizes(rotacao, matrizNaOrigem);			
 		} catch (Exception e) {
 			System.err.println("Erro ao multiplicar a matriz de rotação");
 			e.printStackTrace();
 		}
-		matrizNaOrigem = null;
-		matrizNaOrigem = translacaoMulti(lisPonto, translacaoX, translacaoY);
-		lis.clear();
-		for (int i = 0; i < matrizNaOrigem[0].length; i++) {
-			lis.add(new Ponto((int) matrizNaOrigem[0][i], (int) matrizNaOrigem[1][i],
-					(int) matrizNaOrigem[2][i]));
+
+		double[][] matrizVoltar = translacaoMulti(lisPonto, translacaoX, translacaoY);
+		
+		List<Ponto> ls = new ArrayList<Ponto>();
+		for (int i = 0; i < matrizVoltar[0].length; i++) {
+			ls.add(new Ponto((int) matrizVoltar[0][i], (int) matrizVoltar[1][i],
+					(int) matrizVoltar[2][i]));
 		}
 		
-		return lis;
+		
+		return ls;
 	}
 
 	// Reflexão
@@ -467,21 +497,5 @@ public class Operacoes {
 		}
 
 		return list;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 }
