@@ -306,7 +306,7 @@ public class Cubo3D {
 		}
 		
 		// Gerar a matriz de rotação
-		double[][] rotacao = gerarMatrizRotacaoZ(angulo);
+		double[][] rotacao = gerarMatrizRotacaoX(angulo);
 
 		// Fazer a rotação
 		double[][] lisPonto = null;
@@ -410,7 +410,7 @@ public class Cubo3D {
 		}
 				
 		// Gerar a matriz de rotação
-		double[][] rotacao = gerarMatrizRotacaoX(angulo);
+		double[][] rotacao = gerarMatrizRotacaoZ(angulo);
 
 		// Fazer a rotação
 		double[][] lisPonto = null;
