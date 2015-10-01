@@ -328,7 +328,7 @@ public class Cubo3D {
 		} else return lis;	
 	}
 
-	public List<Ponto3D> rotacaoY(List<Ponto3D> lis, int angulo) {
+	public List<Ponto3D> rotacaoY(List<Ponto3D> lis, int angulo) { 
 
 		final int transx = lis.get(0).getX();
 		final int transy = lis.get(0).getY();
@@ -336,7 +336,7 @@ public class Cubo3D {
 		
 		double[][] matrizNaOrigem = new double[4][lis.size()];
 
-		if (!(transx == 0 && transy == 0 && transz == 0)) {
+		if (!(transx == 0 || transy == 0 || transz == 0)) {
 			List<Ponto3D> trans = translacaoMulti(lis, -transx, -transy, -transz);
 			
 			for (int i = 0; i < lis.size(); i++) {
@@ -375,13 +375,13 @@ public class Cubo3D {
 					(int) lisPonto[2][i], (int) lisPonto[3][i]));
 		}
 		
-		if (!(transx == 0 && transy == 0 && transz == 0)) {
+		if (!(transx == 0 || transy == 0 || transz == 0)) {
 			List<Ponto3D> resultado = translacaoMulti(lis, transx, transy, transz);
 			return resultado;
 		} else return lis;
 	}
 
-	public List<Ponto3D> rotacaoZ(List<Ponto3D> lis, int angulo) {
+	public List<Ponto3D> rotacaoZ(List<Ponto3D> lis, int angulo) { 
 		double[][] matriz = new double[4][lis.size()];
 
 		final int transx = lis.get(0).getX();
@@ -390,7 +390,7 @@ public class Cubo3D {
 		
 		double[][] matrizNaOrigem = new double[4][lis.size()];
 		
-		if (!(transx == 0 && transy == 0 && transz == 0)) {
+		if (!(transx == 0 || transy == 0 || transz == 0)) {
 			List<Ponto3D> trans = translacaoMulti(lis, -transx, -transy, -transz);
 
 			for (int i = 0; i < lis.size(); i++) {
@@ -427,7 +427,7 @@ public class Cubo3D {
 					(int) lisPonto[2][i], (int) lisPonto[3][i]));
 		}
 		
-		if (!(transx == 0 && transy == 0 && transz == 0)) {
+		if (!(transx == 0 || transy == 0 || transz == 0)) {
 			List<Ponto3D> resultado = translacaoMulti(lis, transx, transy, transz);
 			return resultado;
 		} else return lis;
