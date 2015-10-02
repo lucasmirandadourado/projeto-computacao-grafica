@@ -1,6 +1,6 @@
 package com.uepb.view;
 
-import java.awt.Color; 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -19,23 +19,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.uepb.algoritmo.Cubo3D;
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.Ponto3D;
-import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.algoritmo.operacoes2D.Operacoes;
+import com.uepb.algoritmo.operacoes3d.Cubo3D;
+import com.uepb.algoritmo.operacoes3d.Ponto3D;
 import com.uepb.view.basica.Ajuda;
 import com.uepb.view.basica.Retangulo;
 import com.uepb.view.basica.Retas;
 import com.uepb.view.basica.Valores;
 import com.uepb.view.basica.Valores3D;
-import com.uepb.view.circunferencia.PanelCircunfExplicita;
-import com.uepb.view.circunferencia.PanelCircunfTrigonometrica;
-import com.uepb.view.circunferencia.PanelCircunferencia;
+import com.uepb.view.circunferencia.CircunferenciaExplicita;
+import com.uepb.view.circunferencia.CircunferenciaPontoMedio;
+import com.uepb.view.circunferencia.CircunferenciaTrigonometrica;
 import com.uepb.view.cisalhamento.ValoresCisalhamento;
 import com.uepb.view.cisalhamento.ValoresCisalhamento3D;
 import com.uepb.view.rotacao.ValoresRotacao;
 import com.uepb.view.rotacao.ValoresRotacao3D;
-
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
@@ -46,15 +45,12 @@ public class TelaPrincipal extends JFrame {
 			mntmReflexaoEmXeY2D, mntmRotacaoEmX3D, mntmReflexaoEmY2D,
 			mntmReflexaoEmY3D, mntmRotacaoEmX2D;
 	public PanelReta panelReta;
-	public PanelCircunferencia panelCircunferencia;
-	public PanelCircunfTrigonometrica panelCircunfTringo;
-	public PanelCircunfExplicita panelCircunfExplicita;
 	public static PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
 	public static PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
 
 	private static List<Ponto> listaGLOBAL = new ArrayList<Ponto>();
 	private static List<Ponto3D> listaGLOBAL3D = new ArrayList<Ponto3D>();
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -74,75 +70,6 @@ public class TelaPrincipal extends JFrame {
 	 */
 	public TelaPrincipal() {
 		setTitle("Computa\u00E7\u00E3o gr\u00E1fica - 2015");
-		// Comandos do teclado.
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if ((e.getKeyCode() == KeyEvent.VK_R)
-						&& ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-					panelReta = new PanelReta();
-					getContentPane().removeAll();
-					getContentPane().add(panelReta);
-					validate();
-					repaint();
-				}
-				if ((e.getKeyCode() == KeyEvent.VK_M)
-						&& ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-					panelCircunferencia = new PanelCircunferencia();
-					getContentPane().removeAll();
-					getContentPane().add(panelCircunferencia);
-					validate();
-					repaint();
-				}
-				if ((e.getKeyCode() == KeyEvent.VK_T)
-						&& ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-					panelCircunfTringo = new PanelCircunfTrigonometrica();
-					getContentPane().removeAll();
-					getContentPane().add(panelCircunfTringo);
-					validate();
-					repaint();
-				}
-				if (e.getKeyCode() == KeyEvent.VK_E && KeyEvent.CTRL_MASK != 0) {
-					panelCircunfExplicita = new PanelCircunfExplicita();
-					getContentPane().removeAll();
-					getContentPane().add(panelCircunfExplicita);
-					validate();
-					repaint();
-				}
-				if (e.getKeyCode() == KeyEvent.VK_H && KeyEvent.CTRL_MASK != 0) {
-					new Ajuda().setVisible(true);
-				}
-
-				if (e.getKeyCode() == KeyEvent.VK_R && KeyEvent.CTRL_MASK != 0) {
-					try {
-						listaGLOBAL.clear();
-						new Retangulo();
-						validate();
-						repaint();
-					} catch (Exception e2) {
-						// TODO: handle exception
-					}
-				}
-
-				if (e.getKeyCode() == KeyEvent.VK_C && KeyEvent.CTRL_MASK != 0) {
-					listaGLOBAL.clear();
-					new Cubo();
-					validate();
-					repaint();
-				}
-
-				// Cisalhamento
-				if (e.getKeyCode() == KeyEvent.VK_X && KeyEvent.SHIFT_MASK != 0) {
-					new ValoresCisalhamento(listaGLOBAL, "cisa x");
-				}
-				if (e.getKeyCode() == KeyEvent.VK_Y && KeyEvent.SHIFT_MASK != 0) {
-					new ValoresCisalhamento(listaGLOBAL, "cisa y");
-				}
-				if (e.getKeyCode() == KeyEvent.VK_Z && KeyEvent.SHIFT_MASK != 0) {
-					new ValoresCisalhamento(listaGLOBAL, "cisa z");
-				}
-			}
-		});
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024, 720);
@@ -182,9 +109,8 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnCircunferencia = new JMenu("Circunferencia");
 		mnCircunferencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelCircunferencia = new PanelCircunferencia();
+
 				getContentPane().removeAll();
-				getContentPane().add(panelCircunferencia);
 				validate();
 				repaint();
 			}
@@ -214,11 +140,7 @@ public class TelaPrincipal extends JFrame {
 		mntmPontoMedio.setToolTipText("Ctrl + m");
 		mntmPontoMedio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelCircunferencia = new PanelCircunferencia();
-				getContentPane().removeAll();
-				getContentPane().add(panelCircunferencia);
-				validate();
-				repaint();
+				new CircunferenciaPontoMedio();
 			}
 		});
 		mnCircunferencia.add(mntmPontoMedio);
@@ -228,11 +150,7 @@ public class TelaPrincipal extends JFrame {
 		mntmEquaoExplicita.setToolTipText("Ctrl + e");
 		mntmEquaoExplicita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelCircunfExplicita = new PanelCircunfExplicita();
-				getContentPane().removeAll();
-				getContentPane().add(panelCircunfExplicita);
-				validate();
-				repaint();
+				new CircunferenciaExplicita();
 			}
 		});
 		mnCircunferencia.add(mntmEquaoExplicita);
@@ -242,11 +160,7 @@ public class TelaPrincipal extends JFrame {
 		mnCircunferencia.add(mntmTrigonometrica);
 		mntmTrigonometrica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelCircunfTringo = new PanelCircunfTrigonometrica();
-				getContentPane().removeAll();
-				getContentPane().add(panelCircunfTringo);
-				validate();
-				repaint();
+				new CircunferenciaTrigonometrica();
 			}
 		});
 
@@ -292,7 +206,7 @@ public class TelaPrincipal extends JFrame {
 		mntmCisalhamento2D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new ValoresCisalhamento(listaGLOBAL, "cisa x");
+					new ValoresCisalhamento();
 				} catch (Exception e2) {
 					e2.getCause();
 				}
@@ -496,7 +410,8 @@ public class TelaPrincipal extends JFrame {
 
 				List<Ponto3D> lst = new Cubo3D().reflexaoYZ(listaGLOBAL3D);
 
-				TelaPrincipal.setListaGLOBAL3D(lst);;
+				TelaPrincipal.setListaGLOBAL3D(lst);
+				;
 				TelaPrincipal.povoar3D();
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
@@ -558,7 +473,6 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-		
 
 		getContentPane().add(panelNormalizacao);
 	}
@@ -567,14 +481,16 @@ public class TelaPrincipal extends JFrame {
 	 * @param listaPontos
 	 */
 	public static void povoarRetas(List<Ponto> pontos) {
-		try {
-			for (Ponto ponto : pontos) {
+
+		for (Ponto ponto : pontos) {
+			try {
 				PanelReta.panelPlanoCartesiano.desenharPixel(
 						ponto.getX() + 300, -ponto.getY() + 300, Color.BLUE);
+			} catch (Exception e) {
+				System.out.println("Erro ao povoar os valores.");
 			}
-		} catch (Exception e) {
-			System.out.println("Erro ao povoar os valores.");
 		}
+
 		TelaPrincipal.panelNormalizacao.repaint();
 	}
 
@@ -582,8 +498,9 @@ public class TelaPrincipal extends JFrame {
 	 * @param listaPontos
 	 */
 	public static void povoar3D() {
-		try {
-			for (Ponto3D ponto : getListaGLOBAL3D()) {
+
+		for (Ponto3D ponto : getListaGLOBAL3D()) {
+			try {
 				if (ponto.getZ() == 0) {
 					PanelReta.panelPlanoCartesiano
 							.desenharPixel(ponto.getX() + 300,
@@ -595,10 +512,12 @@ public class TelaPrincipal extends JFrame {
 
 				}
 
+			} catch (Exception e) {
+				System.out
+						.println("Erro ao povoar os valores nas 3 dimensões.");
 			}
-		} catch (Exception e) {
-			System.out.println("Erro ao povoar os valores nas 3 dimensões.");
 		}
+
 		TelaPrincipal.panelNormalizacao.repaint();
 	}
 
@@ -619,14 +538,16 @@ public class TelaPrincipal extends JFrame {
 
 	/**
 	 * Lista de coordenadas em 3D (Três dimenções)
-	 * @return the listaGLOBAL3D 
+	 * 
+	 * @return the listaGLOBAL3D
 	 */
 	public static List<Ponto3D> getListaGLOBAL3D() {
 		return listaGLOBAL3D;
 	}
 
 	/**
-	 * @param listaGLOBAL3D the listaGLOBAL3D to set
+	 * @param listaGLOBAL3D
+	 *            the listaGLOBAL3D to set
 	 */
 	public static void setListaGLOBAL3D(List<Ponto3D> listaGLOBAL3D) {
 		TelaPrincipal.listaGLOBAL3D = listaGLOBAL3D;

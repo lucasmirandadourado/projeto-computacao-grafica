@@ -9,7 +9,7 @@ import javax.swing.border.TitledBorder;
 
 import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.Retas;
+import com.uepb.algoritmo.operacoes2D.Retas;
 
 import java.awt.Color;
 import java.awt.Font;

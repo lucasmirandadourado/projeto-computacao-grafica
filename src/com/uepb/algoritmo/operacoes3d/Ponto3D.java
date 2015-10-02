@@ -1,4 +1,4 @@
-package com.uepb.algoritmo;
+package com.uepb.algoritmo.operacoes3d;
 
 /**
  * Ponto. Têm três valores. X, Y e Z

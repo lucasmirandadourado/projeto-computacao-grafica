@@ -14,7 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.Quadrado;
+import com.uepb.algoritmo.operacoes2D.Quadrado;
 import com.uepb.view.PanelReta;
 import com.uepb.view.TelaPrincipal;
 
@@ -45,7 +45,8 @@ public class Retangulo extends JDialog {
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setAutoRequestFocus(false);
 
-		setBounds(100, 100, 307, 276);
+		setSize(307, 276);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

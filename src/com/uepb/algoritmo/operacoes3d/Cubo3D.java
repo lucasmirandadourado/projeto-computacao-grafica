@@ -1,7 +1,11 @@
-package com.uepb.algoritmo;
+package com.uepb.algoritmo.operacoes3d;
 
 import java.util.ArrayList;  
 import java.util.List;
+
+import com.uepb.algoritmo.Matriz;
+import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.operacoes2D.Retas;
 
 public class Cubo3D {
 

@@ -1,4 +1,4 @@
-package com.uepb.algoritmo.transformacoes2D;
+package com.uepb.algoritmo.operacoes2D;
 
 import java.util.ArrayList; 
 import java.util.List;
@@ -156,23 +156,33 @@ public class Operacoes {
 		return matriz;
 	}
 
-	private double[][] gerarMatrizCisalhamentoX(Double a, Double b) {
+	/**
+	 * Matriz de cisalhamento
+	 * 	1	a 	0
+	 * 	b	1 	0
+	 * 	0 	0	1
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	private double[][] gerarMatrizCisalhamento(Double a, Double b) {
 
 		double[][] matriz = new double[3][3];
 		
-		// Linha 0
+		// Coluna 0
 		matriz[0][0] = 1;
 		matriz[1][0] = b;
 		matriz[2][0] = 0;
-		// Linha 1
+		// Coluna 1
 		matriz[0][1] = a;
 		matriz[1][1] = 1;
 		matriz[2][1] = 0;
-		// Linha 2
+		// Coluna 2
 		matriz[0][2] = 0;
 		matriz[1][2] = 0;
 		matriz[2][2] = 1;
-
+		
 		return matriz;
 	}
 
@@ -305,8 +315,12 @@ public class Operacoes {
 		
 		List<Ponto> ls = new ArrayList<Ponto>();
 		for (int i = 0; i < matrizVoltar[0].length; i++) {
-			ls.add(new Ponto((int) matrizVoltar[0][i], (int) matrizVoltar[1][i],
-					(int) matrizVoltar[2][i]));
+			ls.add(
+					new Ponto(
+							(int) Math.round(matrizVoltar[0][i])
+						, (int) Math.round(matrizVoltar[1][i])
+						,(int) Math.round(matrizVoltar[2][i])
+							));
 		}
 		
 		
@@ -417,7 +431,7 @@ public class Operacoes {
 			matriz[2][i] = 1; // Coluna j na linha 2 = 1
 		}
 
-		double[][] cisalhamento = gerarMatrizCisalhamentoX(a, b);
+		double[][] cisalhamento = gerarMatrizCisalhamento(a, b);
 
 		double[][] matrizRefetida = null;
 		try {
@@ -448,7 +462,7 @@ public class Operacoes {
 			matriz[2][i] = 1; // Coluna j na linha 2 = 1
 		}
 
-		double[][] cisalhamento = gerarMatrizCisalhamentoX(a, b);
+		double[][] cisalhamento = gerarMatrizCisalhamento(a, b);
 
 		double[][] matrizRefetida = null;
 		try {
@@ -469,7 +483,9 @@ public class Operacoes {
 	}
 
 	public List<Ponto> cisalhamentoEmZ(List<Ponto> lista, Double a, Double b) {
+		
 		List<Ponto> list = new ArrayList<Ponto>();
+
 		double[][] matriz = new double[3][lista.size()];
 
 		// Criando o objeto de matriz
@@ -479,20 +495,38 @@ public class Operacoes {
 			matriz[2][i] = 1; // Coluna j na linha 2 = 1
 		}
 
-		double[][] cisalhamento = gerarMatrizCisalhamentoX(a, b);
+		
+		double[][] cisalhamento = gerarMatrizCisalhamento(a, 0.0);
 
-		double[][] matrizRefetida = null;
+		double[][] matriz_cizalhamento = null;
 		try {
-			matrizRefetida = Matriz.multiplicaMatrizes(cisalhamento, matriz);
+			matriz_cizalhamento = Matriz.multiplicaMatrizes(cisalhamento, matriz);
 		} catch (Exception e) {
 			System.out.println("Erro no  cisalhamento em X e Y.");
 			e.printStackTrace();
 		}
 
+		
+		
+		// y
+		double[][] cisalhamentoy = gerarMatrizCisalhamento(0.0, b);
+
+		double[][] matriz_cizalhamentoy = null;
+		try {
+			matriz_cizalhamentoy = Matriz.multiplicaMatrizes(cisalhamentoy, matriz_cizalhamento);
+		} catch (Exception e) {
+			System.out.println("Erro no  cisalhamento em X e Y.");
+			e.printStackTrace();
+		}
+		
 		list.clear();
-		for (int i = 0; i < matrizRefetida[0].length; i++) {
-			list.add(new Ponto((int) matrizRefetida[0][i],
-					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+		for (int i = 0; i < matriz_cizalhamentoy[0].length; i++) {
+			list.add(
+					new Ponto(
+							(int) Math.round(matriz_cizalhamentoy[0][i]*100)/100,
+							(int) Math.round(matriz_cizalhamentoy[1][i]*100)/100, 
+					(int) Math.round(matriz_cizalhamentoy[2][i]*100)/100)
+			);
 
 		}
 

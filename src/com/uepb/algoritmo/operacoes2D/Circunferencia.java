@@ -1,9 +1,9 @@
-package com.uepb.algoritmo;
+package com.uepb.algoritmo.operacoes2D;
 
 import java.util.ArrayList; 
 import java.util.List;
 
-import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.algoritmo.Ponto;
 
 
 /**
@@ -15,7 +15,7 @@ public class Circunferencia {
 
 	int d_old = 0;
 	int x, y, raio, x_dif, y_dif;
-	List<Ponto> listaPontos = new ArrayList<Ponto>();
+	List<Ponto> listaPontos;
 	Operacoes operacoes = new Operacoes();
 	
 	public Circunferencia() {
@@ -28,7 +28,8 @@ public class Circunferencia {
 		this.raio = raio;
 	}
 
-	public void circunferenciaPontoMedio() {
+	public ArrayList<Ponto> circunferenciaPontoMedio() {
+		listaPontos = new ArrayList<Ponto>();
 		boolean trans = false;
 		if(x!=0 || y!=0) {
 			trans = true;
@@ -61,35 +62,34 @@ public class Circunferencia {
 		if (trans) {
 			listaPontos = operacoes.translacaoMulti(listaPontos, x_dif, y_dif);
 		}
+		
+		return (ArrayList<Ponto>) listaPontos;
 	}
 
 	public List<Ponto> circ_explicita(int x, int y, int raio) {
+		listaPontos = new ArrayList<Ponto>();
 		listaPontos.clear();
 		
 		for (int i = -raio; i < raio; i++) {
 			listaPontos.add(new Ponto(i, (int) Math.sqrt(raio*raio - i*i), 0));
 			listaPontos.add(new Ponto(i, -1*(int) Math.sqrt(raio*raio - i*i), 0));
 		}
-		imprimirLista();
+
 		return listaPontos;
 	}
 	
 	public List<Ponto> circ_trigonometrica(int x, int y, int raio){
+		listaPontos = new ArrayList<Ponto>();
 		listaPontos.clear();
 		
 		for (int i = -raio; i < raio; i++) {
 			listaPontos.add(new Ponto((int) (raio*Math.cos(i)), (int) (raio*Math.sin(i)), 0));
 			listaPontos.add(new Ponto((int) (raio*Math.cos(i)), (int) -(raio*Math.sin(i)), 0));
 		}
-		imprimirLista();
+
 		return listaPontos;
 	}
 	
-	private void imprimirLista() {
-		for (Ponto ponto : listaPontos) {
-			System.out.println(ponto.toString());
-		}
-	}
 	
 	private void printPixel(int x, int y) {
 		
@@ -172,9 +172,5 @@ public class Circunferencia {
 	 */
 	public void setRaio(int raio) {
 		this.raio = raio;
-	}
-	
-	public static void main(String[] args) { 
-		new Circunferencia().circ_trigonometrica(0, 0, 5);
 	}
 }

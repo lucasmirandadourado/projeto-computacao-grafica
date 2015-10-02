@@ -1,11 +1,10 @@
 
-package com.uepb.algoritmo.transformacoes2D;
+package com.uepb.algoritmo.operacoes3d;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.uepb.algoritmo.Matriz;
-import com.uepb.algoritmo.Ponto3D;
 
 // 3D Composta
 public class Operacoes3D {

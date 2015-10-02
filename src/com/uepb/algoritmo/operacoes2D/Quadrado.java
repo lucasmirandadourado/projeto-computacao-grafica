@@ -1,7 +1,9 @@
-package com.uepb.algoritmo;
+package com.uepb.algoritmo.operacoes2D;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.uepb.algoritmo.Ponto;
 
 public class Quadrado {
 

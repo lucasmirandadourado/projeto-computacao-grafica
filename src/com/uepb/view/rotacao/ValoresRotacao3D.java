@@ -13,8 +13,8 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 
-import com.uepb.algoritmo.Cubo3D;
-import com.uepb.algoritmo.Ponto3D;
+import com.uepb.algoritmo.operacoes3d.Cubo3D;
+import com.uepb.algoritmo.operacoes3d.Ponto3D;
 import com.uepb.view.PanelPlanoCartesiano;
 import com.uepb.view.PanelReta;
 import com.uepb.view.TelaPrincipal;

@@ -24,7 +24,7 @@ public class Ajuda extends JDialog {
 	 */
 	public Ajuda() {
 		setResizable(false);
-		setBounds(100, 100, 450, 422);
+		setBounds(100, 100, 450, 301);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		getContentPane().setLayout(new BorderLayout());
@@ -34,11 +34,11 @@ public class Ajuda extends JDialog {
 
 		JLabel lblSobre = new JLabel("Sobre");
 		lblSobre.setFont(new Font("Segoe UI Light", Font.BOLD, 18));
-		lblSobre.setBounds(22, 22, 86, 31);
+		lblSobre.setBounds(22, 11, 86, 31);
 		contentPanel.add(lblSobre);
 
 		JLabel lblProjetoDesenvolvidoPelos = new JLabel(
-				"<html><head><meta charset='UTF-8'></head><body><p>Projeto desenvolvido pelos alunos: Alcinael Fernandes Daniel Marques e Lucas Miranda. Projeto da cadeira de Computação gráfica orientado pelo professor Robson Pequeno.</p><h4>Atalhos</h4><ul><li>Ctrl + c = Cubo</li><li>Ctrl + e = Cirfunferencia - Algoritmo equação explicita</li><li>Ctrl + h = Sobre</li><li>Ctrl + r = Reta</li><li>Ctrl + r = Cirfunferencia - Algoritmo de ponto médio</li><li>Ctrl + t = Cirfunferencia - Algoritmo trigonimetrico</li></ul><h5>UEPB</h5></body></html>");
+				"<html>\r\n<head>\r\n\t<meta charset='UTF-8'>\r\n\t</head>\r\n<body>\r\n<h3 >UEPB</h3>\r\n<H4>Computa\u00E7\u00E3o Gr\u00E1fica</h4>\r\n<p>Projeto desenvolvido pelos alunos: Alcinael Fernandes, Daniel Marques e Lucas Miranda. \r\nProjeto da cadeira de Computa\u00E7\u00E3o gr\u00E1fica orientado pelo professor Robson Pequeno.</p>\r\n\r\n\r\n</body>\r\n</html>");
 		lblProjetoDesenvolvidoPelos.setMaximumSize(new Dimension(838, 300));
 		lblProjetoDesenvolvidoPelos
 				.setHorizontalTextPosition(SwingConstants.LEFT);
@@ -49,7 +49,7 @@ public class Ajuda extends JDialog {
 		lblProjetoDesenvolvidoPelos.setVerticalAlignment(SwingConstants.TOP);
 		lblProjetoDesenvolvidoPelos.setFont(new Font("Segoe UI Light",
 				Font.PLAIN, 14));
-		lblProjetoDesenvolvidoPelos.setBounds(22, 64, 384, 238);
+		lblProjetoDesenvolvidoPelos.setBounds(22, 53, 384, 175);
 		contentPanel.add(lblProjetoDesenvolvidoPelos);
 		{
 			JPanel buttonPane = new JPanel();

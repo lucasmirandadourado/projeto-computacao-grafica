@@ -38,7 +38,8 @@ public class Retas extends JDialog {
 	public Retas(String tipo) {
 		setVisible(true);
 		setResizable(false);
-		setBounds(100, 100, 316, 300);
+		setSize(400, 300);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -99,7 +100,7 @@ public class Retas extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tipo.equals("dda")) {
-					TelaPrincipal.setLista(new com.uepb.algoritmo.Retas().dda(
+					TelaPrincipal.setLista(new com.uepb.algoritmo.operacoes2D.Retas().dda(
 							Integer.valueOf(txtX.getText()),
 							Integer.valueOf(txtY.getText()),
 							Integer.valueOf(txtX2.getText()),
@@ -111,7 +112,7 @@ public class Retas extends JDialog {
 
 				if (tipo.equals("pm")) {
 					TelaPrincipal.getLista().clear();
-					TelaPrincipal.setLista(new com.uepb.algoritmo.Retas()
+					TelaPrincipal.setLista(new com.uepb.algoritmo.operacoes2D.Retas()
 							.retaPontoMedio(Integer.valueOf(txtX.getText()),
 									Integer.valueOf(txtY.getText()),
 									Integer.valueOf(txtX2.getText()),

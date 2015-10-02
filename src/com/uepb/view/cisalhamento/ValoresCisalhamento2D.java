@@ -14,7 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.transformacoes2D.Operacoes;
+import com.uepb.algoritmo.operacoes2D.Operacoes;
 import com.uepb.view.PanelPlanoCartesiano;
 import com.uepb.view.PanelReta;
 import com.uepb.view.TelaPrincipal;

@@ -13,8 +13,8 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 
-import com.uepb.algoritmo.Cubo3D;
-import com.uepb.algoritmo.Ponto3D;
+import com.uepb.algoritmo.operacoes3d.Cubo3D;
+import com.uepb.algoritmo.operacoes3d.Ponto3D;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -45,7 +45,8 @@ public class Cubo extends JDialog {
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setAutoRequestFocus(false);
 
-		setBounds(100, 100, 307, 276);
+		setSize(307, 276);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -57,13 +58,13 @@ public class Cubo extends JDialog {
 		contentPanel.add(lblTranslao);
 
 		setTxtTranslacaoX(new JTextField());
-		getTxtTranslacaoX().setText("100");
+		
 		getTxtTranslacaoX().setBounds(70, 72, 185, 30);
 		contentPanel.add(getTxtTranslacaoX());
 		getTxtTranslacaoX().setColumns(10);
 
 		setTxtTranslacaoY(new JTextField());
-		getTxtTranslacaoY().setText("100");
+		
 		getTxtTranslacaoY().setBounds(70, 118, 185, 30);
 		contentPanel.add(getTxtTranslacaoY());
 		getTxtTranslacaoY().setColumns(10);
@@ -85,7 +86,6 @@ public class Cubo extends JDialog {
 		
 		txtZ = new JTextField();
 		txtZ.setHorizontalAlignment(SwingConstants.LEFT);
-		txtZ.setText("100");
 		txtZ.setColumns(10);
 		txtZ.setBounds(70, 164, 185, 30);
 		contentPanel.add(txtZ);
