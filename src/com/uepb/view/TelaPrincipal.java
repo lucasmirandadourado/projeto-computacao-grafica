@@ -1,3 +1,7 @@
+/**
+ * @author Lucas
+ * Projeto de computa√ß√£o gr√°fica.
+ */
 package com.uepb.view;
 
 import java.awt.Color;
@@ -6,19 +10,10 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-
-import javafx.scene.web.WebEngine;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -29,11 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import sun.awt.DesktopBrowse;
-import sun.net.www.protocol.jar.URLJarFile;
-
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.SistemaSolar;
 import com.uepb.algoritmo.operacoes2D.Operacoes;
 import com.uepb.algoritmo.operacoes3d.Cubo3D;
 import com.uepb.algoritmo.operacoes3d.Ponto3D;
@@ -50,21 +41,38 @@ import com.uepb.view.cisalhamento.ValoresCisalhamento3D;
 import com.uepb.view.rotacao.ValoresRotacao;
 import com.uepb.view.rotacao.ValoresRotacao3D;
 
-import javax.swing.JButton;
-
+/**
+ * Classe com que executa o sistema. Possui todos os menus e localiza√ß√£o destas definidas.
+ * 
+ * @author Lucas Miranda, Alcinael Fernandes e Daniel Marques
+ *
+ */
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
 
+	
 	private JPanel contentPane;
+	/**
+	 * Itens definidos
+	 */
 	public static JMenuItem mntmTranslacao2D, mntmEscala2D, mntmRotacao2D,
 			mntmCisalhamento2D, mntmReflexaoEmX2D, mntmReflexoEmY,
 			mntmReflexaoEmXeY2D, mntmRotacaoEmX3D, mntmReflexaoEmY2D,
 			mntmReflexaoEmY3D, mntmRotacaoEmX2D;
 	public PanelReta panelReta;
+	/**
+	 * PLano cartesiano.
+	 */
 	public static PanelPlanoCartesiano planoCartesiano = new PanelPlanoCartesiano();
 	public static PanelNormalizacao panelNormalizacao = new PanelNormalizacao();
 
+	/**
+	 * Lista de {@link Ponto} em 2D (duas dimens√µes)
+	 */
 	private static List<Ponto> listaGLOBAL = new ArrayList<Ponto>();
+	/**
+	 * Lista de {@link Ponto3D} em 3D (tr√™s dimens√µes).
+	 */
 	private static List<Ponto3D> listaGLOBAL3D = new ArrayList<Ponto3D>();
 
 	public static void main(String[] args) {
@@ -217,7 +225,6 @@ public class TelaPrincipal extends JFrame {
 		mnTransformaes.add(mnd2D);
 
 		mntmCisalhamento2D = new JMenuItem("Cisalhamento");
-		mntmCisalhamento2D.setToolTipText("SHIFT + c");
 		mnd2D.add(mntmCisalhamento2D);
 		mntmCisalhamento2D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -246,7 +253,7 @@ public class TelaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (getLista().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Imagem n„o criada.");
+					JOptionPane.showMessageDialog(null, "Imagem n\u00E3o criada.");
 				} else {
 					new ValoresRotacao();
 					repaint();
@@ -273,7 +280,7 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnReflexao.add(mntmReflexaoEmX2D);
 
-		mntmReflexaoEmY2D = new JMenuItem("Reflexao em Y");
+		mntmReflexaoEmY2D = new JMenuItem("Reflex\u00E3o em Y");
 		mntmReflexaoEmY2D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Ponto> lista = getLista();
@@ -553,7 +560,7 @@ public class TelaPrincipal extends JFrame {
 
 			} catch (Exception e) {
 				System.out
-						.println("Erro ao povoar os valores nas 3 dimensıes.");
+						.println("Erro ao povoar os valores nas 3 dimens√µes.");
 			}
 		}
 
@@ -561,22 +568,22 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	/**
-	 * @return the lista em 2D (Duas dimenÁıes)
+	 * @return the lista em 2D (Duas dimens√µes)
 	 */
 	public static List<Ponto> getLista() {
 		return listaGLOBAL;
 	}
 
 	/**
+	 * 
 	 * @param lista
-	 *            the lista to set
 	 */
 	public static void setLista(List<Ponto> lista) {
 		TelaPrincipal.listaGLOBAL = lista;
 	}
 
 	/**
-	 * Lista de coordenadas em 3D (TrÍs dimenÁıes)
+	 * Lista de coordenadas em 3D (Tr√™s dimens√µes)
 	 * 
 	 * @return the listaGLOBAL3D
 	 */

@@ -123,7 +123,7 @@ public class PanelReta extends JPanel {
 		add(panel_algoritmoPontoMedio);
 		panel_algoritmoPontoMedio.setLayout(null);
 
-		JLabel lblAlgoritmoPontoMedio = new JLabel("Algoritmo Ponto médio");
+		JLabel lblAlgoritmoPontoMedio = new JLabel("Algoritmo Ponto mÃ©dio");
 		lblAlgoritmoPontoMedio.setBounds(0, 0, 390, 41);
 		panel_algoritmoPontoMedio.add(lblAlgoritmoPontoMedio);
 		lblAlgoritmoPontoMedio.setForeground(Color.WHITE);
@@ -170,7 +170,7 @@ public class PanelReta extends JPanel {
 						panelPlanoCartesiano.desenharPixel(ponto.getX() + 300, -ponto.getY() + 300, Color.GREEN);						
 					}
 				} catch (Exception e) {
-					System.out.println("Deu erro Botão DDA");
+					System.out.println("Deu erro Bot\u00E3o DDA");
 				}
 			}
 		});

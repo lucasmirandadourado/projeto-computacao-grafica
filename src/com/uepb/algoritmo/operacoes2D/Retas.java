@@ -18,8 +18,7 @@ public class Retas {
 	}
 
 	/**
-	 * Algoritmo do declive. Utiliza-se da equaÁ„o fundamental da reta (y =
-	 * mx+b)
+	 * Algoritmo do declive. Utiliza-se da equ√ß√£o fundamental da reta (y = mx+b)
 	 * 
 	 * @param x1
 	 * @param y1
@@ -272,12 +271,12 @@ public class Retas {
 	}
 
 	/**
-	 * Algoritmo de ponto medio. Verifica se o <code>d</code> È maior que ZERO.
-	 * Caso seja maior ser· incrementado o valor de x e y com <code>incNE</code>
-	 * . Caso contrario sera incrementado com <code>incE</code>
+	 * Algoritmo de ponto m√©dio. Verifica se o <code>d</code> √© maior que ZERO.
+	 * Caso seja maior ser√° incrementado o valor de x e y com <code>incNE</code>
+	 * . Caso contrario ser√° incrementado com <code>incE</code>
 	 * 
-	 * O Primeiro oitante, quarto, quinto e oitavo a largura È maior que o
-	 * comprimento. J· o restante È o contrario, o comprimento È maior que a
+	 * O Primeiro oitante, quarto, quinto e oitavo a largura √© maior que o
+	 * comprimento. J√° o restante √© o contr√°rio, o comprimento √© maior que a
 	 * largura
 	 * 
 	 * @param x

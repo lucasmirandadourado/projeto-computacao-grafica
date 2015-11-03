@@ -89,7 +89,7 @@ public class Valores extends JDialog {
 				
 				List<Ponto> listaPontos = null;
 				if (tipo == "translacao") {
-					listaPontos = translação(Integer.valueOf(x), Integer.valueOf(y));
+					listaPontos = translacao(Integer.valueOf(x), Integer.valueOf(y));
 				}
 				if (tipo == "escala") {
 					listaPontos = escala(Double.valueOf(x), Double.valueOf(y));
@@ -110,7 +110,7 @@ public class Valores extends JDialog {
 			/**
 			 * @return
 			 */
-			private List<Ponto> translação(int x, int y) {
+			private List<Ponto> translacao(int x, int y) {
 				List<Ponto> listaPontos = new Operacoes().translacaoMulti(TelaPrincipal.getLista(), x, y);
 				return listaPontos;
 			}

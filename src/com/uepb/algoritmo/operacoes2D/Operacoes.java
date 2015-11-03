@@ -15,7 +15,7 @@ import com.uepb.view.TelaPrincipal;
 public class Operacoes {
 
 	/**
-	 * Matriz geradora de translação em uma matriz de 2D (duas dimenções).
+	 * Matriz geradora de translaï¿½ï¿½o em uma matriz de 2D (duas dimenï¿½ï¿½es).
 	 * @param tx
 	 * @param ty
 	 * @return vetor 2D (3 x 3) Double
@@ -39,7 +39,7 @@ public class Operacoes {
 	}
 
 	/**
-	 * Matriz geradora de escala em uma matriz de 2D (duas dimenções).
+	 * Matriz geradora de escala em uma matriz de 2D (duas dimenï¿½ï¿½es).
 	 * @param sx
 	 * @param sy
 	 * @return
@@ -68,7 +68,7 @@ public class Operacoes {
 	}
 
 	/**
-	 * Matriz de rotação em uma matriz de 2D (duas dimenções)
+	 * Matriz de rotaï¿½ï¿½o em uma matriz de 2D (duas dimenï¿½ï¿½es)
 	 * @param angulo
 	 * @return vetor 3 x 3 (double)
 	 */
@@ -186,7 +186,7 @@ public class Operacoes {
 		return matriz;
 	}
 
-	// Operações básicas
+	// Operaï¿½ï¿½es bï¿½sicas
 	private double[][] translacaoMulti(double[][] matriz, int x, int y) {
 
 		try {
@@ -195,7 +195,7 @@ public class Operacoes {
 
 			return d;
 		} catch (Exception e) {
-			System.out.println("ERRO NA TRANSLAÇÃO");
+			System.out.println("ERRO NA TRANSLAï¿½ï¿½O");
 		}
 		return matriz;
 	}
@@ -216,7 +216,7 @@ public class Operacoes {
 		try {
 			d = Matriz.multiplicaMatrizes(gerarMatrizTranslacao(x, y), matriz);
 		} catch (Exception e) {
-			System.out.println("ERRO NA TRANSLAÇÃO");
+			System.out.println("ERRO NA TRANSLAï¿½ï¿½O");
 		}
 		
 		for (int i = 0; i < d[0].length; i++) {
@@ -240,7 +240,7 @@ public class Operacoes {
 		int translacaox = objeto.get(0).getX();
 		int translacaoy = objeto.get(0).getY();
 
-		// Fazer a translação do objeto
+		// Fazer a translaï¿½ï¿½o do objeto
 		double[][] matrizNaOrigem = translacaoMulti(matriz, -translacaox,
 				-translacaoy);
 
@@ -256,7 +256,7 @@ public class Operacoes {
 			e.printStackTrace();
 		}
 
-		// Voltar a reta a posição de origem
+		// Voltar a reta a posiï¿½ï¿½o de origem
 		double[][] b = translacaoMulti(a, translacaox, translacaoy);
 
 		for (int i = 0; i < b[0].length; i++) {
@@ -288,7 +288,7 @@ public class Operacoes {
 		final int translacaoX = lis.get(0).getX();
 		final int translacaoY = lis.get(0).getY();
 		
-		// Fazer a translação.
+		// Fazer a translaï¿½ï¿½o.
 		List<Ponto> matrix_trans = translacaoMulti(lis, -translacaoX, -translacaoY);
 		
 		double[][] matrizNaOrigem = new double[3][lis.size()];
@@ -299,15 +299,15 @@ public class Operacoes {
 			matrizNaOrigem[2][i] = (double) matrix_trans.get(i).getZ();
 		}
 		
-		// Gerar a matriz de rotação
+		// Gerar a matriz de rotaï¿½ï¿½o
 		double[][] rotacao = gerarMatrizRotacao(angulo);
 
-		// Fazer a rotação
+		// Fazer a rotaï¿½ï¿½o
 		double[][] lisPonto = null;
 		try {
 			lisPonto = Matriz.multiplicaMatrizes(rotacao, matrizNaOrigem);			
 		} catch (Exception e) {
-			System.err.println("Erro ao multiplicar a matriz de rotação");
+			System.err.println("Erro ao multiplicar a matriz de rotaï¿½ï¿½o");
 			e.printStackTrace();
 		}
 
@@ -345,7 +345,7 @@ public class Operacoes {
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
 		} catch (Exception e) {
-			System.out.println("Erro na reflexão.");
+			System.out.println("Erro na reflexï¿½o.");
 			e.printStackTrace();
 		}
 
@@ -376,7 +376,7 @@ public class Operacoes {
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
 		} catch (Exception e) {
-			System.out.println("Erro na reflexão.");
+			System.out.println("Erro na reflex\u00E3o.");
 			e.printStackTrace();
 		}
 
@@ -407,7 +407,7 @@ public class Operacoes {
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
 		} catch (Exception e) {
-			System.out.println("Erro na reflexão.");
+			System.out.println("Erro na reflex\u00E3o.");
 			e.printStackTrace();
 		}
 

@@ -252,7 +252,7 @@ public class Operacoes3D {
 		return matriz;
 	}
 
-	// Operações básicas
+	// OperaÃ§Ãµes bÃ¡sicas
 	private double[][] translacaoMulti3D(double[][] matriz, int x, int y, int z) {
 
 		try {
@@ -262,7 +262,7 @@ public class Operacoes3D {
 
 			return d;
 		} catch (Exception e) {
-			System.out.println("ERRO NA TRANSLAÇÃO");
+			System.out.println("ERRO NA TRANSLAÃ‡ÃƒO");
 		}
 		return matriz;
 	}
@@ -287,7 +287,7 @@ public class Operacoes3D {
 					matriz);
 
 		} catch (Exception e) {
-			System.out.println("ERRO NA TRANSLAÇÃO");
+			System.out.println("ERRO NA TRANSLAÃ‡ÃƒO");
 		}
 		// System.out.println("Class.Operacoes3D Tamanho: "+d[0].length);
 		for (int i = 0; i < d[0].length; i++) {
@@ -315,7 +315,7 @@ public class Operacoes3D {
 		int translacaoy = lista.get(0).getY();
 		int translacaoz = lista.get(0).getZ();
 
-		// Fazer a translação do objeto
+		// Fazer a translaï¿½ï¿½o do objeto
 		double[][] matrizNaOrigem = translacaoMulti3D(matriz, -translacaox,
 				-translacaoy, -translacaoz);
 
@@ -332,7 +332,7 @@ public class Operacoes3D {
 			e.printStackTrace();
 		}
 
-		// Voltar a reta a posição de origem
+		// Voltar a reta a posiï¿½ï¿½o de origem
 		double[][] mat = translacaoMulti3D(esc, translacaox, translacaoy,
 				translacaoz);
 
@@ -370,15 +370,15 @@ public class Operacoes3D {
 			matrizNaOrigem[2][i] = (double) trans.get(i).getZ();
 		}
 
-		// Gerar a matriz de rotação
+		// Gerar a matriz de rotaï¿½ï¿½o
 		double[][] rotacao = gerarMatrizRotacao(angulo);
 
-		// Fazer a rotação
+		// Fazer a rotaï¿½ï¿½o
 		double[][] lisPonto = null;
 		try {
 			lisPonto = Matriz.multiplicaMatrizes(rotacao, matriz);
 		} catch (Exception e) {
-			System.err.println("Erro ao multiplicar a matriz de rotação");
+			System.err.println("Erro ao multiplicar a matriz de rotaÃ§\u00E3o");
 			e.printStackTrace();
 		}
 
@@ -391,7 +391,7 @@ public class Operacoes3D {
 		return lis;
 	}
 
-	// Reflexão
+	// Reflexï¿½o
 	public List<Ponto3D> reflexaoX(List<Ponto3D> lstPontos) {
 		List<Ponto3D> list = new ArrayList<Ponto3D>();
 		double[][] matriz = new double[4][lstPontos.size()];
@@ -410,7 +410,7 @@ public class Operacoes3D {
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes3D(reflexao, matriz);
 		} catch (Exception e) {
-			System.out.println("Erro na reflexão.");
+			System.out.println("Erro na reflex\u00E3o.");
 			e.printStackTrace();
 		}
 
@@ -443,7 +443,7 @@ public class Operacoes3D {
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes3D(reflexao, matriz);
 		} catch (Exception e) {
-			System.out.println("Erro na reflexão.");
+			System.out.println("Erro na reflexï¿½o.");
 			e.printStackTrace();
 		}
 
@@ -476,7 +476,7 @@ public class Operacoes3D {
 		try {
 			matrizRefetida = Matriz.multiplicaMatrizes3D(reflexao, matriz);
 		} catch (Exception e) {
-			System.out.println("Erro na reflexão.");
+			System.out.println("Erro na reflex\u00E3o.");
 			e.printStackTrace();
 		}
 

@@ -44,7 +44,7 @@ public class PanelPlanoCartesiano extends JPanel {
 	}
 
 	/**
-	 * Limpa a tela com branco. Após limpar coloca as coordenadas.
+	 * Limpa a tela com branco. Apï¿½s limpar coloca as coordenadas.
 	 */
 	public void limparImagem() {
 		for (int i = 0; i < ALTURA; i++) {
@@ -57,7 +57,7 @@ public class PanelPlanoCartesiano extends JPanel {
 	}
 
 	/**
-	 * Adicionando a 3 dimensão.
+	 * Adicionando a 3 dimensÃ£o.
 	 * 
 	 * @param dimencao
 	 */

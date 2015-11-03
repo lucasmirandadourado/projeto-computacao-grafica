@@ -105,7 +105,7 @@ public class Valores3D extends JDialog {
 				
 				List<Ponto3D> listaPontos = null;
 				if (tipo == "translacao") {					
-					listaPontos = translação(x, y, z);
+					listaPontos = translacao(x, y, z);
 				}
 			
 				PanelPlanoCartesiano.add3D(true);
@@ -117,7 +117,7 @@ public class Valores3D extends JDialog {
 			/**
 			 * @return
 			 */
-			private List<Ponto3D> translação(int x, int y, int z) {
+			private List<Ponto3D> translacao(int x, int y, int z) {
 				List<Ponto3D> listaPontos = new Operacoes3D().translacaoMulti3D(TelaPrincipal.getListaGLOBAL3D(), x, y, z);
 				return listaPontos;
 			}

@@ -1,7 +1,7 @@
 package com.uepb.algoritmo.operacoes3d;
 
 /**
- * Ponto. Têm três valores. X, Y e Z
+ * Ponto. Tem trÃªs valores. X, Y e Z
  * 
  * @author Lucas Miranda Dourado
  *
@@ -10,7 +10,7 @@ public class Ponto3D {
 	private int x = 0, y = 0, z = 0, w = 1;
 
 	/**
-	 * Coordenadas com 3D (Três dimenções)
+	 * Coordenadas com 3D (TrÃªs dimenÃ§Ãµes)
 	 * 
 	 * @param x
 	 * @param y
@@ -83,11 +83,7 @@ public class Ponto3D {
 		this.w = w;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+	
 	@Override
 	public String toString() {
 		return "Ponto [x=" + x + ", y=" + y + ", z=" + z + "]";
