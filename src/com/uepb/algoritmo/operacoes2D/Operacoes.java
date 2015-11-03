@@ -327,7 +327,7 @@ public class Operacoes {
 		return ls;
 	}
 
-	// Reflexão
+	// Reflexao
 	public List<Ponto> reflexaoX(List<Ponto> lstPontos) {
 		List<Ponto> list = new ArrayList<Ponto>();
 		double[][] matriz = new double[3][lstPontos.size()];

@@ -1,14 +1,24 @@
 package com.uepb.view;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import javafx.scene.web.WebEngine;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,7 +29,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import sun.awt.DesktopBrowse;
+import sun.net.www.protocol.jar.URLJarFile;
+
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.SistemaSolar;
 import com.uepb.algoritmo.operacoes2D.Operacoes;
 import com.uepb.algoritmo.operacoes3d.Cubo3D;
 import com.uepb.algoritmo.operacoes3d.Ponto3D;
@@ -35,6 +49,8 @@ import com.uepb.view.cisalhamento.ValoresCisalhamento;
 import com.uepb.view.cisalhamento.ValoresCisalhamento3D;
 import com.uepb.view.rotacao.ValoresRotacao;
 import com.uepb.view.rotacao.ValoresRotacao3D;
+
+import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame {
@@ -456,6 +472,26 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		barraDeMenu.add(mntmSobre);
+		
+		JMenuItem mntmDoc = new JMenuItem("Documenta\u00E7\u00E3o");
+		mntmDoc.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/com/uepb/icon/logo-java.png")));
+		mntmDoc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String url = "../projeto-computacao-grafica/doc/index.html";					
+			
+				try {
+					Desktop.getDesktop().open(new File(url));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+					
+				
+			}
+		});
+		mntmDoc.setMaximumSize(new Dimension(150, 100));
+		barraDeMenu.add(mntmDoc);
 
 		JMenuItem mntmSair = new JMenuItem("Sair");
 		mntmSair.setToolTipText("Sair");
@@ -475,6 +511,8 @@ public class TelaPrincipal extends JFrame {
 		setContentPane(contentPane);
 
 		getContentPane().add(panelNormalizacao);
+		
+		
 	}
 
 	/**
@@ -486,12 +524,14 @@ public class TelaPrincipal extends JFrame {
 			try {
 				PanelReta.panelPlanoCartesiano.desenharPixel(
 						ponto.getX() + 300, -ponto.getY() + 300, Color.BLUE);
+				
 			} catch (Exception e) {
 				System.out.println("Erro ao povoar os valores.");
 			}
 		}
 
 		TelaPrincipal.panelNormalizacao.repaint();
+		
 	}
 
 	/**
@@ -509,7 +549,6 @@ public class TelaPrincipal extends JFrame {
 					PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX()
 							+ 300 - ponto.getZ() / 2, -ponto.getY() + 300
 							+ ponto.getZ() / 2, Color.BLUE);
-
 				}
 
 			} catch (Exception e) {
@@ -552,4 +591,5 @@ public class TelaPrincipal extends JFrame {
 	public static void setListaGLOBAL3D(List<Ponto3D> listaGLOBAL3D) {
 		TelaPrincipal.listaGLOBAL3D = listaGLOBAL3D;
 	}
+	
 }

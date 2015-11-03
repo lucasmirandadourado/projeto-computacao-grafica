@@ -3,6 +3,7 @@ package com.uepb.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 
 import javax.swing.JPanel;
 
@@ -32,7 +33,6 @@ public class PanelPlanoCartesiano extends JPanel {
 			public void mouseDragged(MouseEvent event) {
 				int x = event.getPoint().x;
 				int y = event.getPoint().y;
-				System.out.println(x+", " + y+"Mouse");
 			}
 		});
 		setBounds(400, 30, LARGURA, ALTURA);
@@ -74,7 +74,7 @@ public class PanelPlanoCartesiano extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent mouse) {
 				imagemCoordenadas.setRGB(mouse.getX(), mouse.getY(),
-						Color.BLACK.getRGB());
+						Color.RED.getRGB());
 				repaint();
 			}
 		});
@@ -82,6 +82,7 @@ public class PanelPlanoCartesiano extends JPanel {
 
 	public void desenharPixel(int x, int y, Color color) {
 		imagemCoordenadas.setRGB(x, y, color.getRGB());
+		
 		repaint();
 	}
 

@@ -272,9 +272,9 @@ public class Retas {
 	}
 
 	/**
-	 * Algoritmo de ponto médio. Verifica se o <code>d</code> é maior que ZERO.
+	 * Algoritmo de ponto medio. Verifica se o <code>d</code> é maior que ZERO.
 	 * Caso seja maior será incrementado o valor de x e y com <code>incNE</code>
-	 * . Caso contrario será incrementado com <code>incE</code>
+	 * . Caso contrario sera incrementado com <code>incE</code>
 	 * 
 	 * O Primeiro oitante, quarto, quinto e oitavo a largura é maior que o
 	 * comprimento. Já o restante é o contrario, o comprimento é maior que a

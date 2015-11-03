@@ -190,7 +190,14 @@ public class Cubo3D {
 		return matriz;
 	}
 
-	// Operações básicas
+	/**
+	 *  Operações basicas
+	 * @param matriz
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
 	private double[][] translacaoMulti(double[][] matriz, int x, int y, int z) {
 
 		try {
