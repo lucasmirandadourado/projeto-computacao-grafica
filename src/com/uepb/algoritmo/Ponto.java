@@ -9,6 +9,9 @@ package com.uepb.algoritmo;
 public class Ponto {
 	private int x, y, z = 0;
 
+	public Ponto() {
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	 * Coordenadas com 2D (Duas dimen��es)
 	 * 

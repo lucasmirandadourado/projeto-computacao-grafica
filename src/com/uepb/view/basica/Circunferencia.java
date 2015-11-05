@@ -1,9 +1,10 @@
-package com.uepb.algoritmo.operacoes2D;
+package com.uepb.view.basica;
 
 import java.util.ArrayList; 
 import java.util.List;
 
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.operacoes2D.Operacoes;
 
 
 /**
@@ -82,9 +83,9 @@ public class Circunferencia {
 		listaPontos = new ArrayList<Ponto>();
 		listaPontos.clear();
 		
-		for (int i = -raio; i < raio; i++) {
-			listaPontos.add(new Ponto((int) (raio*Math.cos(i)), (int) (raio*Math.sin(i)), 0));
-			listaPontos.add(new Ponto((int) (raio*Math.cos(i)), (int) -(raio*Math.sin(i)), 0));
+		for (int i = -raio; i <= raio; i++) {
+			listaPontos.add(new Ponto((int) (raio*(double) Math.cos(Math.toRadians(i))), (int) (raio* (double) Math.sin(Math.toRadians(i))), 0));
+			printPixel((int) (raio*(double) Math.cos(Math.toRadians(i))), (int) (raio* (double) Math.sin(Math.toRadians(i))));
 		}
 
 		return listaPontos;
@@ -108,9 +109,7 @@ public class Circunferencia {
 	 * @return the listaPontos
 	 */
 	public List<Ponto> getListaPontos() {
-		for (Ponto ponto : listaPontos) {
-			System.out.println("["+ponto.getX() + ", " + ponto.getY()+"] ");
-		}
+		
 		return listaPontos;
 	}
 

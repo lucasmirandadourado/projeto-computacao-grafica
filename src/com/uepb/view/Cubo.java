@@ -1,6 +1,7 @@
 package com.uepb.view;
 
 import java.awt.BorderLayout; 
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -109,7 +110,7 @@ public class Cubo extends JDialog {
 				List<Ponto3D> cubo = new Cubo3D().criarCubo(x,y,z);
 				
 				TelaPrincipal.setListaGLOBAL3D(cubo);
-				TelaPrincipal.povoar3D(); 
+				TelaPrincipal.povoar3D(Color.BLUE); 
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 				repaint();

@@ -1,6 +1,7 @@
 package com.uepb.view.basica;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -22,7 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class Valores extends JDialog {
+public class TranslacaoInterface extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
@@ -31,13 +32,14 @@ public class Valores extends JDialog {
 	public String x, y;
 	protected boolean status;
 	public static List<Ponto> lstPontos;
-
+	JLabel lblTranslao;
 	/**
 	 * Create the dialog.
 	 * 
 	 * @param tipo
 	 */
-	public Valores(String tipo) {
+	public TranslacaoInterface() {
+		
 		status = true;
 		setResizable(false);
 		setVisible(true);
@@ -88,23 +90,14 @@ public class Valores extends JDialog {
 				y = txtTranslacaoY.getText();
 				
 				List<Ponto> listaPontos = null;
-				if (tipo == "translacao") {
-					listaPontos = translacao(Integer.valueOf(x), Integer.valueOf(y));
-				}
-				if (tipo == "escala") {
-					listaPontos = escala(Double.valueOf(x), Double.valueOf(y));
-				}
+				
+				listaPontos = translacao(Integer.valueOf(x), Integer.valueOf(y));
+				
 				
 				TelaPrincipal.setLista(listaPontos);
-				TelaPrincipal.povoarRetas(listaPontos);
+				TelaPrincipal.povoarRetas(listaPontos, Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
-			}
-
-			private List<Ponto> escala(double x, double y) {
-				List<Ponto> listaPontos = new Operacoes().escalaReta(TelaPrincipal.getLista(),
-						x, y);
-				return listaPontos;
 			}
 
 			/**

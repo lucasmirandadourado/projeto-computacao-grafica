@@ -1,6 +1,7 @@
 package com.uepb.view.basica;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -14,7 +15,6 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.operacoes2D.Quadrado;
 import com.uepb.view.PanelReta;
 import com.uepb.view.TelaPrincipal;
 
@@ -95,7 +95,7 @@ public class Retangulo extends JDialog {
 				
 				TelaPrincipal.setLista(listaPontos);
 				
-				TelaPrincipal.povoarRetas(listaPontos);
+				TelaPrincipal.povoarRetas(listaPontos, Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				
 				repaint();

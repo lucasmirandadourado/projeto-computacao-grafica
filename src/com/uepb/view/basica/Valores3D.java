@@ -1,6 +1,7 @@
 package com.uepb.view.basica;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -110,7 +111,7 @@ public class Valores3D extends JDialog {
 			
 				PanelPlanoCartesiano.add3D(true);
 				TelaPrincipal.setListaGLOBAL3D(listaPontos);
-				TelaPrincipal.povoar3D();
+				TelaPrincipal.povoar3D(Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			} 

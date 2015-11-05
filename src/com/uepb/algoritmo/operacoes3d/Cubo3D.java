@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.uepb.algoritmo.Matriz;
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.operacoes2D.Retas;
+import com.uepb.algoritmo.operacoes2D.RetasFuncoes;
+import com.uepb.view.basica.Retas;
 
 /**
  * Classe que define as matrizes de transformação do objeto (Translação, rotação, escala, cisalhamento e reflexão).
@@ -434,7 +435,7 @@ public class Cubo3D {
 
 		int size = b[0].length - 2;
 
-		List<Ponto> lis = new Retas().dda((int) b[0][0], (int) b[1][0], (int) b[0][size], 1);
+		List<Ponto> lis = new RetasFuncoes().dda((int) b[0][0], (int) b[1][0], (int) b[0][size], 1);
 		
 		for (Ponto ds : lis) {
 			list.add(new Ponto3D(ds.getX(), ds.getY(), ds.getZ(), 1));

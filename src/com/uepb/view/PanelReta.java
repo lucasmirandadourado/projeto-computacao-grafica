@@ -9,7 +9,8 @@ import javax.swing.border.TitledBorder;
 
 import com.uepb.algoritmo.FuncoesDeNormalizacao;
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.operacoes2D.Retas;
+import com.uepb.algoritmo.operacoes2D.RetasFuncoes;
+import com.uepb.view.basica.Retas;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -23,7 +24,7 @@ public class PanelReta extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public static PanelPlanoCartesiano panelPlanoCartesiano = new PanelPlanoCartesiano();
 	FuncoesDeNormalizacao funcoesDeNormalizacao = new FuncoesDeNormalizacao();
-	private static Retas retas = new Retas();
+	private static RetasFuncoes retas = new RetasFuncoes();
 	
 	public static JTextField txt_x1;
 	public static JTextField txt_y1;
@@ -195,14 +196,14 @@ public class PanelReta extends JPanel {
 	/**
 	 * @return the retas
 	 */
-	public static Retas getRetas() {
+	public static RetasFuncoes getRetas() {
 		return retas;
 	}
 
 	/**
 	 * @param retas the retas to set
 	 */
-	public static void setRetas(Retas retas) {
+	public static void setRetas(RetasFuncoes retas) {
 		PanelReta.retas = retas;
 	}
 }

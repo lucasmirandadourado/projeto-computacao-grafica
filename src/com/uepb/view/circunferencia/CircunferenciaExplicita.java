@@ -3,6 +3,7 @@ package com.uepb.view.circunferencia;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JTextField;
@@ -10,10 +11,10 @@ import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
 import com.uepb.algoritmo.Ponto;
-import com.uepb.algoritmo.operacoes2D.Circunferencia;
-import com.uepb.algoritmo.operacoes2D.Quadrado;
 import com.uepb.view.PanelReta;
 import com.uepb.view.TelaPrincipal;
+import com.uepb.view.basica.Circunferencia;
+import com.uepb.view.basica.Quadrado;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -54,7 +55,7 @@ public class CircunferenciaExplicita extends JFrame {
 				
 				TelaPrincipal.setLista(listaPontos);
 				
-				TelaPrincipal.povoarRetas(listaPontos);
+				TelaPrincipal.povoarRetas(listaPontos, Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				
 				repaint();

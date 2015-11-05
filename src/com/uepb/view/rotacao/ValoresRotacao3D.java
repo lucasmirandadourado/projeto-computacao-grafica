@@ -1,6 +1,7 @@
 package com.uepb.view.rotacao;
 
 import java.awt.BorderLayout; 
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -89,7 +90,7 @@ public class ValoresRotacao3D extends JDialog {
 				}
 				TelaPrincipal.setListaGLOBAL3D(listaPontos);
 				PanelPlanoCartesiano.add3D(true);
-				TelaPrincipal.povoar3D();
+				TelaPrincipal.povoar3D(Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}

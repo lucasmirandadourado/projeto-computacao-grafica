@@ -25,13 +25,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.SistemaSolar;
 import com.uepb.algoritmo.operacoes2D.Operacoes;
 import com.uepb.algoritmo.operacoes3d.Cubo3D;
 import com.uepb.algoritmo.operacoes3d.Ponto3D;
 import com.uepb.view.basica.Ajuda;
+import com.uepb.view.basica.Elipse;
+import com.uepb.view.basica.EscalaInterface;
 import com.uepb.view.basica.Retangulo;
 import com.uepb.view.basica.Retas;
-import com.uepb.view.basica.Valores;
+import com.uepb.view.basica.TranslacaoInterface;
 import com.uepb.view.basica.Valores3D;
 import com.uepb.view.circunferencia.CircunferenciaExplicita;
 import com.uepb.view.circunferencia.CircunferenciaPontoMedio;
@@ -126,7 +129,7 @@ public class TelaPrincipal extends JFrame {
 		});
 		barraDeMenu.add(mntmHome);
 
-		JMenu menuCoordenadas = new JMenu("Coordenadas");
+		JMenu menuCoordenadas = new JMenu("Desenhar");
 		menuCoordenadas.setMaximumSize(new Dimension(90, 120));
 		barraDeMenu.add(menuCoordenadas);
 
@@ -213,6 +216,17 @@ public class TelaPrincipal extends JFrame {
 				repaint();
 			}
 		});
+		
+		JMenuItem mntmElipse = new JMenuItem("Elipse");
+		mntmElipse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listaGLOBAL.clear();
+				new Elipse();
+				validate();
+				repaint();
+			}
+		});
+		menuCoordenadas.add(mntmElipse);
 		menuCoordenadas.add(mntmCubo);
 
 		JMenu mnTransformaes = new JMenu("Transforma\u00E7\u00F5es");
@@ -241,7 +255,7 @@ public class TelaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Valores("escala");
+				new EscalaInterface();
 				repaint();
 			}
 		});
@@ -274,7 +288,7 @@ public class TelaPrincipal extends JFrame {
 
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
-				povoarRetas(getLista());
+				povoarRetas(getLista(), Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
@@ -289,7 +303,7 @@ public class TelaPrincipal extends JFrame {
 
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
-				povoarRetas(getLista());
+				povoarRetas(getLista(), Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
@@ -304,7 +318,7 @@ public class TelaPrincipal extends JFrame {
 
 				PanelReta.panelPlanoCartesiano.limparImagem();
 				setLista(lstP);
-				povoarRetas(getLista());
+				povoarRetas(getLista(), Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 			}
 		});
@@ -313,7 +327,7 @@ public class TelaPrincipal extends JFrame {
 		mntmTranslacao2D = new JMenuItem("Transla\u00E7\u00E3o");
 		mntmTranslacao2D.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Valores("translacao");
+				new TranslacaoInterface();
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 			}
@@ -402,7 +416,7 @@ public class TelaPrincipal extends JFrame {
 				List<Ponto3D> lst = new Cubo3D().reflexaoXY(listaGLOBAL3D);
 
 				TelaPrincipal.setListaGLOBAL3D(lst);
-				TelaPrincipal.povoar3D();
+				TelaPrincipal.povoar3D(Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 				validate();
@@ -419,7 +433,7 @@ public class TelaPrincipal extends JFrame {
 				List<Ponto3D> lst = new Cubo3D().reflexaoYZ(listaGLOBAL3D);
 
 				TelaPrincipal.setListaGLOBAL3D(lst);
-				TelaPrincipal.povoar3D();
+				TelaPrincipal.povoar3D(Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 				validate();
@@ -435,7 +449,7 @@ public class TelaPrincipal extends JFrame {
 
 				TelaPrincipal.setListaGLOBAL3D(lst);
 				;
-				TelaPrincipal.povoar3D();
+				TelaPrincipal.povoar3D(Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 				validate();
@@ -452,7 +466,7 @@ public class TelaPrincipal extends JFrame {
 				List<Ponto3D> lst = new Cubo3D().reflexaoXZ(listaGLOBAL3D);
 
 				TelaPrincipal.setListaGLOBAL3D(lst);
-				TelaPrincipal.povoar3D();
+				TelaPrincipal.povoar3D(Color.BLUE);
 				TelaPrincipal.panelNormalizacao.repaint();
 				repaint();
 				validate();
@@ -478,6 +492,16 @@ public class TelaPrincipal extends JFrame {
 				new Ajuda().setVisible(true);
 			}
 		});
+		
+		JMenuItem mntmSistemaSolar = new JMenuItem("Sistema Solar");
+		mntmSistemaSolar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new SistemaSolar();
+				
+			}
+		});
+		mntmSistemaSolar.setMaximumSize(new Dimension(150, 32767));
+		barraDeMenu.add(mntmSistemaSolar);
 		barraDeMenu.add(mntmSobre);
 		
 		JMenuItem mntmDoc = new JMenuItem("Documenta\u00E7\u00E3o");
@@ -525,12 +549,12 @@ public class TelaPrincipal extends JFrame {
 	/**
 	 * @param listaPontos
 	 */
-	public static void povoarRetas(List<Ponto> pontos) {
+	public static void povoarRetas(List<Ponto> pontos, Color cor) {
 
 		for (Ponto ponto : pontos) {
 			try {
 				PanelReta.panelPlanoCartesiano.desenharPixel(
-						ponto.getX() + 300, -ponto.getY() + 300, Color.BLUE);
+						ponto.getX() + 300, -ponto.getY() + 300, cor);
 				
 			} catch (Exception e) {
 				System.out.println("Erro ao povoar os valores.");
@@ -544,18 +568,18 @@ public class TelaPrincipal extends JFrame {
 	/**
 	 * @param listaPontos
 	 */
-	public static void povoar3D() {
+	public static void povoar3D(Color cor) {
 
 		for (Ponto3D ponto : getListaGLOBAL3D()) {
 			try {
 				if (ponto.getZ() == 0) {
 					PanelReta.panelPlanoCartesiano
 							.desenharPixel(ponto.getX() + 300,
-									-ponto.getY() + 300, Color.BLUE);
+									-ponto.getY() + 300, cor);
 				} else {
 					PanelReta.panelPlanoCartesiano.desenharPixel(ponto.getX()
 							+ 300 - ponto.getZ() / 2, -ponto.getY() + 300
-							+ ponto.getZ() / 2, Color.BLUE);
+							+ ponto.getZ() / 2, cor);
 				}
 
 			} catch (Exception e) {
@@ -598,5 +622,4 @@ public class TelaPrincipal extends JFrame {
 	public static void setListaGLOBAL3D(List<Ponto3D> listaGLOBAL3D) {
 		TelaPrincipal.listaGLOBAL3D = listaGLOBAL3D;
 	}
-	
 }

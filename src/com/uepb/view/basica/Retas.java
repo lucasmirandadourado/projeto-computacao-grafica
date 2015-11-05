@@ -3,24 +3,21 @@ package com.uepb.view.basica;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import java.awt.Font;
-
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.operacoes2D.RetasFuncoes;
 import com.uepb.view.PanelReta;
 import com.uepb.view.TelaPrincipal;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Retas extends JDialog {
 
@@ -100,26 +97,27 @@ public class Retas extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tipo.equals("dda")) {
-					TelaPrincipal.setLista(new com.uepb.algoritmo.operacoes2D.Retas().dda(
+					
+					TelaPrincipal.setLista(new RetasFuncoes().dda(
 							Integer.valueOf(txtX.getText()),
 							Integer.valueOf(txtY.getText()),
 							Integer.valueOf(txtX2.getText()),
 							Integer.valueOf(txtY2.getText())));
 
 					PanelReta.panelPlanoCartesiano.limparImagem();
-					TelaPrincipal.povoarRetas(TelaPrincipal.getLista());
+					TelaPrincipal.povoarRetas(TelaPrincipal.getLista(), Color.BLUE);
 				}
 
 				if (tipo.equals("pm")) {
 					TelaPrincipal.getLista().clear();
-					TelaPrincipal.setLista(new com.uepb.algoritmo.operacoes2D.Retas()
+					TelaPrincipal.setLista(new RetasFuncoes()
 							.retaPontoMedio(Integer.valueOf(txtX.getText()),
 									Integer.valueOf(txtY.getText()),
 									Integer.valueOf(txtX2.getText()),
 									Integer.valueOf(txtY2.getText())));
 
 					PanelReta.panelPlanoCartesiano.limparImagem();
-					TelaPrincipal.povoarRetas(TelaPrincipal.getLista());
+					TelaPrincipal.povoarRetas(TelaPrincipal.getLista(), Color.BLUE);
 
 				}
 				TelaPrincipal.panelNormalizacao.repaint();

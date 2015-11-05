@@ -1,9 +1,10 @@
-package com.uepb.algoritmo.operacoes2D;
+package com.uepb.view.basica;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.uepb.algoritmo.Ponto;
+import com.uepb.algoritmo.operacoes2D.RetasFuncoes;
 
 public class Quadrado {
 
@@ -15,7 +16,7 @@ public class Quadrado {
 
 	public List<Ponto> quadrado(int x, int y) {
 		
-		Retas retas = new Retas();
+		RetasFuncoes retas = new RetasFuncoes();
 		List<Ponto> r1 = retas.dda(0, 0, x, 0);
 		List<Ponto> r2 = retas.dda(x, 0, x, y-1);
 		List<Ponto> r3 = retas.dda(x, y, 0, y);

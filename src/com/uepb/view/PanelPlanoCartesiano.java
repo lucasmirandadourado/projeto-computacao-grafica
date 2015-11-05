@@ -2,18 +2,16 @@ package com.uepb.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.RasterFormatException;
-
-import javax.swing.JPanel;
-
-import sun.awt.RepaintArea;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import com.uepb.algoritmo.Ponto;
 
 public class PanelPlanoCartesiano extends JPanel {
 
@@ -22,6 +20,7 @@ public class PanelPlanoCartesiano extends JPanel {
 	final static int LARGURA = 600;
 	private static BufferedImage imagemCoordenadas;
 
+	public List<Ponto> lista = new ArrayList<Ponto>();
 	public PanelPlanoCartesiano() {
 		
 		addMouseMotionListener(new MouseMotionAdapter() {
@@ -33,6 +32,7 @@ public class PanelPlanoCartesiano extends JPanel {
 			public void mouseDragged(MouseEvent event) {
 				int x = event.getPoint().x;
 				int y = event.getPoint().y;
+				lista.add(new Ponto(x, y, 0));
 			}
 		});
 		setBounds(400, 30, LARGURA, ALTURA);

@@ -39,7 +39,7 @@ public class Operacoes {
 	}
 
 	/**
-	 * Matriz geradora de escala em uma matriz de 2D (duas dimen��es).
+	 * Matriz geradora de escala em uma matriz de 2D (duas dimensões).
 	 * @param sx
 	 * @param sy
 	 * @return

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.uepb.algoritmo.Ponto;
 
-public class Retas {
+public class RetasFuncoes {
 
 	double lenght;
 	double X, Y, x_inc, y_inc;
@@ -13,7 +13,7 @@ public class Retas {
 
 	List<Ponto> listaDePontos = new ArrayList<Ponto>();
 
-	public Retas() {
+	public RetasFuncoes() {
 
 	}
 

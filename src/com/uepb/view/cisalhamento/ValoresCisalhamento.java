@@ -1,6 +1,7 @@
 package com.uepb.view.cisalhamento;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -91,7 +92,7 @@ public class ValoresCisalhamento extends JDialog {
 				listaPontos = cisalhamentoX(Double.valueOf(txtX.getText()), Double.valueOf(txtY.getText()));
 			
 				TelaPrincipal.setLista(listaPontos);
-				TelaPrincipal.povoarRetas(listaPontos); 
+				TelaPrincipal.povoarRetas(listaPontos, Color.BLUE); 
 				TelaPrincipal.panelNormalizacao.repaint();
 				setVisible(false);
 			}
