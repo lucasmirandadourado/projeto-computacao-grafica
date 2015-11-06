@@ -22,7 +22,8 @@ public class PanelNormalizacao extends JPanel {
 	static JLabel labelDCY;
 	static JLabel labelNDCX;
 	static JLabel labelNDCY;
-	
+	static JLabel lblY;
+	static JLabel lblX;
 	/**
 	 * Create the panel.
 	 */
@@ -38,11 +39,17 @@ public class PanelNormalizacao extends JPanel {
 				int dcx = eventoDeMouse.getX() - 300;
 				int dcy = (eventoDeMouse.getY() - 300) * -1;
 				
-				labelDCX.setText("dcx (x): "+Integer.toString(dcx));
-				labelDCY.setText("dcy (y): "+Integer.toString(dcy));
+				double ndcx = funcoesDeNormalizacao.calcularNDCX(panelPlanoCartesiano.LARGURA, dcx);
+				double ndcy = funcoesDeNormalizacao.calcularNDCX(panelPlanoCartesiano.ALTURA, dcy);
 				
-				labelNDCX.setText("ndcx : "+Double.toString(funcoesDeNormalizacao.calcularNDCX(panelPlanoCartesiano.LARGURA, dcx)));
-				labelNDCY.setText("ndcy : "+Double.toString(funcoesDeNormalizacao.calcularNDCX(panelPlanoCartesiano.ALTURA, dcy)));
+				labelNDCX.setText("ndcx : "+String.format("%.4f", ndcx));
+				labelNDCY.setText("ndcy : "+String.format("%.4f", ndcy));
+				
+				labelDCX.setText("dcx (x): "+Integer.toString(funcoesDeNormalizacao.calcularDCX(600, ndcx)));
+				labelDCY.setText("dcy (y): "+Integer.toString(funcoesDeNormalizacao.calcularDCY(600, ndcy)));
+								
+				lblX.setText("x: "+Integer.valueOf(dcx));
+				lblY.setText("y: "+Integer.valueOf(dcy));
 				
 				repaint();
 			}
@@ -98,6 +105,30 @@ public class PanelNormalizacao extends JPanel {
 		labelNDCY.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		labelNDCY.setBounds(10, 270, 348, 41);
 		add(labelNDCY);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.GRAY);
+		panel.setBounds(0, 343, 358, 41);
+		add(panel);
+		
+		JLabel lblCoordenadasDoDispositivo = new JLabel("Coordenadas do dispositivo");
+		lblCoordenadasDoDispositivo.setForeground(Color.WHITE);
+		lblCoordenadasDoDispositivo.setFont(new Font("Century Gothic", Font.BOLD, 18));
+		lblCoordenadasDoDispositivo.setBounds(10, 0, 307, 41);
+		panel.add(lblCoordenadasDoDispositivo);
+		
+		lblX = new JLabel("x: ");
+		lblX.setForeground(Color.WHITE);
+		lblX.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+		lblX.setBounds(10, 395, 348, 41);
+		add(lblX);
+		
+		lblY = new JLabel("y: ");
+		lblY.setForeground(Color.WHITE);
+		lblY.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+		lblY.setBounds(10, 427, 348, 41);
+		add(lblY);
 		
 
 	}

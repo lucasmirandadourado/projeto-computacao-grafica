@@ -2,6 +2,12 @@ package com.uepb.algoritmo;
 
 public class FuncoesDeNormalizacao {
 
+	public static double ndcx;
+	public static double ndcy;
+	public static double dcx;
+	public static double dcy;
+	
+	
 	static public double calcularNDCX(int ndh, int dcx) {
 
 		double ndcx = (double) dcx / (ndh - 1);
@@ -16,17 +22,15 @@ public class FuncoesDeNormalizacao {
 		
 	}
 	
-	static public int calcularX(int xMinimo, int xMaximo, double ndcx){
-		
-		int x = (int) (ndcx * (xMaximo - xMinimo) / (-xMinimo));
-		return x;
-		
+	static public int calcularDCX(int ndh, double ndcx){
+		dcx = ((ndh-1)* ndcx); 
+		return (int) Math.round(dcx);
+				
 	}
 	
-	static public int calcularY(int yMinimo, int yMaximo, double ndcy){
-		
-		int y = (int) (ndcy * (yMaximo - yMinimo) / (-yMinimo));
-		return y;
+	static public int calcularDCY(int ndv, double ndcy){
+		dcy = ((ndv-1)* ndcy); 
+		return (int) Math.round(dcy);
 		
 	}
 

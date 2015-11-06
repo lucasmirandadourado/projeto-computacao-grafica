@@ -523,6 +523,14 @@ public class TelaPrincipal extends JFrame {
 		});
 		mntmDoc.setMaximumSize(new Dimension(150, 100));
 		barraDeMenu.add(mntmDoc);
+		
+		JMenuItem mntmViewport = new JMenuItem("ViewPort");
+		mntmViewport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CohenSuterland();  
+			}
+		});
+		barraDeMenu.add(mntmViewport);
 
 		JMenuItem mntmSair = new JMenuItem("Sair");
 		mntmSair.setToolTipText("Sair");
@@ -540,6 +548,7 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		panelNormalizacao.setSize(1008, 660);
 
 		getContentPane().add(panelNormalizacao);
 		

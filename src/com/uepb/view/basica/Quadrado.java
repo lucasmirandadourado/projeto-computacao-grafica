@@ -28,4 +28,18 @@ public class Quadrado {
 			listaDePontos.addAll(r4);
 		return listaDePontos;
 	}
+	
+	public List<Ponto> retangulo(int x1, int y1, int x2, int y2) {
+		RetasFuncoes retas = new RetasFuncoes();
+		List<Ponto> r1 = retas.dda(x1, y1, x2, y1);
+		List<Ponto> r2 = retas.dda(x2, y1, x2, y2);
+		List<Ponto> r3 = retas.dda(x2, y2+1, x1, y2+1);
+		List<Ponto> r4 = retas.dda(x1, y2, x1, y1);		
+			listaDePontos.clear();
+			listaDePontos.addAll(r1);
+			listaDePontos.addAll(r2);
+			listaDePontos.addAll(r3);
+			listaDePontos.addAll(r4);
+		return listaDePontos;
+	}
 }
