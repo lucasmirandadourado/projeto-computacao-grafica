@@ -43,6 +43,7 @@ import com.uepb.view.cisalhamento.ValoresCisalhamento;
 import com.uepb.view.cisalhamento.ValoresCisalhamento3D;
 import com.uepb.view.rotacao.ValoresRotacao;
 import com.uepb.view.rotacao.ValoresRotacao3D;
+import java.awt.Insets;
 
 /**
  * Classe com que executa o sistema. Possui todos os menus e localização destas definidas.
@@ -107,7 +108,7 @@ public class TelaPrincipal extends JFrame {
 		setJMenuBar(barraDeMenu);
 
 		JMenuItem mntmHome = new JMenuItem("Home");
-		mntmHome.setMaximumSize(new Dimension(100, 120));
+		mntmHome.setMaximumSize(new Dimension(80, 120));
 		mntmHome.setIgnoreRepaint(true);
 		mntmHome.setInheritsPopupMenu(true);
 		mntmHome.setIcon(new ImageIcon(TelaPrincipal.class
@@ -130,7 +131,8 @@ public class TelaPrincipal extends JFrame {
 		barraDeMenu.add(mntmHome);
 
 		JMenu menuCoordenadas = new JMenu("Desenhar");
-		menuCoordenadas.setMaximumSize(new Dimension(90, 120));
+		menuCoordenadas.setMargin(new Insets(0, 5, 0, 0));
+		menuCoordenadas.setMaximumSize(new Dimension(100, 120));
 		barraDeMenu.add(menuCoordenadas);
 
 		JMenu mnCircunferencia = new JMenu("Circunferencia");
@@ -192,7 +194,8 @@ public class TelaPrincipal extends JFrame {
 		});
 
 		JMenuItem mntmRetangulo = new JMenuItem("Retangulo");
-		mntmRetangulo.setToolTipText("Ctrl + r");
+		mntmRetangulo.setMnemonic('R');
+		mntmRetangulo.setToolTipText("Retangulo");
 		mntmRetangulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -218,6 +221,8 @@ public class TelaPrincipal extends JFrame {
 		});
 		
 		JMenuItem mntmElipse = new JMenuItem("Elipse");
+		mntmElipse.setName("Elipse");
+		mntmElipse.setMnemonic('E');
 		mntmElipse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				listaGLOBAL.clear();
@@ -230,6 +235,7 @@ public class TelaPrincipal extends JFrame {
 		menuCoordenadas.add(mntmCubo);
 
 		JMenu mnTransformaes = new JMenu("Transforma\u00E7\u00F5es");
+		mnTransformaes.setMargin(new Insets(0, 5, 0, 0));
 		barraDeMenu.add(mnTransformaes);
 
 		JMenu mnd2D = new JMenu("2D");
@@ -484,27 +490,9 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnd3D.add(mntmTranslao3D);
-
-		JMenuItem mntmSobre = new JMenuItem("Sobre");
-		mntmSobre.setMaximumSize(new Dimension(140, 120));
-		mntmSobre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new Ajuda().setVisible(true);
-			}
-		});
-		
-		JMenuItem mntmSistemaSolar = new JMenuItem("Sistema Solar");
-		mntmSistemaSolar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new SistemaSolar();
-				
-			}
-		});
-		mntmSistemaSolar.setMaximumSize(new Dimension(150, 32767));
-		barraDeMenu.add(mntmSistemaSolar);
-		barraDeMenu.add(mntmSobre);
 		
 		JMenuItem mntmDoc = new JMenuItem("Documenta\u00E7\u00E3o");
+		mntmDoc.setMargin(new Insets(0, 5, 0, 0));
 		mntmDoc.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/com/uepb/icon/logo-java.png")));
 		mntmDoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -524,13 +512,47 @@ public class TelaPrincipal extends JFrame {
 		mntmDoc.setMaximumSize(new Dimension(150, 100));
 		barraDeMenu.add(mntmDoc);
 		
+		JMenu mnExerccio = new JMenu("Exercício");
+		mnExerccio.setMargin(new Insets(0, 5, 0, 0));
+		mnExerccio.setMaximumSize(new Dimension(120, 120));
+		barraDeMenu.add(mnExerccio);
+		
 		JMenuItem mntmViewport = new JMenuItem("ViewPort");
+		mnExerccio.add(mntmViewport);
+		mntmViewport.setMaximumSize(new Dimension(250, 120));
 		mntmViewport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new CohenSuterland();  
 			}
 		});
-		barraDeMenu.add(mntmViewport);
+		
+		JMenuItem mntmSistemaSolar = new JMenuItem("Sistema Solar");
+		mnExerccio.add(mntmSistemaSolar);
+		mntmSistemaSolar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new SistemaSolar();
+				
+			}
+		});
+		mntmSistemaSolar.setMaximumSize(new Dimension(250, 120));
+		
+		JMenuItem mntmRotaoEmUma = new JMenuItem("Rotação em uma reta");
+		mntmRotaoEmUma.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ReflexaoReta();
+			}
+		});
+		mnExerccio.add(mntmRotaoEmUma);
+		
+				JMenuItem mntmSobre = new JMenuItem("Sobre");
+				mntmSobre.setPreferredSize(new Dimension(100, 22));
+				mntmSobre.setMaximumSize(new Dimension(80, 120));
+				mntmSobre.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						new Ajuda().setVisible(true);
+					}
+				});
+				barraDeMenu.add(mntmSobre);
 
 		JMenuItem mntmSair = new JMenuItem("Sair");
 		mntmSair.setToolTipText("Sair");
@@ -566,7 +588,8 @@ public class TelaPrincipal extends JFrame {
 						ponto.getX() + 300, -ponto.getY() + 300, cor);
 				
 			} catch (Exception e) {
-				System.out.println("Erro ao povoar os valores.");
+				
+				System.out.println("Erro ao povoar os valores."+e.getCause());
 			}
 		}
 

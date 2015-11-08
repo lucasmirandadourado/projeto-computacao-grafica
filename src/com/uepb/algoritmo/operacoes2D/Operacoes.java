@@ -157,6 +157,33 @@ public class Operacoes {
 	}
 
 	/**
+	 * 0 0 1
+	 * 0 1 0
+	 * 1 0 0
+	 * @return
+	 */
+	private double[][] gerarMatrizReflexaoReta() {
+
+		double[][] matriz = new double[3][3];
+
+		// Linha 0
+		matriz[0][0] = 0;
+		matriz[1][0] = 1;
+		matriz[2][0] = 1;
+		// Linha 1
+		matriz[0][1] = 1;
+		matriz[1][1] = 0;
+		matriz[2][1] = 0;
+		// Linha 2
+		matriz[0][2] = 0;
+		matriz[1][2] = 0;
+		matriz[2][2] = 1;
+
+		return matriz;
+	}
+
+	
+	/**
 	 * Matriz de cisalhamento
 	 * 	1	a 	0
 	 * 	b	1 	0
@@ -506,8 +533,6 @@ public class Operacoes {
 			e.printStackTrace();
 		}
 
-		
-		
 		// y
 		double[][] cisalhamentoy = gerarMatrizCisalhamento(0.0, b);
 
@@ -532,4 +557,36 @@ public class Operacoes {
 
 		return list;
 	}
+	
+	public List<Ponto> reflexaoReta(List<Ponto> lstPontos) {
+		List<Ponto> list = new ArrayList<Ponto>();
+		double[][] matriz = new double[3][lstPontos.size()];
+
+		// Criando o objeto de matriz
+		for (int i = 0; i < lstPontos.size(); i++) {
+			matriz[0][i] = lstPontos.get(i).getX(); // Coluna i na linha 0
+			matriz[1][i] = lstPontos.get(i).getY(); // Coluna i na linha 1
+			matriz[2][i] = 1; // Coluna j na linha 2 = 1
+		}
+		
+		double[][] reflexao = gerarMatrizReflexaoReta();
+
+		double[][] matrizRefetida = null;
+		try {
+			matrizRefetida = Matriz.multiplicaMatrizes(reflexao, matriz);
+		} catch (Exception e) {
+			System.out.println("Erro na reflex\u00E3o.");
+			e.printStackTrace();
+		}
+
+		list.clear();
+		for (int i = 0; i < matrizRefetida[0].length; i++) {
+			list.add(new Ponto((int) matrizRefetida[0][i],
+					(int) matrizRefetida[1][i], (int) matrizRefetida[2][i]));
+
+		}
+
+		return list;
+	}
+
 }
